@@ -1,0 +1,1 @@
+APP_SECRET_KEY = 'ici_il_faut_mettre_la_vraie_valeur_de_secret_key'

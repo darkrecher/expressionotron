@@ -1,0 +1,1 @@
+Daily   16:04   /home/Recher/mysite/twitCron.py
