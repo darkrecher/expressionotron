@@ -1,843 +1,839 @@
-<div>
-</div>
-
-<div style="padding: 150px;">
-<br/>RAW_STRING_VERBS = """
-<br/>    &Ccedil;a &eacute;cart&egrave;le
-<br/>    &Ccedil;a &eacute;chec-critique
-<br/>    &Ccedil;a &eacute;clabousse
-<br/>    &Ccedil;a `rm -R /*`
-<br/>    &Ccedil;a abrase
-<br/>    &Ccedil;a admoneste
-<br/>    &Ccedil;a alcoolise
-<br/>    &Ccedil;a anesth&eacute;sie
-<br/>    &Ccedil;a atomise
-<br/>    &Ccedil;a auto-tamponne
-<br/>    &Ccedil;a bankablise
-<br/>    &Ccedil;a bine
-<br/>    &Ccedil;a blat&egrave;re
-<br/>    &Ccedil;a brahmapoutre
-<br/>    &Ccedil;a bravitudifie
-<br/>    &Ccedil;a broute-minoutte
-<br/>    &Ccedil;a butt-secks
-<br/>    &Ccedil;a cale&ccedil;onne
-<br/>    &Ccedil;a caniculise
-<br/>    &Ccedil;a canonise
-<br/>    &Ccedil;a carbonise
-<br/>    &Ccedil;a caresse
-<br/>    &Ccedil;a chabraque
-<br/>    &Ccedil;a chanfreine
-<br/>    &Ccedil;a charcle
-<br/>    &Ccedil;a chattouille
-<br/>    &Ccedil;a chimioth&eacute;rape
-<br/>    &Ccedil;a choc-m&eacute;tabolise
-<br/>    &Ccedil;a claque
-<br/>    &Ccedil;a cocufie
-<br/>    &Ccedil;a commit
-<br/>    &Ccedil;a confine
-<br/>    &Ccedil;a copeaute
-<br/>    &Ccedil;a corrige
-<br/>    &Ccedil;a corrode
-<br/>    &Ccedil;a corrompt
-<br/>    &Ccedil;a coup-critique
-<br/>    &Ccedil;a coupe-claire
-<br/>    &Ccedil;a cristallise
-<br/>    &Ccedil;a cuisine
-<br/>    &Ccedil;a cyclotronne
-<br/>    &Ccedil;a d&eacute;calcifie
-<br/>    &Ccedil;a d&eacute;calotte
-<br/>    &Ccedil;a d&eacute;centralise
-<br/>    &Ccedil;a d&eacute;chire
-<br/>    &Ccedil;a d&eacute;culotte
-<br/>    &Ccedil;a d&eacute;gobille
-<br/>    &Ccedil;a d&eacute;grade
-<br/>    &Ccedil;a d&eacute;localise
-<br/>    &Ccedil;a d&eacute;maquille
-<br/>    &Ccedil;a d&eacute;moule
-<br/>    &Ccedil;a d&eacute;p&eacute;nalise
-<br/>    &Ccedil;a d&eacute;plombe
-<br/>    &Ccedil;a d&eacute;pote
-<br/>    &Ccedil;a d&eacute;pouille
-<br/>    &Ccedil;a d&eacute;pr&eacute;cate
-<br/>    &Ccedil;a d&eacute;pucelle
-<br/>    &Ccedil;a d&eacute;r&eacute;glemente
-<br/>    &Ccedil;a d&eacute;sacralise
-<br/>    &Ccedil;a d&eacute;simmunise
-<br/>    &Ccedil;a d&eacute;sint&egrave;gre
-<br/>    &Ccedil;a d&eacute;soblige
-<br/>    &Ccedil;a d&eacute;soxyribe
-<br/>    &Ccedil;a d&eacute;fibrille
-<br/>    &Ccedil;a desquame
-<br/>    &Ccedil;a destructure
-<br/>    &Ccedil;a diabolise
-<br/>    &Ccedil;a dissout
-<br/>    &Ccedil;a distille
-<br/>    &Ccedil;a endoctrine
-<br/>    &Ccedil;a enlarge
-<br/>    &Ccedil;a eug&eacute;nise
-<br/>    &Ccedil;a euthanasite
-<br/>    &Ccedil;a fertilise
-<br/>    &Ccedil;a flambe
-<br/>    &Ccedil;a flamme
-<br/>    &Ccedil;a fluidifie
-<br/>    &Ccedil;a fork
-<br/>    &Ccedil;a fourre
-<br/>    &Ccedil;a fragge
-<br/>    &Ccedil;a fraise
-<br/>    &Ccedil;a fruit-confitte
-<br/>    &Ccedil;a g&eacute;nocide
-<br/>    &Ccedil;a gicle
-<br/>    &Ccedil;a grattouille
-<br/>    &Ccedil;a hashe
-<br/>    &Ccedil;a head-shot
-<br/>    &Ccedil;a indexe
-<br/>    &Ccedil;a insulte
-<br/>    &Ccedil;a jail-break
-<br/>    &Ccedil;a kill-steal
-<br/>    &Ccedil;a l&eacute;galise
-<br/>    &Ccedil;a lamine
-<br/>    &Ccedil;a lapide
-<br/>    &Ccedil;a licencie abusivement
-<br/>    &Ccedil;a liqu&eacute;fie
-<br/>    &Ccedil;a mail-bomb
-<br/>    &Ccedil;a malgame
-<br/>    &Ccedil;a maroufle
-<br/>    &Ccedil;a merge
-<br/>    &Ccedil;a mine
-<br/>    &Ccedil;a mondialise
-<br/>    &Ccedil;a n&eacute;crose
-<br/>    &Ccedil;a p&egrave;le
-<br/>    &Ccedil;a paup&eacute;rise
-<br/>    &Ccedil;a pistouille
-<br/>    &Ccedil;a pl&acirc;tre
-<br/>    &Ccedil;a plaque-techtonise
-<br/>    &Ccedil;a pollinise
-<br/>    &Ccedil;a porcherise
-<br/>    &Ccedil;a poutre
-<br/>    &Ccedil;a pr&eacute;carise
-<br/>    &Ccedil;a prol&eacute;tarise
-<br/>    &Ccedil;a r&eacute;chauffe climatiquement
-<br/>    &Ccedil;a redresse productivement
-<br/>    &Ccedil;a represent
-<br/>    &Ccedil;a rushe
-<br/>    &Ccedil;a sacque
-<br/>    &Ccedil;a saponifie
-<br/>    &Ccedil;a scl&eacute;rose-en-plaque
-<br/>    &Ccedil;a snipe
-<br/>    &Ccedil;a sodomise facialement
-<br/>    &Ccedil;a soustrait
-<br/>    &Ccedil;a sublime
-<br/>    &Ccedil;a synchrotronne
-<br/>    &Ccedil;a t&eacute;l&eacute;kin&eacute;site
-<br/>    &Ccedil;a t&eacute;tanise
-<br/>    &Ccedil;a tatane
-<br/>    &Ccedil;a terrorise
-<br/>    &Ccedil;a tr&eacute;pane
-<br/>    &Ccedil;a tranche
-<br/>    &Ccedil;a transmute
-<br/>    &Ccedil;a transplane
-<br/>    &Ccedil;a tromblonne
-<br/>    &Ccedil;a tron&ccedil;onne
-<br/>    &Ccedil;a troue
-<br/>    &Ccedil;a trucide
-<br/>    &Ccedil;a tsunamise
-<br/>    &Ccedil;a tutoie
-<br/>    &Ccedil;a vampirise
-<br/>    &Ccedil;a viande
-<br/>    &Ccedil;a vilipende
-<br/>    &Ccedil;a vitrifie
-<br/>    &Ccedil;a wololotte
-<br/>    &Ccedil;a zlatane
-<br/>    salafiste
-<br/>    salami
-<br/>    sarabande
-<br/>    sashimi
-<br/>    sasquatch
-<br/>"""
-<br/>
-<br/>RAW_STRING_SUBJECTS = """
-<br/>    de l'&Eacute;ric Cartmann
-<br/>    de l'Utu
-<br/>    du cacad&eacute;micien
-<br/>    de l'albatros
-<br/>    de l'andouille
-<br/>    de l'australopith&egrave;que
-<br/>    de l'azerba&iuml;djanais
-<br/>    de l'elfe
-<br/>    de l'epic sax guy
-<br/>    de l'ewok
-<br/>    de l'extrad&eacute;
-<br/>    de l'h&eacute;r&eacute;tique
-<br/>    de l'huguenot
-<br/>    de l'humoriste
-<br/>    de l'hypoth&eacute;nuse
-<br/>    de l'iTruc
-<br/>    de l'ing&eacute;nieur
-<br/>    de l'inspecteur Derrick
-<br/>    de l'int&eacute;rimaire
-<br/>    de l'octog&eacute;naire
-<br/>    de l'ogre-mage
-<br/>    de l'oligarque
-<br/>    de l'ornythorinque
-<br/>    de l'ouvrier-codeur
-<br/>    de la Barbie
-<br/>    de la dinde de Thanksgiving
-<br/>    de la g&eacute;nitrice
-<br/>    de la licorne
-<br/>    de la milf
-<br/>    de la prostate
-<br/>    de la super-tomate
-<br/>    de la twingo
-<br/>    du Batman
-<br/>    du Ch'ti
-<br/>    du Corbier
-<br/>    du Ganesh
-<br/>    du Jar Jar Binks
-<br/>    du Ken le survivant
-<br/>    du Michel Drucker
-<br/>    du PDG
-<br/>    du RMiste
-<br/>    du SDF
-<br/>    du Steve Jobs
-<br/>    du Tutsi
-<br/>    du Yoshi
-<br/>    du bathyscaphe
-<br/>    du biloute
-<br/>    du brontosaure
-<br/>    du caniche de combat
-<br/>    du cercopith&egrave;que
-<br/>    du ch&ocirc;meur
-<br/>    du chaman
-<br/>    du chancre
-<br/>    du chaton
-<br/>    du chihuahua
-<br/>    du chou-fleur
-<br/>    du clapatte
-<br/>    du clown
-<br/>    du commercial
-<br/>    du creep
-<br/>    du d&eacute;mon majeur
-<br/>    du dictateur
-<br/>    du diplodocus
-<br/>    du doppelganger
-<br/>    du flamby
-<br/>    du footballeur
-<br/>    du forban
-<br/>    du g&eacute;n&eacute;ral Plekszy-Gladz
-<br/>    du g&eacute;niteur
-<br/>    du gitan
-<br/>    du gnome
-<br/>    du golden retriever
-<br/>    du golem de p&acirc;t&eacute;
-<br/>    du gremlins
-<br/>    du gretchin
-<br/>    du hamster
-<br/>    du jeune pop'
-<br/>    du kikoolol
-<br/>    du kilmoulis
-<br/>    du korrigan
-<br/>    du lapin tueur
-<br/>    du lofteur
-<br/>    du lol-politicien
-<br/>    du lolcat
-<br/>    du m&uuml;esli
-<br/>    du manchot empereur
-<br/>    du mini-boss
-<br/>    du ministre
-<br/>    du missionnaire
-<br/>    du mouflon
-<br/>    du n&eacute;cromancien
-<br/>    du ninja
-<br/>    du p&eacute;gase
-<br/>    du p&eacute;gase-licorne
-<br/>    du p&eacute;on
-<br/>    du padawan
-<br/>    du paladin
-<br/>    du pangolin
-<br/>    du papier-bulle
-<br/>    du papillon de lumi&egrave;re
-<br/>    du partenaire particulier
-<br/>    du pingouin Linux
-<br/>    du pirate
-<br/>    du pirate fant&ocirc;me
-<br/>    du poil pubien
-<br/>    du poulet en caoutchouc
-<br/>    du prestataire
-<br/>    du professeur d'anglais
-<br/>    du punk
-<br/>    du python
-<br/>    du raptor
-<br/>    du retrait&eacute;
-<br/>    du roflcopter
-<br/>    du romanichel
-<br/>    du rongeur
-<br/>    du sbire
-<br/>    du scaphandrier
-<br/>    du schtroumpf
-<br/>    du secr&eacute;taire d'&eacute;tat
-<br/>    du secr&eacute;taire g&eacute;n&eacute;ral UMP
-<br/>    du silure
-<br/>    du smiley
-<br/>    du sous-marin
-<br/>    du space marine
-<br/>    du stagiaire
-<br/>    du staphylocoque
-<br/>    de la subprime
-<br/>    du t&eacute;l&eacute;tubby
-<br/>    du t&eacute;tra&egrave;dre
-<br/>    du tib&eacute;tain
-<br/>    du trilobyte
-<br/>    du troll
-<br/>    du stormtrooper
-<br/>    du tyrannosaure
-<br/>    du v&eacute;lociraptor
-<br/>    du vagin de truie
-<br/>    du ver de mescaline
-<br/>    du vulcain
-<br/>    du zergling
-<br/>    du zombi
-<br/>"""
-<br/>
-<br/>RAW_STRING_ADJ_PREFIXES = """
-<br/>    am&eacute;ricano
-<br/>    anarcho
-<br/>    ante
-<br/>    anti
-<br/>    arabo
-<br/>    auto
-<br/>    catho
-<br/>    crypto
-<br/>    cyber
-<br/>    endo
-<br/>    ex
-<br/>    exo
-<br/>    extra
-<br/>    franco
-<br/>    fulguro
-<br/>    giga
-<br/>    hyper
-<br/>    hypo
-<br/>    infra
-<br/>    inter
-<br/>    jud&eacute;o
-<br/>    juda&iuml;stico
-<br/>    kilo
-<br/>    m&eacute;cano
-<br/>    macro
-<br/>    maxi
-<br/>    m&eacute;ga
-<br/>    micro
-<br/>    mono
-<br/>    n&eacute;o
-<br/>    national
-<br/>    non
-<br/>    omni
-<br/>    para
-<br/>    p&eacute;ta
-<br/>    poly
-<br/>    post
-<br/>    pre
-<br/>    pro
-<br/>    r&eacute;tro
-<br/>    semi
-<br/>    sino
-<br/>    socio
-<br/>    sous
-<br/>    sur
-<br/>    t&eacute;tra
-<br/>    techno
-<br/>    testi
-<br/>    ultra
-<br/>"""
-<br/>
-<br/>RAW_STRING_ADJECTIVES = """
-<br/>    &eacute;olien
-<br/>    +5
-<br/>    abracadabrantesque
-<br/>    acrobate lecteur
-<br/>    alcoolique
-<br/>    anarchiste
-<br/>    anticonstitutionnel
-<br/>    arachnophobe
-<br/>    arc-en-ciel
-<br/>    argentique
-<br/>    auburne
-<br/>    barely legal
-<br/>    baroque
-<br/>    batave
-<br/>    berserk
-<br/>    bic&eacute;phale
-<br/>    bisexuel
-<br/>    bouddhiste
-<br/>    boulangiste
-<br/>    boulettesque
-<br/>    bourgeois
-<br/>    branquignol
-<br/>    brutal
-<br/>    bugg&eacute;
-<br/>    cacahu&eacute;tovore
-<br/>    caf&eacute;&iuml;nomane
-<br/>    callifragilistique
-<br/>    callypige
-<br/>    catholique
-<br/>    clignotant
-<br/>    communiste
-<br/>    concupiscent
-<br/>    contractuel
-<br/>    contre nature
-<br/>    corporate
-<br/>    crapuleux
-<br/>    cryog&eacute;nis&eacute;
-<br/>    cubiste
-<br/>    cul-de-jatte
-<br/>    cyclope
-<br/>    d&eacute;mocrate
-<br/>    d&eacute;pressif
-<br/>    de bonne facture
-<br/>    de deuxi&egrave;me g&eacute;n&eacute;ration
-<br/>    de mes couilles
-<br/>    de mon cul
-<br/>    disproportionn&eacute;
-<br/>    &agrave; double c&oelig;ur
-<br/>    droitiste
-<br/>    du 16&egrave;me si&egrave;cle
-<br/>    du zodiaque
-<br/>    emo
-<br/>    en 3D filaire
-<br/>    en armure de plates
-<br/>    en caoutchouc
-<br/>    en fin de droit
-<br/>    en fin de p&eacute;riode d'essai
-<br/>    en macram&eacute;
-<br/>    en plastique
-<br/>    en string ficelle
-<br/>    en talons-aiguille
-<br/>    en tongs
-<br/>    epic
-<br/>    extr&ecirc;me-centriste
-<br/>    fait sous Paint
-<br/>    flamb&eacute; &agrave; la flamberge
-<br/>    freudien
-<br/>    frigide
-<br/>    fukushimien
-<br/>    fuschia
-<br/>    g&eacute;latineux
-<br/>    gauchiste
-<br/>    gluant
-<br/>    gobelettoforme
-<br/>    gr&eacute;viste
-<br/>    grand-guignolesque
-<br/>    granuleux
-<br/>    guerrier-mage-clerc
-<br/>    h&eacute;lico&iuml;dale
-<br/>    h&eacute;mophile
-<br/>    hermaphrodite
-<br/>    hexakosioihexekontahexaphobe
-<br/>    humide
-<br/>    hybride
-<br/>    hydroc&eacute;phale
-<br/>    hydrophobe
-<br/>    iconoclaste
-<br/>    imperm&eacute;able
-<br/>    ind&eacute;pendantiste
-<br/>    interop&eacute;rable
-<br/>    inverti
-<br/>    irrationel
-<br/>    issu de la diversit&eacute;
-<br/>    it&eacute;ratif
-<br/>    japonais
-<br/>    journalistique
-<br/>    juif
-<br/>    kawaii
-<br/>    libidineux
-<br/>    lvl 99
-<br/>    m&eacute;trique
-<br/>    magique
-<br/>    manucur&eacute;
-<br/>    matriarcal
-<br/>    maudit
-<br/>    moldave
-<br/>    mucoviscideux
-<br/>    musulman
-<br/>    mutant
-<br/>    myxomateux
-<br/>    n&eacute;anderthalien
-<br/>    narquois
-<br/>    nazi
-<br/>    num&eacute;rique
-<br/>    nymphomane
-<br/>    &oelig;cum&eacute;nique
-<br/>    omnipotent
-<br/>    omniscient
-<br/>    particulaire
-<br/>    patato&iuml;dal
-<br/>    paternatalophobe
-<br/>    pestif&eacute;r&eacute;
-<br/>    phallocrate
-<br/>    philat&eacute;liste
-<br/>    ploutocrate
-<br/>    presbyte
-<br/>    proactif
-<br/>    professionnel
-<br/>    psychopathe
-<br/>    qui sent bon le sable chaud
-<br/>    r&eacute;cursif
-<br/>    r&eacute;gionaliste
-<br/>    r&ocirc;liste
-<br/>    racaillou
-<br/>    radioactif
-<br/>    roboratif
-<br/>    rococo
-<br/>    rose caca d'oie
-<br/>    rose invisible
-<br/>    rouge et jaune &agrave; petit pois
-<br/>    rutilant
-<br/>    s&eacute;v&egrave;rement burn&eacute;
-<br/>    sans paraben
-<br/>    sardonique
-<br/>    sarkozyste
-<br/>    satur&eacute;
-<br/>    sexuel
-<br/>    sid&eacute;ral
-<br/>    silicon&eacute;
-<br/>    soixante-huitard
-<br/>    sondagier
-<br/>    sous acide
-<br/>    sous licence libre
-<br/>    spatial
-<br/>    spermovore
-<br/>    sur batterie
-<br/>    sur&eacute;valu&eacute;
-<br/>    swag
-<br/>    taylorien
-<br/>    tektonikophobe
-<br/>    tentaculaire
-<br/>    texan
-<br/>    tonitruant
-<br/>    transsexuelophile
-<br/>    triclass&eacute;
-<br/>    ubuesque
-<br/>    unijambiste
-<br/>    v&eacute;reux
-<br/>    ventripotent
-<br/>    verruqueux
-<br/>    version beta
-<br/>    version shareware
-<br/>    volumique
-<br/>"""
-<br/>
-<br/>RAW_STRING_WHATEVERS = """
-<br/>    &agrave; coups d'extincteur
-<br/>    &agrave; coups de Bouda
-<br/>    &agrave; coups de blasph&egrave;mes
-<br/>    &agrave; coups de branche de Ray-Ban
-<br/>    &agrave; coups de pain tueur
-<br/>    &agrave; coups de petits cailloux dans les yeux
-<br/>    &agrave; coups de pioche de Minecraft
-<br/>    &agrave; l'&eacute;a jacqueta este
-<br/>    &agrave; l'&eacute;lectrophor&egrave;se
-<br/>    &agrave; l'&eacute;p&eacute;e longue
-<br/>    &agrave; l'&eacute;pareuse
-<br/>    &agrave; l'&eacute;pilateur &eacute;lectrique
-<br/>    &agrave; l'&eacute;quarrisseur
-<br/>    &agrave; l'acide chlorhydrique
-<br/>    &agrave; l'aiguille de poste &agrave; galenne
-<br/>    &agrave; l'allocation universelle
-<br/>    &agrave; l'ancienne
-<br/>    &agrave; l'eau ferrigineuneuse
-<br/>    &agrave; l'enforcer
-<br/>    &agrave; l'h&eacute;patite [A-Z]
-<br/>    &agrave; l'huile de palme
-<br/>    &agrave; la Holy Grenade
-<br/>    &agrave; la bavure polici&egrave;re
-<br/>    &agrave; la chambre &agrave; gaz
-<br/>    &agrave; la chirurgie plastique
-<br/>    &agrave; la claymore
-<br/>    &agrave; la cyprine
-<br/>    &agrave; la d&eacute;loyale
-<br/>    &agrave; la disquette 3 pouces et demi
-<br/>    &agrave; la g&eacute;g&egrave;ne
-<br/>    &agrave; la grenade antichar
-<br/>    &agrave; la grenade vortex
-<br/>    &agrave; la kqlqsh
-<br/>    &agrave; la lame de rasoir &eacute;mouss&eacute;e
-<br/>    &agrave; la lame vorpale
-<br/>    &agrave; la lime &agrave; ongle
-<br/>    &agrave; la massue en mousse
-<br/>    &agrave; la mitrailleuse g&eacute;ante de Counter-Strike
-<br/>    &agrave; la pi&egrave;ce de huit
-<br/>    &agrave; la pince &agrave; sucre
-<br/>    &agrave; la pique filkarienne
-<br/>    &agrave; la r&acirc;pe &agrave; fromage
-<br/>    &agrave; la schlague
-<br/>    &agrave; la serpe d'or
-<br/>    &agrave; la t&eacute;l&eacute;commande universelle
-<br/>    &agrave; la touche windows
-<br/>    &agrave; la tringle &agrave; rideau
-<br/>    &agrave; la vol&eacute;e
-<br/>    (m&ecirc;me si &ccedil;a veut rien dire)
-<br/>    au BFG
-<br/>    au Baygon
-<br/>    au Chanel num&eacute;ro 5
-<br/>    au Decap four
-<br/>    au Famas
-<br/>    au RPG
-<br/>    au Spero Patronum
-<br/>    au Zyklon B
-<br/>    au b&acirc;ton de berger
-<br/>    au bistouri
-<br/>    au bizutage
-<br/>    au bolter lourd
-<br/>    au bromure
-<br/>    au c&ocirc;ne de froid
-<br/>    au cheval de Troie
-<br/>    au choux de bruxelles
-<br/>    au cocktail molotov
-<br/>    au coup de pied de Chuck Norris
-<br/>    au couteau sacrificiel
-<br/>    au disrupteur dimensionnel
-<br/>    au double-clic
-<br/>    au fer &agrave; friser
-<br/>    au forceps
-<br/>    au frottis vaginal
-<br/>    au fusil blaster
-<br/>    au gaz &agrave; effets de serre
-<br/>    au gravier-cailloux-gros sel
-<br/>    au hakik'
-<br/>    au karcher
-<br/>    au missile magique
-<br/>    au monoxyde de dihydrog&egrave;ne
-<br/>    au moule &agrave; gaufre
-<br/>    au papier de verre
-<br/>    au patator
-<br/>    au pays des merveilles
-<br/>    au pic &agrave; glace
-<br/>    au pied de biche
-<br/>    au piolet
-<br/>    au plomb fondu
-<br/>    au poil de cul pr&egrave;s
-<br/>    au point godwin
-<br/>    au railgun
-<br/>    au rasoir jetable
-<br/>    au sabre laser
-<br/>    au scalpel
-<br/>    au sho-ryu-ken
-<br/>    au shpocker
-<br/>    au tournevis multifonction
-<br/>    au vibromaseur
-<br/>    au willy waller
-<br/>    au zythum
-<br/>    aux balles en argent
-<br/>    aux couverts &agrave; poisson
-<br/>    aux fuites radioactives
-<br/>    aux impulsions &eacute;lectro-magn&eacute;tiques
-<br/>    aux outils de crochetage
-<br/>    aux pains de C4
-<br/>    avec de l'hydrog&egrave;ne et du temps
-<br/>    avec des &eacute;toiles dans les yeux
-<br/>    avec des hashtags litigieux
-<br/>    avec des traces de pneus
-<br/>    avec du Destop
-<br/>    avec du caca
-<br/>    avec emphase
-<br/>    avec force de proposition
-<br/>    avec le pouvoir de la Force
-<br/>    avec luxe, calme et volupt&eacute;
-<br/>    avec panache (blanc)
-<br/>    avec un balai &agrave; chiottes
-<br/>    avec un nuage de lait
-<br/>    avec un petit coussin pour s'essuyer les doigts
-<br/>    comme Marion Cotillard
-<br/>    comme dans du beurre
-<br/>    comme dans un film de John Woo
-<br/>    comme dans un vieux rock'n'roll
-<br/>    comme un ouragan
-<br/>    comme des petits fours
-<br/>    dans la joie et la bonne humeur
-<br/>    dans le Space Mountain
-<br/>    dans un Sofitel
-<br/>    dans un acc&eacute;l&eacute;rateur de particules
-<br/>    dans un d&eacute; &agrave; coudre
-<br/>    dans un h&ocirc;tel borgne
-<br/>    dans un tentacle porn
-<br/>    dans un vortex
-<br/>    dans une cave
-<br/>    dans une maison en pain d'&eacute;pice
-<br/>    de fa&ccedil;on th&eacute;&acirc;trale
-<br/>    de reste
-<br/>    doggy-style
-<br/>    en braillant "Waganitzu"
-<br/>    en chantant "que je t'aiiiiime"
-<br/>    en chantant une chanson paillarde
-<br/>    en diff&eacute;r&eacute;
-<br/>    en faisant sluchlurp
-<br/>    en levrette
-<br/>    en mode nightmare
-<br/>    en sourdine
-<br/>    en t&acirc;che de fond
-<br/>    in the clouds
-<br/>    jusqu'&agrave; ce que la mort vous s&eacute;pare
-<br/>    jusqu'&agrave; ce que mort s'ensuive
-<br/>    on the rocks
-<br/>    pour le meilleur et pour le pire
-<br/>    sans les mains
-<br/>    sous des coul&eacute;es de boues
-<br/>    sur l'air du Gangnam Style
-<br/>    sur l'autoroute des vacances
-<br/>    sur la route de Memphis
-<br/>"""
-<br/>
-<br/>RAW_STRING_INTERJECTIONS = """
-<br/>    &#1054;&#1076;&#1080;&#1085;&#1085;&#1072;&#1076;&#1094;&#1072;&#1090;&#1100; &#1086;&#1076;&#1080;&#1085;
-<br/>    &#1057;&#1090;&#1086; &#1086;&#1076;&#1080;&#1085;&#1085;&#1072;&#1076;&#1094;&#1072;&#1090;&#1100; &#1086;&#1076;&#1080;&#1085;
-<br/>    &#x1F18;&nu;&tau;&epsilon;&kappa;&alpha; &#x1F73;&nu;&alpha;
-<br/>    &Epsilon;&kappa;&alpha;&tau;&#x1F40; &#x1F73;&nu;&tau;&epsilon;&kappa;&alpha; &#x1F73;&nu;&alpha;
-<br/>    &Uuml;ber alles
-<br/>    ( o Y o )
-<br/>    (&Agrave; peu pr&egrave;s)
-<br/>    (En termes de)
-<br/>    (Plus ou moins)
-<br/>    /b/
-<br/>    1/5
-<br/>    3.14159
-<br/>    42
-<br/>    8~
-<br/>    Ach
-<br/>    Amen
-<br/>    Arriba-riba
-<br/>    Avast
-<br/>    Balam-bam tchiii
-<br/>    Banza&iuml;
-<br/>    Bazinga
-<br/>    Bigre
-<br/>    Biotch
-<br/>    Blarg
-<br/>    Bloody hell
-<br/>    Bollocks
-<br/>    Bordel of merde
-<br/>    Boum
-<br/>    By Jove
-<br/>    CXI
-<br/>    Caramba
-<br/>    Carne y sangre
-<br/>    Connerie d'connerie
-<br/>    Cordialement
-<br/>    D'oh
-<br/>    Da-boo
-<br/>    Damned
-<br/>    Diantre
-<br/>    Dominus Vobiscum
-<br/>    Eleven one
-<br/>    Evil laugh
-<br/>    Eviv Bulgroz
-<br/>    F'taghn
-<br/>    FTW
-<br/>    Fastif&eacute;enradjiiii
-<br/>    Fi
-<br/>    Fichtre
-<br/>    Fothermucker
-<br/>    Fuck
-<br/>    Gaspature
-<br/>    Geez
-<br/>    Genre
-<br/>    Gofioh
-<br/>    Gosh
-<br/>    Gottferdom
-<br/>    Grabodoui
-<br/>    Ha ha ha ha
-<br/>    Har har har
-<br/>    Holy cow
-<br/>    Hook ! Hook
-<br/>    Hop Bof
-<br/>    Hop la
-<br/>    Houba houba hop
-<br/>    Inch'Allah
-<br/>    J&eacute;suMariJos&egrave;f
-<br/>    Jarnicoton
-<br/>    Jehoshaphat
-<br/>    Ka-boom
-<br/>    Kapwiiing
-<br/>    Kowabunga
-<br/>    Kthxbye
-<br/>    Like
-<br/>    Litt&eacute;ralement
-<br/>    M&ecirc;me que
-<br/>    M'enfin
-<br/>    Massivement
-<br/>    Matin
-<br/>    Mille sabords
-<br/>    Mmm'voyez
-<br/>    Montjoie
-<br/>    Montmirail
-<br/>    Morguienne
-<br/>    Mouahahahahaaaaaa
-<br/>    Nevertheless
-<br/>    No jutsu
-<br/>    No&euml;l ! No&euml;l
-<br/>    Nudge nudge
-<br/>    O-kay
-<br/>    OMG
-<br/>    OMGOMG
-<br/>    OMGWTFBBQ
-<br/>    Ol&eacute;
-<br/>    One hundred and eleven
-<br/>    Palsambleu
-<br/>    Par B&eacute;l&eacute;nos
-<br/>    Par Toutatis
-<br/>    Period
-<br/>    Peuch&egrave;re
-<br/>    Pouet pouet
-<br/>    Prout
-<br/>    RLY
-<br/>    Rogntudjuu
-<br/>    Rotototototototom
-<br/>    Rrrrrrrhhhhh
-<br/>    Sacrebleu
-<br/>    Saperlipopette
-<br/>    Sapristi saucisse
-<br/>    Schei&szlig;e
-<br/>    Scrogneugneu
-<br/>    Seigneur Dieu
-<br/>    Shazam
-<br/>    Shiver me timbers
-<br/>    Son-of-a-bitch
-<br/>    Stach stach
-<br/>    Swag
-<br/>    Tachatte
-<br/>    Tadzam
-<br/>    Teufel
-<br/>    Three cheers
-<br/>    Three points
-<br/>    Tin-nin-nin
-<br/>    Tonnerre de Brest
-<br/>    Tralalalal&egrave;re
-<br/>    Tudjuuuu
-<br/>    Une fois
-<br/>    Vertuchou
-<br/>    Waaaagh
-<br/>    Waazzaaaaa
-<br/>    What else
-<br/>    Whatever
-<br/>    Wink wink
-<br/>    Woosh
-<br/>    XI
-<br/>    Yalla
-<br/>    Yargalt
-<br/>    Yawohl
-<br/>    Yo
-<br/>    Yolo
-<br/>    Youyouyouyouyou
-<br/>    Yowza
-<br/>    Ypika&iuml;&iuml;&iuml;
-<br/>    Zarma
-<br/>    Zog-zog
-<br/>    Zoltan
-<br/>    Zyva
-<br/>    LOL
-<br/>    Lolilol
-<br/>    ROFL
-<br/>    ROFLMAOGCB
-<br/>    w00t
-<br/>"""
-<br/>
-</div>
+<br>RAW_STRING_VERBS = """
+<br>    &Ccedil;a &eacute;cart&egrave;le
+<br>    &Ccedil;a &eacute;chec-critique
+<br>    &Ccedil;a &eacute;clabousse
+<br>    &Ccedil;a `rm -R /*`
+<br>    &Ccedil;a abrase
+<br>    &Ccedil;a admoneste
+<br>    &Ccedil;a alcoolise
+<br>    &Ccedil;a amalgame
+<br>    &Ccedil;a anesth&eacute;sie
+<br>    &Ccedil;a atomise
+<br>    &Ccedil;a auto-tamponne
+<br>    &Ccedil;a bankablise
+<br>    &Ccedil;a bine
+<br>    &Ccedil;a blat&egrave;re
+<br>    &Ccedil;a brahmapoutre
+<br>    &Ccedil;a bravitudifie
+<br>    &Ccedil;a broute-minoutte
+<br>    &Ccedil;a butt-secks
+<br>    &Ccedil;a cale&ccedil;onne
+<br>    &Ccedil;a caniculise
+<br>    &Ccedil;a canonise
+<br>    &Ccedil;a carbonise
+<br>    &Ccedil;a caresse
+<br>    &Ccedil;a chabraque
+<br>    &Ccedil;a chanfreine
+<br>    &Ccedil;a charcle
+<br>    &Ccedil;a chattouille
+<br>    &Ccedil;a chimioth&eacute;rape
+<br>    &Ccedil;a choc-m&eacute;tabolise
+<br>    &Ccedil;a claque
+<br>    &Ccedil;a cocufie
+<br>    &Ccedil;a commit
+<br>    &Ccedil;a confine
+<br>    &Ccedil;a copeaute
+<br>    &Ccedil;a corrige
+<br>    &Ccedil;a corrode
+<br>    &Ccedil;a corrompt
+<br>    &Ccedil;a coup-critique
+<br>    &Ccedil;a coupe-claire
+<br>    &Ccedil;a cristallise
+<br>    &Ccedil;a cuisine
+<br>    &Ccedil;a cyclotronne
+<br>    &Ccedil;a d&eacute;calcifie
+<br>    &Ccedil;a d&eacute;calotte
+<br>    &Ccedil;a d&eacute;centralise
+<br>    &Ccedil;a d&eacute;chire
+<br>    &Ccedil;a d&eacute;culotte
+<br>    &Ccedil;a d&eacute;fibrille
+<br>    &Ccedil;a d&eacute;gobille
+<br>    &Ccedil;a d&eacute;grade
+<br>    &Ccedil;a d&eacute;localise
+<br>    &Ccedil;a d&eacute;maquille
+<br>    &Ccedil;a d&eacute;moule
+<br>    &Ccedil;a d&eacute;p&eacute;nalise
+<br>    &Ccedil;a d&eacute;plombe
+<br>    &Ccedil;a d&eacute;pote
+<br>    &Ccedil;a d&eacute;pouille
+<br>    &Ccedil;a d&eacute;pr&eacute;cate
+<br>    &Ccedil;a d&eacute;pucelle
+<br>    &Ccedil;a d&eacute;r&eacute;glemente
+<br>    &Ccedil;a d&eacute;sacralise
+<br>    &Ccedil;a d&eacute;simmunise
+<br>    &Ccedil;a d&eacute;sint&egrave;gre
+<br>    &Ccedil;a d&eacute;soblige
+<br>    &Ccedil;a d&eacute;soxyribe
+<br>    &Ccedil;a desquame
+<br>    &Ccedil;a destructure
+<br>    &Ccedil;a diabolise
+<br>    &Ccedil;a dissout
+<br>    &Ccedil;a distille
+<br>    &Ccedil;a endoctrine
+<br>    &Ccedil;a enlarge
+<br>    &Ccedil;a eug&eacute;nise
+<br>    &Ccedil;a euthanasite
+<br>    &Ccedil;a fertilise
+<br>    &Ccedil;a flambe
+<br>    &Ccedil;a flamme
+<br>    &Ccedil;a fluidifie
+<br>    &Ccedil;a fork
+<br>    &Ccedil;a fourre
+<br>    &Ccedil;a fragge
+<br>    &Ccedil;a fraise
+<br>    &Ccedil;a fruit-confitte
+<br>    &Ccedil;a g&eacute;nocide
+<br>    &Ccedil;a gicle
+<br>    &Ccedil;a grattouille
+<br>    &Ccedil;a hashe
+<br>    &Ccedil;a head-shot
+<br>    &Ccedil;a indexe
+<br>    &Ccedil;a insulte
+<br>    &Ccedil;a jail-break
+<br>    &Ccedil;a kill-steal
+<br>    &Ccedil;a l&eacute;galise
+<br>    &Ccedil;a lamine
+<br>    &Ccedil;a lapide
+<br>    &Ccedil;a licencie abusivement
+<br>    &Ccedil;a liqu&eacute;fie
+<br>    &Ccedil;a mail-bomb
+<br>    &Ccedil;a malgame
+<br>    &Ccedil;a maroufle
+<br>    &Ccedil;a merge
+<br>    &Ccedil;a mine
+<br>    &Ccedil;a mondialise
+<br>    &Ccedil;a n&eacute;crose
+<br>    &Ccedil;a p&egrave;le
+<br>    &Ccedil;a paup&eacute;rise
+<br>    &Ccedil;a pistouille
+<br>    &Ccedil;a pl&acirc;tre
+<br>    &Ccedil;a plaque-techtonise
+<br>    &Ccedil;a pollinise
+<br>    &Ccedil;a porcherise
+<br>    &Ccedil;a poutre
+<br>    &Ccedil;a pr&eacute;carise
+<br>    &Ccedil;a prol&eacute;tarise
+<br>    &Ccedil;a r&eacute;chauffe climatiquement
+<br>    &Ccedil;a redresse productivement
+<br>    &Ccedil;a represent
+<br>    &Ccedil;a rushe
+<br>    &Ccedil;a sacque
+<br>    &Ccedil;a saponifie
+<br>    &Ccedil;a scl&eacute;rose-en-plaque
+<br>    &Ccedil;a snipe
+<br>    &Ccedil;a sodomise facialement
+<br>    &Ccedil;a soustrait
+<br>    &Ccedil;a sublime
+<br>    &Ccedil;a synchrotronne
+<br>    &Ccedil;a t&eacute;l&eacute;kin&eacute;site
+<br>    &Ccedil;a t&eacute;tanise
+<br>    &Ccedil;a tatane
+<br>    &Ccedil;a terrorise
+<br>    &Ccedil;a tr&eacute;pane
+<br>    &Ccedil;a tranche
+<br>    &Ccedil;a transmute
+<br>    &Ccedil;a transplane
+<br>    &Ccedil;a tromblonne
+<br>    &Ccedil;a tron&ccedil;onne
+<br>    &Ccedil;a troue
+<br>    &Ccedil;a trucide
+<br>    &Ccedil;a tsunamise
+<br>    &Ccedil;a tutoie
+<br>    &Ccedil;a vampirise
+<br>    &Ccedil;a viande
+<br>    &Ccedil;a vilipende
+<br>    &Ccedil;a vitrifie
+<br>    &Ccedil;a wololotte
+<br>    &Ccedil;a zlatane
+<br>    salafiste
+<br>    salami
+<br>    sarabande
+<br>    sashimi
+<br>    sasquatch
+<br>"""
+<br>
+<br>RAW_STRING_SUBJECTS = """
+<br>    de l'&Eacute;ric Cartmann
+<br>    de l'Utu
+<br>    de l'albatros
+<br>    de l'andouille
+<br>    de l'australopith&egrave;que
+<br>    de l'azerba&iuml;djanais
+<br>    de l'elfe
+<br>    de l'epic sax guy
+<br>    de l'ewok
+<br>    de l'extrad&eacute;
+<br>    de l'h&eacute;r&eacute;tique
+<br>    de l'huguenot
+<br>    de l'humoriste
+<br>    de l'hypoth&eacute;nuse
+<br>    de l'iTruc
+<br>    de l'ing&eacute;nieur
+<br>    de l'inspecteur Derrick
+<br>    de l'int&eacute;rimaire
+<br>    de l'octog&eacute;naire
+<br>    de l'ogre-mage
+<br>    de l'oligarque
+<br>    de l'ornythorinque
+<br>    de l'ouvrier-codeur
+<br>    de la Barbie
+<br>    de la dinde de Thanksgiving
+<br>    de la g&eacute;nitrice
+<br>    de la licorne
+<br>    de la milf
+<br>    de la prostate
+<br>    de la subprime
+<br>    de la super-tomate
+<br>    de la twingo
+<br>    du "Les R&eacute;publicains"-iste
+<br>    du Batman
+<br>    du Ch'ti
+<br>    du Corbier
+<br>    du Ganesh
+<br>    du Jar Jar Binks
+<br>    du Ken le survivant
+<br>    du Michel Drucker
+<br>    du PDG
+<br>    du RMiste
+<br>    du SDF
+<br>    du Steve Jobs
+<br>    du Tutsi
+<br>    du Yoshi
+<br>    du bathyscaphe
+<br>    du biloute
+<br>    du brontosaure
+<br>    du cacad&eacute;micien
+<br>    du caniche de combat
+<br>    du cercopith&egrave;que
+<br>    du ch&ocirc;meur
+<br>    du chaman
+<br>    du chancre
+<br>    du chaton
+<br>    du chihuahua
+<br>    du chou-fleur
+<br>    du clapatte
+<br>    du clown
+<br>    du commercial
+<br>    du creep
+<br>    du d&eacute;mon majeur
+<br>    du dictateur
+<br>    du diplodocus
+<br>    du doppelganger
+<br>    du flamby
+<br>    du footballeur
+<br>    du forban
+<br>    du g&eacute;n&eacute;ral Plekszy-Gladz
+<br>    du g&eacute;niteur
+<br>    du gitan
+<br>    du gnome
+<br>    du golden retriever
+<br>    du golem de p&acirc;t&eacute;
+<br>    du gremlin
+<br>    du gretchin
+<br>    du hamster
+<br>    du jeune pop'
+<br>    du kikoolol
+<br>    du kilmoulis
+<br>    du korrigan
+<br>    du lapin tueur
+<br>    du lofteur
+<br>    du lol-politicien
+<br>    du lolcat
+<br>    du m&uuml;esli
+<br>    du manchot empereur
+<br>    du mini-boss
+<br>    du ministre
+<br>    du missionnaire
+<br>    du mouflon
+<br>    du n&eacute;cromancien
+<br>    du ninja
+<br>    du p&eacute;gase
+<br>    du p&eacute;gase-licorne
+<br>    du p&eacute;on
+<br>    du padawan
+<br>    du paladin
+<br>    du pangolin
+<br>    du papier-bulle
+<br>    du papillon de lumi&egrave;re
+<br>    du partenaire particulier
+<br>    du pingouin Linux
+<br>    du pirate
+<br>    du pirate fant&ocirc;me
+<br>    du poil pubien
+<br>    du poulet en caoutchouc
+<br>    du prestataire
+<br>    du professeur d'anglais
+<br>    du punk
+<br>    du python
+<br>    du raptor
+<br>    du retrait&eacute;
+<br>    du roflcopter
+<br>    du romanichel
+<br>    du rongeur
+<br>    du sbire
+<br>    du scaphandrier
+<br>    du schtroumpf
+<br>    du secr&eacute;taire d'&eacute;tat
+<br>    du silure
+<br>    du smiley
+<br>    du sous-marin
+<br>    du space marine
+<br>    du stagiaire
+<br>    du staphylocoque
+<br>    du stormtrooper
+<br>    du t&eacute;l&eacute;tubby
+<br>    du t&eacute;tra&egrave;dre
+<br>    du tib&eacute;tain
+<br>    du trilobyte
+<br>    du troll
+<br>    du tyrannosaure
+<br>    du v&eacute;lociraptor
+<br>    du vagin de truie
+<br>    du ver de mescaline
+<br>    du vulcain
+<br>    du z&eacute;roi&egrave;me secr&eacute;taire du PS
+<br>    du zergling
+<br>    du zombi
+<br>"""
+<br>
+<br>RAW_STRING_ADJ_PREFIXES = """
+<br>    am&eacute;ricano
+<br>    anarcho
+<br>    ante
+<br>    anti
+<br>    arabo
+<br>    auto
+<br>    catho
+<br>    crypto
+<br>    cyber
+<br>    endo
+<br>    ex
+<br>    exo
+<br>    extra
+<br>    franco
+<br>    fulguro
+<br>    giga
+<br>    hyper
+<br>    hypo
+<br>    infra
+<br>    inter
+<br>    jud&eacute;o
+<br>    juda&iuml;stico
+<br>    kilo
+<br>    m&eacute;cano
+<br>    m&eacute;ga
+<br>    macro
+<br>    maxi
+<br>    micro
+<br>    mono
+<br>    n&eacute;o
+<br>    national
+<br>    non
+<br>    omni
+<br>    p&eacute;ta
+<br>    para
+<br>    poly
+<br>    post
+<br>    pre
+<br>    pro
+<br>    r&eacute;tro
+<br>    semi
+<br>    sino
+<br>    socio
+<br>    sous
+<br>    sur
+<br>    t&eacute;tra
+<br>    techno
+<br>    testi
+<br>    ultra
+<br>"""
+<br>
+<br>RAW_STRING_ADJECTIVES = """
+<br>    &agrave; double c&oelig;ur
+<br>    &eacute;olien
+<br>    &oelig;cum&eacute;nique
+<br>    +5
+<br>    abracadabrantesque
+<br>    acrobate lecteur
+<br>    alcoolique
+<br>    anarchiste
+<br>    anticonstitutionnel
+<br>    arachnophobe
+<br>    arc-en-ciel
+<br>    argentique
+<br>    auburne
+<br>    barely legal
+<br>    baroque
+<br>    batave
+<br>    berserk
+<br>    bic&eacute;phale
+<br>    bisexuel
+<br>    bouddhiste
+<br>    boulangiste
+<br>    boulettesque
+<br>    bourgeois
+<br>    branquignol
+<br>    brutal
+<br>    bugg&eacute;
+<br>    cacahu&egrave;tovore
+<br>    caf&eacute;&iuml;nomane
+<br>    callifragilistique
+<br>    callypige
+<br>    catholique
+<br>    clignotant
+<br>    communiste
+<br>    concupiscent
+<br>    contractuel
+<br>    contre nature
+<br>    corporate
+<br>    crapuleux
+<br>    cryog&eacute;nis&eacute;
+<br>    cubiste
+<br>    cul-de-jatte
+<br>    cyclope
+<br>    d&eacute;mocrate
+<br>    d&eacute;pressif
+<br>    de bonne facture
+<br>    de deuxi&egrave;me g&eacute;n&eacute;ration
+<br>    de mes couilles
+<br>    de mon cul
+<br>    disproportionn&eacute;
+<br>    droitiste
+<br>    du 16&egrave;me si&egrave;cle
+<br>    du zodiaque
+<br>    emo
+<br>    en 3D filaire
+<br>    en armure de plates
+<br>    en caoutchouc
+<br>    en fin de droit
+<br>    en fin de p&eacute;riode d'essai
+<br>    en macram&eacute;
+<br>    en plastique
+<br>    en string ficelle
+<br>    en talons-aiguille
+<br>    en tongs
+<br>    epic
+<br>    extr&ecirc;me-centriste
+<br>    fait sous Paint
+<br>    flamb&eacute; &agrave; la flamberge
+<br>    freudien
+<br>    frigide
+<br>    fukushimien
+<br>    fuschia
+<br>    g&eacute;latineux
+<br>    gauchiste
+<br>    gluant
+<br>    gobelettoforme
+<br>    gr&eacute;viste
+<br>    grand-guignolesque
+<br>    granuleux
+<br>    guerrier-mage-clerc
+<br>    h&eacute;lico&iuml;dal
+<br>    h&eacute;mophile
+<br>    hermaphrodite
+<br>    hexakosioihexekontahexaphobe
+<br>    humide
+<br>    hybride
+<br>    hydroc&eacute;phale
+<br>    hydrophobe
+<br>    iconoclaste
+<br>    imperm&eacute;able
+<br>    ind&eacute;pendantiste
+<br>    interop&eacute;rable
+<br>    inverti
+<br>    irrationel
+<br>    issu de la diversit&eacute;
+<br>    it&eacute;ratif
+<br>    japonais
+<br>    journalistique
+<br>    juif
+<br>    kawaii
+<br>    libidineux
+<br>    lvl 99
+<br>    m&eacute;trique
+<br>    magique
+<br>    manucur&eacute;
+<br>    matriarcal
+<br>    maudit
+<br>    moldave
+<br>    mucoviscideux
+<br>    musulman
+<br>    mutant
+<br>    myxomateux
+<br>    n&eacute;anderthalien
+<br>    narquois
+<br>    nazi
+<br>    num&eacute;rique
+<br>    nymphomane
+<br>    omnipotent
+<br>    omniscient
+<br>    particulaire
+<br>    patato&iuml;dal
+<br>    paternatalophobe
+<br>    pestif&eacute;r&eacute;
+<br>    phallocrate
+<br>    philat&eacute;liste
+<br>    ploutocrate
+<br>    presbyte
+<br>    proactif
+<br>    professionnel
+<br>    psychopathe
+<br>    qui sent bon le sable chaud
+<br>    r&eacute;cursif
+<br>    r&eacute;gionaliste
+<br>    r&ocirc;liste
+<br>    racaillou
+<br>    radioactif
+<br>    roboratif
+<br>    rococo
+<br>    rose caca d'oie
+<br>    rose invisible
+<br>    rouge et jaune &agrave; petit pois
+<br>    rutilant
+<br>    s&eacute;v&egrave;rement burn&eacute;
+<br>    sans paraben
+<br>    sardonique
+<br>    sarkozyste
+<br>    satur&eacute;
+<br>    sexuel
+<br>    sid&eacute;ral
+<br>    silicon&eacute;
+<br>    soixante-huitard
+<br>    sondagier
+<br>    sous acide
+<br>    sous licence libre
+<br>    spatial
+<br>    spermovore
+<br>    sur batterie
+<br>    sur&eacute;valu&eacute;
+<br>    swag
+<br>    taylorien
+<br>    tektonikophobe
+<br>    tentaculaire
+<br>    texan
+<br>    tonitruant
+<br>    transsexuelophile
+<br>    triclass&eacute;
+<br>    ubuesque
+<br>    unijambiste
+<br>    v&eacute;reux
+<br>    ventripotent
+<br>    verruqueux
+<br>    version beta
+<br>    version shareware
+<br>    volumique
+<br>"""
+<br>
+<br>RAW_STRING_WHATEVERS = """
+<br>    &agrave; coups d'extincteur
+<br>    &agrave; coups de Bouda
+<br>    &agrave; coups de blasph&egrave;mes
+<br>    &agrave; coups de branche de Ray-Ban
+<br>    &agrave; coups de pain tueur
+<br>    &agrave; coups de petits cailloux dans les yeux
+<br>    &agrave; coups de pioche de Minecraft
+<br>    &agrave; l'&eacute;a jacqueta este
+<br>    &agrave; l'&eacute;lectrophor&egrave;se
+<br>    &agrave; l'&eacute;p&eacute;e longue
+<br>    &agrave; l'&eacute;pareuse
+<br>    &agrave; l'&eacute;pilateur &eacute;lectrique
+<br>    &agrave; l'&eacute;quarrisseur
+<br>    &agrave; l'acide chlorhydrique
+<br>    &agrave; l'aiguille de poste &agrave; galenne
+<br>    &agrave; l'allocation universelle
+<br>    &agrave; l'ancienne
+<br>    &agrave; l'eau ferrigineuneuse
+<br>    &agrave; l'enforcer
+<br>    &agrave; l'h&eacute;patite [A-Z]
+<br>    &agrave; l'huile de palme
+<br>    &agrave; la Holy Grenade
+<br>    &agrave; la bavure polici&egrave;re
+<br>    &agrave; la chambre &agrave; gaz
+<br>    &agrave; la chirurgie plastique
+<br>    &agrave; la claymore
+<br>    &agrave; la cyprine
+<br>    &agrave; la d&eacute;loyale
+<br>    &agrave; la disquette 3 pouces et demi
+<br>    &agrave; la g&eacute;g&egrave;ne
+<br>    &agrave; la grenade antichar
+<br>    &agrave; la grenade vortex
+<br>    &agrave; la kqlqsh
+<br>    &agrave; la lame de rasoir &eacute;mouss&eacute;e
+<br>    &agrave; la lame vorpale
+<br>    &agrave; la lime &agrave; ongle
+<br>    &agrave; la massue en mousse
+<br>    &agrave; la mitrailleuse g&eacute;ante de Counter-Strike
+<br>    &agrave; la pi&egrave;ce de huit
+<br>    &agrave; la pince &agrave; sucre
+<br>    &agrave; la pique filkarienne
+<br>    &agrave; la r&acirc;pe &agrave; fromage
+<br>    &agrave; la schlague
+<br>    &agrave; la serpe d'or
+<br>    &agrave; la t&eacute;l&eacute;commande universelle
+<br>    &agrave; la touche windows
+<br>    &agrave; la tringle &agrave; rideau
+<br>    &agrave; la vol&eacute;e
+<br>    (m&ecirc;me si &ccedil;a veut rien dire)
+<br>    au BFG
+<br>    au Baygon
+<br>    au Chanel num&eacute;ro 5
+<br>    au Decap four
+<br>    au Famas
+<br>    au K&auml;rcher
+<br>    au RPG
+<br>    au Spero Patronum
+<br>    au Willy Waller
+<br>    au Zyklon B
+<br>    au b&acirc;ton de berger
+<br>    au bistouri
+<br>    au bizutage
+<br>    au bolter lourd
+<br>    au bromure
+<br>    au c&ocirc;ne de froid
+<br>    au cheval de Troie
+<br>    au cocktail molotov
+<br>    au coup de pied de Chuck Norris
+<br>    au couteau sacrificiel
+<br>    au disrupteur dimensionnel
+<br>    au double-clic
+<br>    au fer &agrave; friser
+<br>    au forceps
+<br>    au frottis vaginal
+<br>    au fusil blaster
+<br>    au gravier-cailloux-gros sel
+<br>    au hakik'
+<br>    au missile magique
+<br>    au monoxyde de dihydrog&egrave;ne
+<br>    au moule &agrave; gaufre
+<br>    au papier de verre
+<br>    au patator
+<br>    au pays des merveilles
+<br>    au pic &agrave; glace
+<br>    au pied de biche
+<br>    au piolet
+<br>    au plomb fondu
+<br>    au poil de cul pr&egrave;s
+<br>    au point godwin
+<br>    au railgun
+<br>    au rasoir jetable
+<br>    au sabre laser
+<br>    au scalpel
+<br>    au sho-ryu-ken
+<br>    au shpocker
+<br>    au tournevis multifonctions
+<br>    au vibromaseur
+<br>    au zythum
+<br>    aux balles en argent
+<br>    aux choux de Bruxelles
+<br>    aux couverts &agrave; poisson
+<br>    aux fuites radioactives
+<br>    aux gaz &agrave; effets de serre
+<br>    aux impulsions &eacute;lectro-magn&eacute;tiques
+<br>    aux outils de crochetage
+<br>    aux pains de C4
+<br>    avec de l'hydrog&egrave;ne et du temps
+<br>    avec des &eacute;toiles dans les yeux
+<br>    avec des hashtags litigieux
+<br>    avec des traces de pneus
+<br>    avec du Destop
+<br>    avec du caca
+<br>    avec emphase
+<br>    avec force de proposition
+<br>    avec le pouvoir de la Force
+<br>    avec luxe, calme et volupt&eacute;
+<br>    avec panache (blanc)
+<br>    avec un balai &agrave; chiottes
+<br>    avec un nuage de lait
+<br>    avec un petit coussin pour s'essuyer les doigts
+<br>    comme Marion Cotillard
+<br>    comme dans du beurre
+<br>    comme dans un film de John Woo
+<br>    comme dans un vieux rock'n'roll
+<br>    comme des petits fours
+<br>    comme un ouragan
+<br>    dans la joie et la bonne humeur
+<br>    dans le Space Mountain
+<br>    dans un Sofitel
+<br>    dans un acc&eacute;l&eacute;rateur de particules
+<br>    dans un d&eacute; &agrave; coudre
+<br>    dans un h&ocirc;tel borgne
+<br>    dans un tentacle porn
+<br>    dans un vortex
+<br>    dans une cave
+<br>    dans une maison en pain d'&eacute;pice
+<br>    de fa&ccedil;on th&eacute;&acirc;trale
+<br>    de reste
+<br>    doggy-style
+<br>    en braillant "Waganitzu"
+<br>    en chantant "que je t'aiiiiime"
+<br>    en chantant une chanson paillarde
+<br>    en diff&eacute;r&eacute;
+<br>    en faisant sluchlurp
+<br>    en levrette
+<br>    en mode nightmare
+<br>    en sourdine
+<br>    en t&acirc;che de fond
+<br>    in the clouds
+<br>    jusqu'&agrave; ce que la mort vous s&eacute;pare
+<br>    jusqu'&agrave; ce que mort s'ensuive
+<br>    on the rocks
+<br>    pour le meilleur et pour le pire
+<br>    sans les mains
+<br>    sous des coul&eacute;es de boues
+<br>    sur l'air du Gangnam Style
+<br>    sur l'autoroute des vacances
+<br>    sur la route de Memphis
+<br>"""
+<br>
+<br>RAW_STRING_INTERJECTIONS = """
+<br>    &#1054;&#1076;&#1080;&#1085;&#1085;&#1072;&#1076;&#1094;&#1072;&#1090;&#1100; &#1086;&#1076;&#1080;&#1085;
+<br>    &#1057;&#1090;&#1086; &#1086;&#1076;&#1080;&#1085;&#1085;&#1072;&#1076;&#1094;&#1072;&#1090;&#1100; &#1086;&#1076;&#1080;&#1085;
+<br>    &#x1F18;&nu;&tau;&epsilon;&kappa;&alpha; &#x1F73;&nu;&alpha;
+<br>    &Epsilon;&kappa;&alpha;&tau;&#x1F40; &#x1F73;&nu;&tau;&epsilon;&kappa;&alpha; &#x1F73;&nu;&alpha;
+<br>    &Uuml;ber alles
+<br>    ( o Y o )
+<br>    (&Agrave; peu pr&egrave;s)
+<br>    (En termes de)
+<br>    (Plus ou moins)
+<br>    /b/
+<br>    1/5
+<br>    3.14159
+<br>    42
+<br>    8~
+<br>    Ach
+<br>    Amen
+<br>    Arriba-riba
+<br>    Avast
+<br>    Balam-bam tchiii
+<br>    Banza&iuml;
+<br>    Bazinga
+<br>    Bigre
+<br>    Biotch
+<br>    Blarg
+<br>    Bloody hell
+<br>    Bollocks
+<br>    Bordel of merde
+<br>    Boum
+<br>    By Jove
+<br>    CXI
+<br>    Caramba
+<br>    Carne y sangre
+<br>    Connerie d'connerie
+<br>    Cordialement
+<br>    D'oh
+<br>    Da-boo
+<br>    Damned
+<br>    Diantre
+<br>    Dominus Vobiscum
+<br>    Eleven one
+<br>    Evil laugh
+<br>    Eviv Bulgroz
+<br>    F'taghn
+<br>    FTW
+<br>    Fastif&eacute;enradjiiii
+<br>    Fi
+<br>    Fichtre
+<br>    Fothermucker
+<br>    Fuck
+<br>    Gaspature
+<br>    Geez
+<br>    Genre
+<br>    Gofio
+<br>    Gosh
+<br>    Gottferdom
+<br>    Grabodoui
+<br>    Ha ha ha ha
+<br>    Har har har
+<br>    Holy cow
+<br>    Hook ! Hook
+<br>    Hop la
+<br>    Hop. Bof
+<br>    Houba houba hop
+<br>    Inch'Allah
+<br>    J&eacute;suMariJos&egrave;f
+<br>    Jarnicoton
+<br>    Jehoshaphat
+<br>    Ka-boom
+<br>    Kapwiiing
+<br>    Kowabunga
+<br>    Kthxbye
+<br>    LOL
+<br>    Like
+<br>    Litt&eacute;ralement
+<br>    Lolilol
+<br>    M&ecirc;me que
+<br>    M'enfin
+<br>    Massivement
+<br>    Matin
+<br>    Mille sabords
+<br>    Mmm'voyez
+<br>    Montjoie
+<br>    Montmirail
+<br>    Morguienne
+<br>    Mouahahahahaaaaaa
+<br>    Nevertheless
+<br>    No jutsu
+<br>    No&euml;l ! No&euml;l
+<br>    Nudge nudge
+<br>    O-kay
+<br>    OMG
+<br>    OMGOMG
+<br>    OMGWTFBBQ
+<br>    Ol&eacute;
+<br>    One hundred and eleven
+<br>    Palsambleu
+<br>    Par B&eacute;l&eacute;nos
+<br>    Par Toutatis
+<br>    Period
+<br>    Peuch&egrave;re
+<br>    Pouet pouet
+<br>    Prout
+<br>    RLY
+<br>    ROFL
+<br>    ROFLMAOGCB
+<br>    Rogntudjuu
+<br>    Rotototototototom
+<br>    Rrrrrrrhhhhh
+<br>    Sacrebleu
+<br>    Saperlipopette
+<br>    Sapristi saucisse
+<br>    Schei&szlig;e
+<br>    Scrogneugneu
+<br>    Seigneur Dieu
+<br>    Shazam
+<br>    Shiver me timbers
+<br>    Son-of-a-bitch
+<br>    Stach stach
+<br>    Swag
+<br>    Tachatte
+<br>    Tadzam
+<br>    Teufel
+<br>    Three cheers
+<br>    Three points
+<br>    Tin-nin-nin
+<br>    Tonnerre de Brest
+<br>    Tralalalal&egrave;re
+<br>    Tudjuuuu
+<br>    Une fois
+<br>    Vertuchou
+<br>    Waaaagh
+<br>    Waazzaaaaa
+<br>    What else
+<br>    Whatever
+<br>    Wink wink
+<br>    Woosh
+<br>    XI
+<br>    Yalla
+<br>    Yargalt
+<br>    Yawohl
+<br>    Yo
+<br>    Yolo
+<br>    Youyouyouyouyou
+<br>    Yowza
+<br>    Ypika&iuml;&iuml;&iuml;
+<br>    Zarma
+<br>    Zog-zog
+<br>    Zoltan
+<br>    Zyva
+<br>    w00t
+<br>"""
