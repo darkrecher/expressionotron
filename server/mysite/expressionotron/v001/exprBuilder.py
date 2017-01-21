@@ -2,6 +2,9 @@ from .dataphrase import (
     RAW_STRING_VERB, RAW_STRING_COMPLEMENT, RAW_STRING_PREFIX_ADJ,
     RAW_STRING_ADJ, RAW_STRING_WHATEVER)
 
+version = '001'
+
+
 def tupleFromRawString(rawString):
     liElemStripped = [ elem.strip() for elem in rawString.split("\n") ]
     liElemStrippedFiltered = [ elem for elem in liElemStripped if elem != "" ]

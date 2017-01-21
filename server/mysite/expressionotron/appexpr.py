@@ -1,17 +1,15 @@
 from flask import Blueprint, request, url_for
-import random
-from .v001.exprBuilder import buildExpression as buildExpression_001
-from .v002.expr_builder import buildExpression as buildExpression_002
+# C'est moche et bordelique d'écrire les imports comme ça. Faut faire autrement.
+from .v001.exprBuilder import buildExpression as buildExpression_001, version as v001
+from .v002.expr_builder import buildExpression as buildExpression_002, version as v002
+from .seed_validator import makeValidSeed
 
 # http://stackoverflow.com/questions/15231359/split-python-flask-app-into-multiple-files
 app_expressionotron = Blueprint('app_expressionotron', __name__)
 
-CURRENT_EXPR_VERSION = "002"
-SEPARATOR_SEED = "_"
-
 FUNC_BUILDER_FROM_VERSION = {
-    "001": buildExpression_001,
-    "002": buildExpression_002,
+    v001: buildExpression_001,
+    v002: buildExpression_002,
 }
 
 def getAndIncreaseNbVisitor():
@@ -101,36 +99,6 @@ def getWebPageTemplate():
         Cette page a &eacute;t&eacute; vue %s fois.
     </p>
     """
-
-def makeValidSeed(strSeed):
-    rebuildSeed = False
-    strVersion = CURRENT_EXPR_VERSION
-    digest = 0
-
-    if strSeed.isdigit():
-        # On a uniquement le digest, sans la version. C'est pas grave.
-        # On prend ce digest, et on utilisera la version courante
-        digest =  int(strSeed)
-    else:
-        # On verifie que la seed respecte le format 000...000_<num_version>
-        # Si ce n'est pas le cas, on prendra un digest au hasard, et la version courante.
-        strDigest, sep, strVersion = strSeed.partition(SEPARATOR_SEED)
-        if sep != SEPARATOR_SEED:
-            rebuildSeed = True
-        elif strVersion not in FUNC_BUILDER_FROM_VERSION.keys():
-            rebuildSeed = True
-        elif not strDigest.isdigit():
-            rebuildSeed = True
-        if rebuildSeed:
-            strVersion = CURRENT_EXPR_VERSION
-            # REC TODO : v001 = 300000000 (un peu arbitraire). v002 = 87295229100.
-            # faudrait juste que ce soit pas en dur. Vilain.
-            digest = random.randrange(87295229100)
-        else:
-            digest = int(strDigest)
-
-    strSeed = SEPARATOR_SEED.join( (str(digest), strVersion) )
-    return (strVersion, digest, strSeed)
 
 def expressionotron(strSeed):
     nbVisitor = getAndIncreaseNbVisitor()

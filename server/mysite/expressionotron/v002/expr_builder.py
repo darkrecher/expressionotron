@@ -8,6 +8,8 @@ from .dataphrase import (
 )
 from .seeder import data_indexes_from_seed
 
+version = '002'
+
 
 def tupleFromRawString(rawString):
     liElemStripped = [ elem.strip() for elem in rawString.split("\n") ]

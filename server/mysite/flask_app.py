@@ -47,4 +47,7 @@ def mainPage():
 
 
 if __name__ == '__main__':
+    # http://stackoverflow.com/questions/17743019/flask-logging-cannot-get-it-to-write-to-a-file
+    import logging
+    logging.basicConfig(level=logging.DEBUG)
     app.run(debug=False)
