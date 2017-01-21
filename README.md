@@ -10,8 +10,6 @@ Mais pour l'instant y'a vraiment rien dedans.
 
 TODOs de code :
 
- - `twitBot.py` : Le lien vers mon propre site : http://recher.pythonanywhere.com/ est en dur. Pourquoi pas (car la tâche planifiée n'a peut-être pas accès à cette info), mais dans ce cas faut que ce soit dans une sorte de lib de constantes communes.
- - `appexpr.py` : Là aussi, le lien vers mon site est en dur : "http://recher.pythonanywhere.com". Mais là c'est carrément vilain.
  - mettre makeValidSeed dans une lib commune et s'en servir dans le twitBot et à l'autre endroit où c'est commun
  - `twitBot.py` : import absolus qui font dégueu.
  - `appexpr.py` : faire un template jinja2 comme il faut

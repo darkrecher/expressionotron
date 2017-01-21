@@ -137,8 +137,9 @@ def expressionotron(strSeed):
     (seedVersion, seedDigest, strSeed) = makeValidSeed(strSeed)
     func_builder = FUNC_BUILDER_FROM_VERSION[seedVersion]
     expression = func_builder(seedDigest)
-    # C'est certainement tres mal de faire comme ca. Je chercherais plus tard la methode conventionnelle.
-    linkOnSelf = "http://recher.pythonanywhere.com" + url_for(".expressionotronGet", seed=strSeed)
+    # http://flask.pocoo.org/docs/0.12/api/#flask.url_for
+    # http://stackoverflow.com/questions/39262172/flask-nginx-url-for-external
+    linkOnSelf = url_for(".expressionotronGet", _external=True, seed=strSeed)
     tupleDynamicData = (
         expression,
         linkOnSelf,
