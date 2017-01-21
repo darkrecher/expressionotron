@@ -8,12 +8,6 @@ Mais pour l'instant y'a vraiment rien dedans.
 
 ## TODO list
 
-ajouter les fichiers de vieux_trucs et les enlever juste après, juste pour les avoir dans git
-
-voir si on peut récupérer et versionner ce fichier
-`/var/www/recher_pythonanywhere_com_wsgi.py`
-(si oui, faudra aussi le versionner dans urluth)
-
 relancer en local et repasser tous les tests, pour vérifier si c'est toujours bon
 
 TODOs de code
