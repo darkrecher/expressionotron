@@ -8,9 +8,7 @@ Mais pour l'instant y'a vraiment rien dedans.
 
 ## TODO list
 
-relancer en local et repasser tous les tests, pour vérifier si c'est toujours bon
-
-TODOs de code
+TODOs de code :
 
  - renommage des variables et des noms de fichiers en respectant le PEP8
  - mettre des simples quote là où il faut
@@ -22,7 +20,7 @@ TODOs de code
  - `twitBot.py` : Le lien vers mon propre site : http://recher.pythonanywhere.com/ est en dur. Pourquoi pas (car la tâche planifiée n'a peut-être pas accès à cette info), mais dans ce cas faut que ce soit dans une sorte de lib de constantes communes.
  - `appexpr.py` : faire un template jinja2 comme il faut
  - `appexpr.py` : Là aussi, le lien vers mon site est en dur : "http://recher.pythonanywhere.com". Mais là c'est carrément vilain.
-
+ - `test_expre_v2.py` : y'a du code à factoriser.
 
 Faire la même doc que urluth :
 
