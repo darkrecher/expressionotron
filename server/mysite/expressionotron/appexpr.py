@@ -1,10 +1,15 @@
-from flask import Blueprint, request, url_for
+from flask import Blueprint, request, url_for, render_template
 import expressionotron.expr_generator
 expr_gen = expressionotron.expr_generator
 
 
 # http://stackoverflow.com/questions/15231359/split-python-flask-app-into-multiple-files
-app_expressionotron = Blueprint('app_expressionotron', __name__)
+# http://flask.pocoo.org/docs/0.11/api/#flask.render_template
+# http://flask.pocoo.org/docs/0.11/blueprints/
+app_expressionotron = Blueprint(
+    'app_expressionotron',
+    __name__,
+    template_folder='templates')
 
 
 def getAndIncreaseNbVisitor():
@@ -38,80 +43,30 @@ def getAndIncreaseNbVisitor():
 
     return nbVisitor
 
-def getWebPageTemplate():
-    # ouh que c'est vilain d'avoir mis du code HTML directement dans un fichier python !!
-    # Nous ferons mieux plus tard.
-    return """
-
-    <h1>%s</h1>
-
-    <br/>
-    <h3>Partagez cette expression avec vos amis !</h3>
-    <p>
-        Envoyez-leur ce lien : <a href="%s">%s</a>
-    </p>
-
-    <br/>
-    <h3>Vous en voulez encore ?</h3>
-    <form method="GET" action="%s">
-        <input type="submit" value="Oui, je veux une expression au hasard !" />
-    </form>
-    <form method="POST" action="%s">
-        Ou bien, entrez un nombre entre 0 et beaucoup : <input name="seedInForm" />
-        <br/>
-        <input type="submit" value="Parce qu'en fait, je veux une expression pas au hasard !" />
-        <br/>
-        (pour utiliser la version pr&eacute;c&eacute;dente, ajouter "_001" apr&egrave;s votre nombre)
-    </form>
-    J'en veux une dose r&eacute;guli&egrave;re, tous les jours &agrave; 16:64.<br/>
-    Je vais suivre ce compte twitter :
-    <a href="https://twitter.com/expressionotron">https://twitter.com/expressionotron</a>
-
-    <br/>
-    <h3>Quelques liens</h3>
-    <p>
-        Ce truc est librement et &eacute;hont&eacute;ment inspir&eacute; de l'expressionotron de nioutaik
-        <br/>
-        <a href="http://www.nioutaik.fr/index.php/2007/09/06/386-l-expressionotron">http://www.nioutaik.fr/index.php/2007/09/06/386-l-expressionotron</a>
-    </p>
-    <p>
-        Mon blog (images NSFW) : <a href="http://recher.wordpress.com">http://recher.wordpress.com</a>
-        <br/>
-        Mon twitter : <a href="https://twitter.com/_Recher_">https://twitter.com/_Recher_</a>
-    </p>
-    <p>
-        Des gens biens (images NSFW non plus) : <a href="http://sametmax.com">http://sametmax.com</a>
-    </p>
-    <p>
-        Lien &agrave; pub, qui vous fera perdre du temps de cerveau,
-        <br/>
-        mais qui me fera gagner des bitcoins : <a href="http://recher.pythonanywhere.com/urluth/?u=yns">http://recher.pythonanywhere.com/urluth/?u=yns</a></p>
-    </p>
-
-    <br/>
-    <h3>Statistiques super utiles</h3>
-    <p>
-        Cette page a &eacute;t&eacute; vue %s fois.
-    </p>
-    """
 
 def expressionotron(unsafe_expr_gen_key):
     nbVisitor = getAndIncreaseNbVisitor()
     (seed, version) = expr_gen.sanitize_key(unsafe_expr_gen_key)
+    # la chaîne de caractère 'expression' est déjà encodée en HTML
+    # (avec les &eacute; etc). Dans template.html, on a mis 'expression|safe'.
+    # http://jinja.pocoo.org/docs/2.9/templates/#working-with-automatic-escaping
     expression = expr_gen.generate_expression(seed, version)
     expr_gen_key = expr_gen.format_key(seed, version)
     # http://flask.pocoo.org/docs/0.12/api/#flask.url_for
     # http://stackoverflow.com/questions/39262172/flask-nginx-url-for-external
     linkOnSelf = url_for(".expressionotronGet", _external=True, seed=expr_gen_key)
-    tupleDynamicData = (
-        expression,
-        linkOnSelf,
-        linkOnSelf,
-        url_for(".expressionotronGet"),
-        url_for(".expressionotronPost"),
-        str(nbVisitor))
-    return getWebPageTemplate() % tupleDynamicData
 
+    params_template = {
+        "expression": expression,
+        "permalink_to_expr": linkOnSelf,
+        "link_to_get_random_expr": url_for(".expressionotronGet"),
+        "link_to_post_specific_expr": url_for(".expressionotronPost"),
+        "nb_visitors": nbVisitor,
+    }
+
+    return render_template('template.html', **params_template)
+
+# TODO : nom merdiques
 @app_expressionotron.route('/', methods=['POST'])
 def expressionotronPost():
     unsafe_expr_gen_key = request.form["seedInForm"]
