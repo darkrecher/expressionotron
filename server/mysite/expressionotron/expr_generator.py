@@ -4,7 +4,7 @@ unsafe_expr_gen_key
 expr_gen_key
 version
 seed
-seed_str
+str_seed
 """
 
 import random
@@ -32,33 +32,33 @@ def sanitize_key(unsafe_expr_gen_key):
     """
     rebuildSeed = False
     version = CURRENT_EXPR_VERSION
-    digest = 0
+    seed = 0
 
     if unsafe_expr_gen_key.isdigit():
-        # On a uniquement le digest, sans la version. C'est pas grave.
-        # On prend ce digest, et on utilisera la version courante
-        digest =  int(unsafe_expr_gen_key)
+        # On a uniquement la seed, sans la version. C'est pas grave.
+        # On prend cette seed, et on utilisera la version courante
+        seed =  int(unsafe_expr_gen_key)
+        version = CURRENT_EXPR_VERSION
+        return (seed, version)
 
+    # On verifie que la seed respecte le format <digits>_<num_version>
+    # Si ce n'est pas le cas, on prendra un seed au hasard, et la version courante.
+    str_seed, sep, version = unsafe_expr_gen_key.partition(SEPARATOR_SEED)
+    is_safe = all((
+        sep == SEPARATOR_SEED,
+        version in VALID_VERSION_NUMBERS,
+        str_seed.isdigit(),
+    ))
+
+    if not is_safe:
+        version = CURRENT_EXPR_VERSION
+        # REC TODO : v001 = 300000000 (un peu arbitraire). v002 = 87295229100.
+        # faudrait juste que ce soit pas en dur. Vilain. Faut importer le size qu'est dans le generator.
+        seed = random.randrange(87295229100)
     else:
-        # On verifie que la seed respecte le format 000...000_<num_version>
-        # Si ce n'est pas le cas, on prendra un digest au hasard, et la version courante.
-        strDigest, sep, version = unsafe_expr_gen_key.partition(SEPARATOR_SEED)
-        if sep != SEPARATOR_SEED:
-            rebuildSeed = True
-        elif version not in VALID_VERSION_NUMBERS:
-            rebuildSeed = True
-        elif not strDigest.isdigit():
-            rebuildSeed = True
+        seed = int(str_seed)
 
-        if rebuildSeed:
-            version = CURRENT_EXPR_VERSION
-            # REC TODO : v001 = 300000000 (un peu arbitraire). v002 = 87295229100.
-            # faudrait juste que ce soit pas en dur. Vilain. Faut importer le size qu'est dans le generator.
-            digest = random.randrange(87295229100)
-        else:
-            digest = int(strDigest)
-
-    return (digest, version)
+    return (seed, version)
 
 
 def generate_expression(seed, version):
