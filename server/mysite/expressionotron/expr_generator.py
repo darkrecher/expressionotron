@@ -14,13 +14,12 @@ b_v1 = expressionotron.v001.exprBuilder
 import expressionotron.v002.expr_builder
 b_v2 = expressionotron.v002.expr_builder
 
-# Renommer ce nom à la con de dictionnaire.
-FUNC_BUILDER_FROM_VERSION = {
+FUNCTION_GEN_FROM_VERSION = {
     b_v1.version: b_v1.buildExpression,
     b_v2.version: b_v2.buildExpression,
 }
 
-VALID_VERSION_NUMBERS = (b_v1.version, b_v2.version)
+VALID_VERSION_NUMBERS = FUNCTION_GEN_FROM_VERSION.keys()
 CURRENT_EXPR_VERSION = b_v2.version
 SEPARATOR_SEED = "_"
 
@@ -32,7 +31,7 @@ def sanitize_key(unsafe_expr_gen_key):
     C'est bien dommage mais c'est comme ça. Et de toutes façon on n'en a pas besoin.
     """
     rebuildSeed = False
-    strVersion = CURRENT_EXPR_VERSION
+    version = CURRENT_EXPR_VERSION
     digest = 0
 
     if unsafe_expr_gen_key.isdigit():
@@ -43,23 +42,23 @@ def sanitize_key(unsafe_expr_gen_key):
     else:
         # On verifie que la seed respecte le format 000...000_<num_version>
         # Si ce n'est pas le cas, on prendra un digest au hasard, et la version courante.
-        strDigest, sep, strVersion = unsafe_expr_gen_key.partition(SEPARATOR_SEED)
+        strDigest, sep, version = unsafe_expr_gen_key.partition(SEPARATOR_SEED)
         if sep != SEPARATOR_SEED:
             rebuildSeed = True
-        elif strVersion not in VALID_VERSION_NUMBERS:
+        elif version not in VALID_VERSION_NUMBERS:
             rebuildSeed = True
         elif not strDigest.isdigit():
             rebuildSeed = True
 
         if rebuildSeed:
-            strVersion = CURRENT_EXPR_VERSION
+            version = CURRENT_EXPR_VERSION
             # REC TODO : v001 = 300000000 (un peu arbitraire). v002 = 87295229100.
-            # faudrait juste que ce soit pas en dur. Vilain.
+            # faudrait juste que ce soit pas en dur. Vilain. Faut importer le size qu'est dans le generator.
             digest = random.randrange(87295229100)
         else:
             digest = int(strDigest)
 
-    return (digest, strVersion)
+    return (digest, version)
 
 
 def generate_expression(seed, version):
@@ -67,7 +66,7 @@ def generate_expression(seed, version):
     Les paramètres seed et version sont supposés safe.
     Si ça ne l'est pas, ça fera des exceptions diverses.
     """
-    function_expr_generator = FUNC_BUILDER_FROM_VERSION[version]
+    function_expr_generator = FUNCTION_GEN_FROM_VERSION[version]
     return function_expr_generator(seed)
 
 

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, url_for
-# TODO : line too long. trop de truc importé
-from expressionotron.expr_generator import sanitize_key, generate_expression, format_key
+import expressionotron.expr_generator
+expr_gen = expressionotron.expr_generator
 
 
 # http://stackoverflow.com/questions/15231359/split-python-flask-app-into-multiple-files
@@ -95,14 +95,14 @@ def getWebPageTemplate():
     </p>
     """
 
-def expressionotron(strSeed):
+def expressionotron(unsafe_expr_gen_key):
     nbVisitor = getAndIncreaseNbVisitor()
-    (seedDigest, seedVersion) = sanitize_key(strSeed)
-    expression = generate_expression(seedDigest, seedVersion)
-    strSeed = format_key(seedDigest, seedVersion)
+    (seed, version) = expr_gen.sanitize_key(unsafe_expr_gen_key)
+    expression = expr_gen.generate_expression(seed, version)
+    expr_gen_key = expr_gen.format_key(seed, version)
     # http://flask.pocoo.org/docs/0.12/api/#flask.url_for
     # http://stackoverflow.com/questions/39262172/flask-nginx-url-for-external
-    linkOnSelf = url_for(".expressionotronGet", _external=True, seed=strSeed)
+    linkOnSelf = url_for(".expressionotronGet", _external=True, seed=expr_gen_key)
     tupleDynamicData = (
         expression,
         linkOnSelf,
@@ -114,11 +114,11 @@ def expressionotron(strSeed):
 
 @app_expressionotron.route('/', methods=['POST'])
 def expressionotronPost():
-    strSeed = request.form["seedInForm"]
-    return expressionotron(strSeed)
+    unsafe_expr_gen_key = request.form["seedInForm"]
+    return expressionotron(unsafe_expr_gen_key)
 
 @app_expressionotron.route('/', methods=['GET'])
 def expressionotronGet():
-    strSeed = request.args.get("seed", "")
-    return expressionotron(strSeed)
+    unsafe_expr_gen_key = request.args.get("seed", "")
+    return expressionotron(unsafe_expr_gen_key)
 

@@ -1,18 +1,13 @@
 import random
 import twitter
 from html.parser import HTMLParser
-parser = HTMLParser()
-
-# TODO : line too long. trop de truc importé
-from expressionotron.expr_generator import sanitize_key, generate_expression, format_key
+import expressionotron.expr_generator
+expr_gen = expressionotron.expr_generator
 import expressionotron.twit_pass
-
 twit_pass = expressionotron.twit_pass
-conSecret = twit_pass.conSecret
-conSecretKey = twit_pass.conSecretKey
-token = twit_pass.token
-tokenKey = twit_pass.tokenKey
 
+
+parser = HTMLParser()
 
 # Un lien dans twitter ne prend pas trop de place. Mais je laisse une bonne marge.
 # Sinon le tweet va planter, et pour l'instant, j'ai aucune gestion d'erreur sur ce point
@@ -44,20 +39,24 @@ def twitAnExpression(unsafe_expr_gen_key=''):
     # oui, inf ou egal, oui. voir plus loin. (alarach, quand meme. je dois avouer)
     while nbTwitTry<=MAX_TWIT_TRY and not twitSucceeded:
         log("".join(("essai numero : ", str(nbTwitTry))))
-        (seedDigest, seedVersion) = sanitize_key(unsafe_expr_gen_key)
-        strSeed = format_key(seedDigest, seedVersion)
-        log("".join(("seedVersion:", str(seedVersion), " seedDigest:", str(seedDigest))))
-        expression = generate_expression(seedDigest, seedVersion)
+        (seed, version) = expr_gen.sanitize_key(unsafe_expr_gen_key)
+        expr_gen_key = expr_gen.format_key(seed, version)
+        log("".join(("version:", str(version), " seed:", str(seed))))
+        expression = expr_gen.generate_expression(seed, version)
         log(expression)
         # http://stackoverflow.com/a/730330
         uExpr = parser.unescape(expression)
         uExpr = uExpr[:NB_CHAR_LIMIT_WITHOUT_LINK]
-        # TODO : claquer un format(). et utiliser strSeed au lieu de recréer à l'arrache.
+        # TODO : claquer un format(). et utiliser expr_gen_key au lieu de recréer à l'arrache.
         # http://sametmax.com/le-formatage-des-strings-en-long-et-en-large/
-        textTwit = uExpr + " " + EXPRESSIONOTRON_URL + "?seed=" + str(seedDigest) + "_" + str(seedVersion)
+        textTwit = uExpr + " " + EXPRESSIONOTRON_URL + "?seed=" + str(seed) + "_" + str(version)
         log(textTwit)
         try:
-            my_auth = twitter.OAuth(token,tokenKey,conSecret,conSecretKey)
+            my_auth = twitter.OAuth(
+                twit_pass.token,
+                twit_pass.tokenKey,
+                twit_pass.conSecret,
+                twit_pass.conSecretKey)
             twit = twitter.Twitter(auth=my_auth)
             twit.statuses.update(status=textTwit)
             #a = 5 / 0
