@@ -1,9 +1,24 @@
+"""
+TODO : docstring expliquant le vocabulaire des noms de variable relative à la seed.
+unsafe_expr_gen_key
+expr_gen_key
+version
+seed
+seed_str
+"""
+
 import random
+# Renommer tout ça en "expr_generator". "Builder", ça fait bizarre.
 import expressionotron.v001.exprBuilder
 b_v1 = expressionotron.v001.exprBuilder
 import expressionotron.v002.expr_builder
 b_v2 = expressionotron.v002.expr_builder
 
+# Renommer ce nom à la con de dictionnaire.
+FUNC_BUILDER_FROM_VERSION = {
+    b_v1.version: b_v1.buildExpression,
+    b_v2.version: b_v2.buildExpression,
+}
 
 VALID_VERSION_NUMBERS = (b_v1.version, b_v2.version)
 CURRENT_EXPR_VERSION = b_v2.version
@@ -45,6 +60,17 @@ def makeValidSeed(strSeed):
             digest = int(strDigest)
 
     strSeed = SEPARATOR_SEED.join( (str(digest), strVersion) )
+    # TODO : faut inverser les params : digest, version, str.
     return (strVersion, digest, strSeed)
 
 
+def generate_expression(seed, version):
+    """
+    Les paramètres seed et version sont supposés safe.
+    Si ça ne l'est pas, ça fera des exceptions diverses.
+    """
+    function_expr_generator = FUNC_BUILDER_FROM_VERSION[version]
+    return function_expr_generator(seed)
+
+
+# TODO : fonction recréant une expr_gen_key à partir de seed/seed_str et de gen_version.

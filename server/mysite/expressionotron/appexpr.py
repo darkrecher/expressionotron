@@ -1,15 +1,6 @@
 from flask import Blueprint, request, url_for
-import expressionotron.v001.exprBuilder
-b_v1 = expressionotron.v001.exprBuilder
-import expressionotron.v002.expr_builder
-b_v2 = expressionotron.v002.expr_builder
-from expressionotron.expr_generator import makeValidSeed
+from expressionotron.expr_generator import makeValidSeed, generate_expression
 
-
-FUNC_BUILDER_FROM_VERSION = {
-    b_v1.version: b_v1.buildExpression,
-    b_v2.version: b_v2.buildExpression,
-}
 
 # http://stackoverflow.com/questions/15231359/split-python-flask-app-into-multiple-files
 app_expressionotron = Blueprint('app_expressionotron', __name__)
@@ -106,8 +97,7 @@ def getWebPageTemplate():
 def expressionotron(strSeed):
     nbVisitor = getAndIncreaseNbVisitor()
     (seedVersion, seedDigest, strSeed) = makeValidSeed(strSeed)
-    func_builder = FUNC_BUILDER_FROM_VERSION[seedVersion]
-    expression = func_builder(seedDigest)
+    expression = generate_expression(seedDigest, seedVersion)
     # http://flask.pocoo.org/docs/0.12/api/#flask.url_for
     # http://stackoverflow.com/questions/39262172/flask-nginx-url-for-external
     linkOnSelf = url_for(".expressionotronGet", _external=True, seed=strSeed)

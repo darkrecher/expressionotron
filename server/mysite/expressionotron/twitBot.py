@@ -3,11 +3,9 @@ import twitter
 from html.parser import HTMLParser
 parser = HTMLParser()
 
-# REC TODO : import absolus qui font dégueu.
-import expressionotron.v002.expr_builder
+from expressionotron.expr_generator import makeValidSeed, generate_expression
 import expressionotron.twit_pass
 
-exprBuilder = expressionotron.v002.expr_builder
 twit_pass = expressionotron.twit_pass
 conSecret = twit_pass.conSecret
 conSecretKey = twit_pass.conSecretKey
@@ -38,21 +36,16 @@ def log(logInfo):
         # TODO : risque aussi de planter, dans un contexte vraiment pourri.
         print("log impossible")
 
-def twitAnExpression(seedVersion="002", seedDigest=None):
+def twitAnExpression(unsafe_expr_gen_key=''):
     """ many thanks to http://wilsonericn.wordpress.com/2011/08/22/tweeting-in-python-the-easy-way/ """
     nbTwitTry = 0
     twitSucceeded = False
-    chooseRandomDigest = seedDigest is None
     # oui, inf ou egal, oui. voir plus loin. (alarach, quand meme. je dois avouer)
     while nbTwitTry<=MAX_TWIT_TRY and not twitSucceeded:
         log("".join(("essai numero : ", str(nbTwitTry))))
-        # TODO : appeler makeValidSeed ici, quand on l'aura mis dans une lib commune.
-        if chooseRandomDigest:
-            # REC TODO : v001 = 300000000 (un peu arbitraire). v002 = 87295229100.
-            # Faudrait juste que ce soit pas en dur. Vilain.
-            seedDigest = random.randrange(87295229100)
+        (seedVersion, seedDigest, strSeed) = makeValidSeed(unsafe_expr_gen_key)
         log("".join(("seedVersion:", str(seedVersion), " seedDigest:", str(seedDigest))))
-        expression = exprBuilder.buildExpression(seedDigest)
+        expression = generate_expression(seedDigest, seedVersion)
         log(expression)
         # http://stackoverflow.com/a/730330
         uExpr = parser.unescape(expression)
