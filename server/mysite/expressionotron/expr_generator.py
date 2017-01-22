@@ -25,9 +25,9 @@ CURRENT_EXPR_VERSION = b_v2.version
 SEPARATOR_SEED = "_"
 
 
-def makeValidSeed(strSeed):
+def sanitize_key(unsafe_expr_gen_key):
     """
-    TODO : docstring expliquant les différents formats possibles de strSeed
+    TODO : docstring expliquant les différents formats possibles de unsafe_expr_gen_key
     on peut pas demander du random sur une version précédente de l'expressionotron.
     C'est bien dommage mais c'est comme ça. Et de toutes façon on n'en a pas besoin.
     """
@@ -35,15 +35,15 @@ def makeValidSeed(strSeed):
     strVersion = CURRENT_EXPR_VERSION
     digest = 0
 
-    if strSeed.isdigit():
+    if unsafe_expr_gen_key.isdigit():
         # On a uniquement le digest, sans la version. C'est pas grave.
         # On prend ce digest, et on utilisera la version courante
-        digest =  int(strSeed)
+        digest =  int(unsafe_expr_gen_key)
 
     else:
         # On verifie que la seed respecte le format 000...000_<num_version>
         # Si ce n'est pas le cas, on prendra un digest au hasard, et la version courante.
-        strDigest, sep, strVersion = strSeed.partition(SEPARATOR_SEED)
+        strDigest, sep, strVersion = unsafe_expr_gen_key.partition(SEPARATOR_SEED)
         if sep != SEPARATOR_SEED:
             rebuildSeed = True
         elif strVersion not in VALID_VERSION_NUMBERS:
@@ -59,9 +59,7 @@ def makeValidSeed(strSeed):
         else:
             digest = int(strDigest)
 
-    strSeed = SEPARATOR_SEED.join( (str(digest), strVersion) )
-    # TODO : faut inverser les params : digest, version, str.
-    return (strVersion, digest, strSeed)
+    return (digest, strVersion)
 
 
 def generate_expression(seed, version):
@@ -73,4 +71,8 @@ def generate_expression(seed, version):
     return function_expr_generator(seed)
 
 
-# TODO : fonction recréant une expr_gen_key à partir de seed/seed_str et de gen_version.
+def format_key(seed, version):
+    """
+    fonction recréant une expr_gen_key à partir de seed/seed_str et de gen_version.
+    """
+    return SEPARATOR_SEED.join((str(seed), version))

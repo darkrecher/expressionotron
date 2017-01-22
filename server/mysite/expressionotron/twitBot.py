@@ -3,7 +3,8 @@ import twitter
 from html.parser import HTMLParser
 parser = HTMLParser()
 
-from expressionotron.expr_generator import makeValidSeed, generate_expression
+# TODO : line too long. trop de truc importé
+from expressionotron.expr_generator import sanitize_key, generate_expression, format_key
 import expressionotron.twit_pass
 
 twit_pass = expressionotron.twit_pass
@@ -43,14 +44,15 @@ def twitAnExpression(unsafe_expr_gen_key=''):
     # oui, inf ou egal, oui. voir plus loin. (alarach, quand meme. je dois avouer)
     while nbTwitTry<=MAX_TWIT_TRY and not twitSucceeded:
         log("".join(("essai numero : ", str(nbTwitTry))))
-        (seedVersion, seedDigest, strSeed) = makeValidSeed(unsafe_expr_gen_key)
+        (seedDigest, seedVersion) = sanitize_key(unsafe_expr_gen_key)
+        strSeed = format_key(seedDigest, seedVersion)
         log("".join(("seedVersion:", str(seedVersion), " seedDigest:", str(seedDigest))))
         expression = generate_expression(seedDigest, seedVersion)
         log(expression)
         # http://stackoverflow.com/a/730330
         uExpr = parser.unescape(expression)
         uExpr = uExpr[:NB_CHAR_LIMIT_WITHOUT_LINK]
-        # TODO : claquer un format().
+        # TODO : claquer un format(). et utiliser strSeed au lieu de recréer à l'arrache.
         # http://sametmax.com/le-formatage-des-strings-en-long-et-en-large/
         textTwit = uExpr + " " + EXPRESSIONOTRON_URL + "?seed=" + str(seedDigest) + "_" + str(seedVersion)
         log(textTwit)

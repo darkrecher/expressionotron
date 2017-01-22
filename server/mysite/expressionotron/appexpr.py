@@ -1,5 +1,6 @@
 from flask import Blueprint, request, url_for
-from expressionotron.expr_generator import makeValidSeed, generate_expression
+# TODO : line too long. trop de truc importé
+from expressionotron.expr_generator import sanitize_key, generate_expression, format_key
 
 
 # http://stackoverflow.com/questions/15231359/split-python-flask-app-into-multiple-files
@@ -96,8 +97,9 @@ def getWebPageTemplate():
 
 def expressionotron(strSeed):
     nbVisitor = getAndIncreaseNbVisitor()
-    (seedVersion, seedDigest, strSeed) = makeValidSeed(strSeed)
+    (seedDigest, seedVersion) = sanitize_key(strSeed)
     expression = generate_expression(seedDigest, seedVersion)
+    strSeed = format_key(seedDigest, seedVersion)
     # http://flask.pocoo.org/docs/0.12/api/#flask.url_for
     # http://stackoverflow.com/questions/39262172/flask-nginx-url-for-external
     linkOnSelf = url_for(".expressionotronGet", _external=True, seed=strSeed)
