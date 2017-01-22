@@ -21,6 +21,11 @@ tokenKey = twit_pass.tokenKey
 NB_CHAR_LIMIT_WITHOUT_LINK = 110
 MAX_TWIT_TRY = 4
 
+# Je suis obligé de mettre ça en constante, car la tâche planifiée dans
+# pythonanywhere est indépendante des tâches du serveur flask. Donc la tâche
+# planifiée ne "sait pas" l'url de la machine sur laquelle elle est exécutée
+EXPRESSIONOTRON_URL = 'https://recher.pythonanywhere.com/expressionotron'
+
 def log(logInfo):
     """ at the arrache. """
     # TODO : try except de gros sale, sans fallback digne de ce nom.
@@ -52,8 +57,9 @@ def twitAnExpression(seedVersion="002", seedDigest=None):
         # http://stackoverflow.com/a/730330
         uExpr = parser.unescape(expression)
         uExpr = uExpr[:NB_CHAR_LIMIT_WITHOUT_LINK]
-        # TODO : lien vers mon propre site ecrit en dur, a l'arrache. Arranger ca a l'occasion.
-        textTwit = uExpr + u" http://recher.pythonanywhere.com/expressionotron?seed=" + str(seedDigest) + "_" + str(seedVersion)
+        # TODO : claquer un format().
+        # http://sametmax.com/le-formatage-des-strings-en-long-et-en-large/
+        textTwit = uExpr + " " + EXPRESSIONOTRON_URL + "?seed=" + str(seedDigest) + "_" + str(seedVersion)
         log(textTwit)
         try:
             my_auth = twitter.OAuth(token,tokenKey,conSecret,conSecretKey)
