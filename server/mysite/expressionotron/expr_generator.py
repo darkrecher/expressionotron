@@ -21,6 +21,7 @@ FUNCTION_GEN_FROM_VERSION = {
 
 VALID_VERSION_NUMBERS = FUNCTION_GEN_FROM_VERSION.keys()
 CURRENT_EXPR_VERSION = b_v2.version
+CURRENT_EXPR_SEED_MAX = b_v2.seed_max
 SEPARATOR_SEED = "_"
 
 
@@ -52,9 +53,7 @@ def sanitize_key(unsafe_expr_gen_key):
 
     if not is_safe:
         version = CURRENT_EXPR_VERSION
-        # REC TODO : v001 = 300000000 (un peu arbitraire). v002 = 87295229100.
-        # faudrait juste que ce soit pas en dur. Vilain. Faut importer le size qu'est dans le generator.
-        seed = random.randrange(87295229100)
+        seed = random.randrange(CURRENT_EXPR_SEED_MAX)
     else:
         seed = int(str_seed)
 

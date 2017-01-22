@@ -1,3 +1,7 @@
+"""
+TODO : expliquer qu'il faut version, seed_max et build_expression
+"""
+
 import random
 import functools
 import operator
@@ -51,7 +55,7 @@ data_lengths = tuple(data_lengths)
 # totalement aléatoires.
 random.seed()
 
-seed_size = functools.reduce(operator.mul, data_lengths)
+seed_max = functools.reduce(operator.mul, data_lengths)
 
 
 def _get_adjective_prefix(adjective, index_interjection):
@@ -86,14 +90,10 @@ def _get_adjective_prefix(adjective, index_interjection):
     return adj_prefixes[index_interjection]
 
 
-def get_seed_size():
-    return seed_size
-
 # REC TODO : seed_digest ça veut rien dire. De plus, il y a plein de seeds
 # différentes, utilisés pour différentes raisons, et il faudrait les nommer
 # correctement. Mais pas là parce que j'ai autre chose à faire.
 def buildExpression(seed_digest):
-    #return "TODO : expression v002 avec un seed " + str(seed_digest)
     data_indexes = data_indexes_from_seed(data_lengths, seed_digest, shufflers)
     # On teste pas le nombre d'index renvoyés, ni si ils sont bien inférieurs
     # à la taille des différents tuples de bouts de phrases.
@@ -108,6 +108,7 @@ def buildExpression(seed_digest):
     adjective_prefix = _get_adjective_prefix(adjective, index_interjection)
 
     if adjective_prefix is None:
+        # TODO : mettre des format()
         tupleElements = (
             verb, subject, adjective, whatever, interjection)
         return "%s %s %s %s !! %s !!1!" % tupleElements

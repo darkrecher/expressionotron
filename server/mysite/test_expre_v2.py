@@ -11,7 +11,7 @@ def test_shufflers_coverage():
 
 
 def test_seed_size():
-   seed_size = expressionotron.v002.expr_builder.get_seed_size()
+   seed_size = expressionotron.v002.expr_builder.seed_max
    assert seed_size == 151 * 141 * 173 * 158 * 150
    assert seed_size == 87295229100
 

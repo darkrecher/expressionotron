@@ -1,3 +1,7 @@
+"""
+TODO : expliquer qu'il faut version, seed_max et build_expression
+"""
+
 from .dataphrase import (
     RAW_STRING_VERB, RAW_STRING_COMPLEMENT, RAW_STRING_PREFIX_ADJ,
     RAW_STRING_ADJ, RAW_STRING_WHATEVER)
@@ -34,6 +38,12 @@ TUPLE_NB_POSSIBILITIES = (
 # (Pas sur du tout que ce soit une bonne methode, mais j'emmerde les maths.)
 import functools
 MULTIPLICATOR = functools.reduce(lambda x, y: x*(y-1), TUPLE_NB_POSSIBILITIES, 1) - 1
+
+# Valeur totalement arbitraire. Mais c'est celle que j'utilisais dans cette
+# 1ère version, je la garde ici pour info et pour l'homogénéité.
+# (Mais en vrai, on ne s'en sert plus)
+seed_max = 300000000
+
 
 def _extractChoices(seedDigest):
     liChoices = []
