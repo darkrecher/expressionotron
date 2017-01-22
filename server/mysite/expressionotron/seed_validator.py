@@ -1,10 +1,12 @@
 import random
-from .v001.exprBuilder import version as v001
-from .v002.expr_builder import version as v002
+import expressionotron.v001.exprBuilder
+b_v1 = expressionotron.v001.exprBuilder
+import expressionotron.v002.expr_builder
+b_v2 = expressionotron.v002.expr_builder
 
 
-VALID_VERSION_NUMBERS = (v001, v002)
-CURRENT_EXPR_VERSION = "002"
+VALID_VERSION_NUMBERS = (b_v1.version, b_v2.version)
+CURRENT_EXPR_VERSION = b_v2.version
 SEPARATOR_SEED = "_"
 
 

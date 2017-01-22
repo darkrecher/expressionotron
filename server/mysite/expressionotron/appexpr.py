@@ -1,16 +1,19 @@
 from flask import Blueprint, request, url_for
-# C'est moche et bordelique d'écrire les imports comme ça. Faut faire autrement.
-from .v001.exprBuilder import buildExpression as buildExpression_001, version as v001
-from .v002.expr_builder import buildExpression as buildExpression_002, version as v002
-from .seed_validator import makeValidSeed
+import expressionotron.v001.exprBuilder
+b_v1 = expressionotron.v001.exprBuilder
+import expressionotron.v002.expr_builder
+b_v2 = expressionotron.v002.expr_builder
+from expressionotron.seed_validator import makeValidSeed
+
+
+FUNC_BUILDER_FROM_VERSION = {
+    b_v1.version: b_v1.buildExpression,
+    b_v2.version: b_v2.buildExpression,
+}
 
 # http://stackoverflow.com/questions/15231359/split-python-flask-app-into-multiple-files
 app_expressionotron = Blueprint('app_expressionotron', __name__)
 
-FUNC_BUILDER_FROM_VERSION = {
-    v001: buildExpression_001,
-    v002: buildExpression_002,
-}
 
 def getAndIncreaseNbVisitor():
     """ Lit, puis reecrit des infos dans un fichier texte, sur le serveur.
