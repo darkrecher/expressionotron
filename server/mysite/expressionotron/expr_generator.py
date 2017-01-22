@@ -11,6 +11,11 @@ SEPARATOR_SEED = "_"
 
 
 def makeValidSeed(strSeed):
+    """
+    TODO : docstring expliquant les différents formats possibles de strSeed
+    on peut pas demander du random sur une version précédente de l'expressionotron.
+    C'est bien dommage mais c'est comme ça. Et de toutes façon on n'en a pas besoin.
+    """
     rebuildSeed = False
     strVersion = CURRENT_EXPR_VERSION
     digest = 0
@@ -19,6 +24,7 @@ def makeValidSeed(strSeed):
         # On a uniquement le digest, sans la version. C'est pas grave.
         # On prend ce digest, et on utilisera la version courante
         digest =  int(strSeed)
+
     else:
         # On verifie que la seed respecte le format 000...000_<num_version>
         # Si ce n'est pas le cas, on prendra un digest au hasard, et la version courante.
@@ -29,6 +35,7 @@ def makeValidSeed(strSeed):
             rebuildSeed = True
         elif not strDigest.isdigit():
             rebuildSeed = True
+
         if rebuildSeed:
             strVersion = CURRENT_EXPR_VERSION
             # REC TODO : v001 = 300000000 (un peu arbitraire). v002 = 87295229100.

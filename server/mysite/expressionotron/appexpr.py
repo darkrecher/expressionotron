@@ -3,7 +3,7 @@ import expressionotron.v001.exprBuilder
 b_v1 = expressionotron.v001.exprBuilder
 import expressionotron.v002.expr_builder
 b_v2 = expressionotron.v002.expr_builder
-from expressionotron.seed_validator import makeValidSeed
+from expressionotron.expr_generator import makeValidSeed
 
 
 FUNC_BUILDER_FROM_VERSION = {
