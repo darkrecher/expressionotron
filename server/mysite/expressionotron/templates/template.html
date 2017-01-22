@@ -1,50 +1,76 @@
+<html>
+  <body>
+
     <h1>{{expression|safe}}</h1>
 
     <br/>
     <h3>Partagez cette expression avec vos amis !</h3>
     <p>
-        Envoyez-leur ce lien : <a href="{{permalink_to_expr}}">{{permalink_to_expr}}</a>
+      Envoyez-leur ce lien :
+      <a href="{{permalink_to_expr}}">{{permalink_to_expr}}</a>
     </p>
 
     <br/>
     <h3>Vous en voulez encore ?</h3>
     <form method="GET" action="{{link_to_get_random_expr}}">
-        <input type="submit" value="Oui, je veux une expression au hasard !" />
+      <input type="submit" value="Je veux une expression au hasard."/>
     </form>
+
     <form method="POST" action="{{link_to_post_specific_expr}}">
-        Ou bien, entrez un nombre entre 0 et beaucoup : <input name="seedInForm" />
-        <br/>
-        <input type="submit" value="Parce qu'en fait, je veux une expression pas au hasard !" />
-        <br/>
-        (pour utiliser la version pr&eacute;c&eacute;dente, ajouter "_001" apr&egrave;s votre nombre)
+      Ou bien, entrez un nombre :
+      <input name="seedInForm"/>
+      , et cliquez ici :
+      <input type="submit" value="car je veux une expression pas au hasard." />
+      <br/>
+      (Pour utiliser la version pr&eacute;c&eacute;dente, ajouter "_001" apr&egrave;s votre nombre.)
     </form>
-    J'en veux une dose r&eacute;guli&egrave;re, tous les jours &agrave; 16:64.<br/>
-    Je vais suivre ce compte twitter :
-    <a href="https://twitter.com/expressionotron">https://twitter.com/expressionotron</a>
+
+    <p>
+      J'en veux une dose r&eacute;guli&egrave;re, tous les jours &agrave; 16:64.
+      <br/>
+      Je vais suivre ce compte twitter :
+      <a href="https://twitter.com/expressionotron">https://twitter.com/expressionotron</a>
+    <p>
 
     <br/>
     <h3>Quelques liens</h3>
-    <p>
-        Ce truc est librement et &eacute;hont&eacute;ment inspir&eacute; de l'expressionotron de nioutaik
-        <br/>
-        <a href="http://www.nioutaik.fr/index.php/2007/09/06/386-l-expressionotron">http://www.nioutaik.fr/index.php/2007/09/06/386-l-expressionotron</a>
-    </p>
-    <p>
-        Mon blog (images NSFW) : <a href="http://recher.wordpress.com">http://recher.wordpress.com</a>
-        <br/>
-        Mon twitter : <a href="https://twitter.com/_Recher_">https://twitter.com/_Recher_</a>
-    </p>
-    <p>
-        Des gens biens (images NSFW non plus) : <a href="http://sametmax.com">http://sametmax.com</a>
-    </p>
-    <p>
-        Lien &agrave; pub, qui vous fera perdre du temps de cerveau,
-        <br/>
-        mais qui me fera gagner des bitcoins : <a href="http://recher.pythonanywhere.com/urluth/?u=yns">http://recher.pythonanywhere.com/urluth/?u=yns</a></p>
-    </p>
+    <ul>
+      <li>
+        Ce site est librement et &eacute;hont&eacute;ment inspir&eacute; de
+        <a href="http://www.nioutaik.fr/index.php/2007/09/06/386-l-expressionotron">
+          l'expressionotron de nioutaik.
+        </a>
+      </li>
+      <li>
+        <a href="http://recher.wordpress.com">
+          Mon blog
+        </a>
+        (images NSFW).
+      </li>
+      <li>
+        <a href="https://twitter.com/_Recher_">
+          Mon twitter.
+        </a>
+      </li>
+      <li>
+        <a href="http://sametmax.com">
+          Sam et Max, des gens biens
+        </a>
+        (images NSFW non plus).
+      </li>
+      <li>
+        <a href="http://recher.pythonanywhere.com/urluth/?u=yns">
+          Lien &agrave; publicit&eacute;
+        </a>
+        , votre temps de cerveau me fait gagner des bitcoins.
+      </li>
+    </ul>
 
     <br/>
     <h3>Statistiques super utiles</h3>
     <p>
-        Cette page a &eacute;t&eacute; vue {{nb_visitors}} fois.
+      Cette page a &eacute;t&eacute; vue {{nb_visitors}} fois.
     </p>
+
+  </body>
+</html>
