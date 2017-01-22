@@ -4,7 +4,7 @@
 # (sûrement pour la même raison qu'il faut faire "python -m pip install truc",
 # sûrement parce que je suis sous Windows.)
 
-from expressionotron.v001.exprBuilder import buildExpression
+from expressionotron.v001.expr_builder import buildExpression
 
 
 def test_build_expression_v001_one():

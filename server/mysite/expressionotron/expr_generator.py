@@ -9,8 +9,8 @@ str_seed
 
 import random
 # Renommer tout ça en "expr_generator". "Builder", ça fait bizarre.
-import expressionotron.v001.exprBuilder
-b_v1 = expressionotron.v001.exprBuilder
+import expressionotron.v001.expr_builder
+b_v1 = expressionotron.v001.expr_builder
 import expressionotron.v002.expr_builder
 b_v2 = expressionotron.v002.expr_builder
 
