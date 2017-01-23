@@ -2,23 +2,18 @@
 TODO : expliquer qu'il faut version, seed_max et build_expression
 """
 
+from expressionotron.common_tools import tuple_from_raw_str
 from .dataphrase import (
     RAW_STRING_VERB, RAW_STRING_COMPLEMENT, RAW_STRING_PREFIX_ADJ,
     RAW_STRING_ADJ, RAW_STRING_WHATEVER)
 
 version = '001'
 
-
-def tupleFromRawString(rawString):
-    liElemStripped = [ elem.strip() for elem in rawString.split("\n") ]
-    liElemStrippedFiltered = [ elem for elem in liElemStripped if elem != "" ]
-    return tuple(liElemStrippedFiltered)
-
-TUPLE_VERB = tupleFromRawString(RAW_STRING_VERB)
-TUPLE_COMPLEMENT = tupleFromRawString(RAW_STRING_COMPLEMENT)
-TUPLE_PREFIX_ADJ = tupleFromRawString(RAW_STRING_PREFIX_ADJ)
-TUPLE_ADJ = tupleFromRawString(RAW_STRING_ADJ)
-TUPLE_WHATEVER = tupleFromRawString(RAW_STRING_WHATEVER)
+TUPLE_VERB = tuple_from_raw_str(RAW_STRING_VERB)
+TUPLE_COMPLEMENT = tuple_from_raw_str(RAW_STRING_COMPLEMENT)
+TUPLE_PREFIX_ADJ = tuple_from_raw_str(RAW_STRING_PREFIX_ADJ)
+TUPLE_ADJ = tuple_from_raw_str(RAW_STRING_ADJ)
+TUPLE_WHATEVER = tuple_from_raw_str(RAW_STRING_WHATEVER)
 
 # 1 chance sur 3 de rajouter un prefixe a l'adjectif.
 # Mais on refiltrera encore une fois, en decidant de pas mettre le prefixe

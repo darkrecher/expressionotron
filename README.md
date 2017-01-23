@@ -10,8 +10,6 @@ Mais pour l'instant y'a vraiment rien dedans.
 
 TODOs de code :
 
- - `appexpr.py` : faire un template jinja2 comme il faut
- - `test_expre_v2.py` : y'a du code à factoriser.
  - renommage des variables et des noms de fichiers en respectant le PEP8
  - mettre des simples quote là où il faut
  - `expr_builder.py` : renommer la variables seed_digest

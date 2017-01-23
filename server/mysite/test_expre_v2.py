@@ -1,3 +1,4 @@
+from expressionotron.common_tools import tuple_from_raw_str
 import expressionotron.v002.expr_builder
 
 
@@ -16,13 +17,6 @@ def test_seed_size():
    assert seed_size == 87295229100
 
 
-# REC TODO : fonction que j'ai copié-collé partout. C'est pas bien.
-def tupleFromRawString(rawString):
-    liElemStripped = [ elem.strip() for elem in rawString.split("\n") ]
-    liElemStrippedFiltered = [ elem for elem in liElemStripped if elem != "" ]
-    return tuple(liElemStrippedFiltered)
-
-
 def test_lengths_coherency():
     # On prend pas les RAW_STRING_ADJ_PREFIXES, c'est normal.
     # On s'en sert pas directement pour déterminer la quantité de hasard dispo.
@@ -39,7 +33,7 @@ def test_lengths_coherency():
         RAW_STRING_ADJECTIVES, RAW_STRING_WHATEVERS, RAW_STRING_INTERJECTIONS,
     )
     expr_pieces_no_prefix = [
-        tupleFromRawString(raw_string)
+        tuple_from_raw_str(raw_string)
         for raw_string in raw_strings
     ]
     expr_piece_lengths = tuple(

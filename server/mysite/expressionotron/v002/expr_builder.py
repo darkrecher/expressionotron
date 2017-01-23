@@ -6,6 +6,7 @@ import random
 import functools
 import operator
 
+from expressionotron.common_tools import tuple_from_raw_str
 from .dataphrase import (
     RAW_STRING_VERBS, RAW_STRING_SUBJECTS, RAW_STRING_ADJ_PREFIXES,
     RAW_STRING_ADJECTIVES, RAW_STRING_WHATEVERS, RAW_STRING_INTERJECTIONS,
@@ -15,18 +16,13 @@ from .seeder import data_indexes_from_seed
 version = '002'
 
 
-def tupleFromRawString(rawString):
-    liElemStripped = [ elem.strip() for elem in rawString.split("\n") ]
-    liElemStrippedFiltered = [ elem for elem in liElemStripped if elem != "" ]
-    return tuple(liElemStrippedFiltered)
-
 raw_strings = (
     RAW_STRING_VERBS, RAW_STRING_SUBJECTS, RAW_STRING_ADJ_PREFIXES,
     RAW_STRING_ADJECTIVES, RAW_STRING_WHATEVERS, RAW_STRING_INTERJECTIONS,
 )
 
 (verbs, subjects, adj_prefixes, adjectives, whatevers, interjections) = [
-   tupleFromRawString(raw_string)
+   tuple_from_raw_str(raw_string)
    for raw_string in raw_strings
 ]
 
