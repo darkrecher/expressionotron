@@ -1,3 +1,4 @@
+import datetime
 import random
 import twitter
 from html.parser import HTMLParser
@@ -20,28 +21,30 @@ MAX_TWIT_TRY = 4
 # planifiée ne "sait pas" l'url de la machine sur laquelle elle est exécutée
 EXPRESSIONOTRON_URL = 'https://recher.pythonanywhere.com/expressionotron'
 
-def log(logInfo):
+def log(log_data):
     """ at the arrache. """
     # TODO : try except de gros sale, sans fallback digne de ce nom.
     # si jamais on essaie d'écrire sur une console qui a un encodage de merde,
     # ça devrait pas planter, mais ça fera pas quelque chose de très classe.
     # On s'en fout, c'est rien qu'une fonction de log.
     try:
-        print(str(logInfo))
+        print(str(log_data))
     except Exception as e:
         # TODO : risque aussi de planter, dans un contexte vraiment pourri.
         print("log impossible")
 
-def twitAnExpression(unsafe_expr_gen_key=''):
+def twit_expression(unsafe_expr_gen_key=''):
     """ many thanks to http://wilsonericn.wordpress.com/2011/08/22/tweeting-in-python-the-easy-way/ """
     nbTwitTry = 0
     twitSucceeded = False
     # oui, inf ou egal, oui. voir plus loin. (alarach, quand meme. je dois avouer)
     while nbTwitTry<=MAX_TWIT_TRY and not twitSucceeded:
+        # TODO : claquer un format().
         log("".join(("essai numero : ", str(nbTwitTry))))
         (seed, version) = expr_gen.sanitize_key(unsafe_expr_gen_key)
         expr_gen_key = expr_gen.format_key(seed, version)
-        log("".join(("version:", str(version), " seed:", str(seed))))
+        # TODO : claquer un format().
+        log("".join((datetime.date.today().isoformat(), " version:", str(version), " seed:", str(seed))))
         expression = expr_gen.generate_expression(seed, version)
         log(expression)
         # http://stackoverflow.com/a/730330
