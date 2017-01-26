@@ -22,5 +22,8 @@ Faire la même doc que urluth :
  - readme principal
  - Exécution en local
  - Configuration dans l'hébergeur PythonAnywhere
- - Document de conception (en particulier le twitter bot)
+ - Document de conception en particulier :
+     - le twitter bot.
+     - Ce truc là dans la v002 : "Il n'y a pas les adj_prefixes dans le tuple sur lequel on boucle, c'est normal. On ne les choisit pas raiment aléatoirement. Enfin si, mais pas directement aléatoirement."
+
 

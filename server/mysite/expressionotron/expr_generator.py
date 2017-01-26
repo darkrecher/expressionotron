@@ -15,8 +15,8 @@ import expressionotron.v002.expr_builder
 b_v2 = expressionotron.v002.expr_builder
 
 FUNCTION_GEN_FROM_VERSION = {
-    b_v1.version: b_v1.buildExpression,
-    b_v2.version: b_v2.buildExpression,
+    b_v1.version: b_v1.build_expression,
+    b_v2.version: b_v2.build_expression,
 }
 
 VALID_VERSION_NUMBERS = FUNCTION_GEN_FROM_VERSION.keys()

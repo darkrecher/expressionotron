@@ -5,20 +5,20 @@ TODO : expliquer qu'il faut version, seed_max et build_expression
 import random
 import functools
 import operator
-
 from expressionotron.common_tools import tuple_from_raw_str
-from .dataphrase import (
-    RAW_STRING_VERBS, RAW_STRING_SUBJECTS, RAW_STRING_ADJ_PREFIXES,
-    RAW_STRING_ADJECTIVES, RAW_STRING_WHATEVERS, RAW_STRING_INTERJECTIONS,
-)
+from . import dataphrase
 from .seeder import data_indexes_from_seed
+
 
 version = '002'
 
-
 raw_strings = (
-    RAW_STRING_VERBS, RAW_STRING_SUBJECTS, RAW_STRING_ADJ_PREFIXES,
-    RAW_STRING_ADJECTIVES, RAW_STRING_WHATEVERS, RAW_STRING_INTERJECTIONS,
+    dataphrase.RAW_STRING_VERBS,
+    dataphrase.RAW_STRING_SUBJECTS,
+    dataphrase.RAW_STRING_ADJ_PREFIXES,
+    dataphrase.RAW_STRING_ADJECTIVES,
+    dataphrase.RAW_STRING_WHATEVERS,
+    dataphrase.RAW_STRING_INTERJECTIONS,
 )
 
 (verbs, subjects, adj_prefixes, adjectives, whatevers, interjections) = [
@@ -26,22 +26,22 @@ raw_strings = (
    for raw_string in raw_strings
 ]
 
-# Une seed fixe, pour générer toujours les mêmes shufflers. Comme ça une
-# seed d'expression générera toujours la même expression.
-SEED = "".join((
+# On crée une seed fixe, pour générer toujours les mêmes shufflers.
+# Comme ça une, seed d'expression générera toujours la même expression.
+SEED_SHUFFLERS = "".join((
     "El haya gamila fi 'aineek, ana bahlam beek.",
     "Dayman dayman ahwak wo dayman ahwak.",
     "Inta 'aref leeh."))
-random.seed(SEED)
+random.seed(SEED_SHUFFLERS)
 data_lengths = []
 shufflers = []
 # Il n'y a pas les adj_prefixes dans le tuple sur lequel on boucle,
 # c'est normal. On ne les choisit pas vraiment aléatoirement. Enfin si,
-# mais pas directement aléatoirement. Bon bref voilà quoi.
-for expr_piece in (verbs, subjects, adjectives, whatevers, interjections):
-    len_expr_piece = len(expr_piece)
-    data_lengths.append(len_expr_piece)
-    shuffler = list(range(len_expr_piece))
+# mais pas directement aléatoirement.
+for expr_list in (verbs, subjects, adjectives, whatevers, interjections):
+    len_expr_list = len(expr_list)
+    data_lengths.append(len_expr_list)
+    shuffler = list(range(len_expr_list))
     random.shuffle(shuffler)
     shufflers.append(tuple(shuffler))
 shufflers = tuple(shufflers)
@@ -86,12 +86,9 @@ def _get_adjective_prefix(adjective, index_interjection):
     return adj_prefixes[index_interjection]
 
 
-# REC TODO : seed_digest ça veut rien dire. De plus, il y a plein de seeds
-# différentes, utilisés pour différentes raisons, et il faudrait les nommer
-# correctement. Mais pas là parce que j'ai autre chose à faire.
-def buildExpression(seed_digest):
-    data_indexes = data_indexes_from_seed(data_lengths, seed_digest, shufflers)
-    # On teste pas le nombre d'index renvoyés, ni si ils sont bien inférieurs
+def build_expression(seed_expr):
+    data_indexes = data_indexes_from_seed(data_lengths, seed_expr, shufflers)
+    # On ne teste pas le nombre d'index renvoyés, ni s'ils sont bien inférieurs
     # à la taille des différents tuples de bouts de phrases.
     # Tout cela est censé avoir été fait lors de l'exécution des tests.
     verb = verbs[data_indexes[0]]
@@ -101,15 +98,15 @@ def buildExpression(seed_digest):
     interjection = interjections[data_indexes[4]]
 
     index_interjection = data_indexes[4]
-    adjective_prefix = _get_adjective_prefix(adjective, index_interjection)
+    adj_prefix = _get_adjective_prefix(adjective, index_interjection)
 
-    if adjective_prefix is None:
+    if adj_prefix is None:
         # TODO : mettre des format()
-        tupleElements = (
+        expr_pieces = (
             verb, subject, adjective, whatever, interjection)
-        return "%s %s %s %s !! %s !!1!" % tupleElements
+        return "%s %s %s %s !! %s !!1!" % expr_pieces
     else:
-        tupleElements = (
-            verb, subject, adjective_prefix, adjective, whatever, interjection)
-        return "%s %s %s-%s %s !! %s !!1!" % tupleElements
+        expr_pieces = (
+            verb, subject, adj_prefix, adjective, whatever, interjection)
+        return "%s %s %s-%s %s !! %s !!1!" % expr_pieces
 

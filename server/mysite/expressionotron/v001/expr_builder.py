@@ -2,6 +2,10 @@
 TODO : expliquer qu'il faut version, seed_max et build_expression
 """
 
+# Ce fichier de code ne respecte pas le PEP8, et il est plutôt mal codé.
+# Mais je le laisse comme ça car c'est la version précédente et ce n'est pas
+# grave si elle n'évolue plus. C'est du "code legacy", on va dire.
+
 from expressionotron.common_tools import tuple_from_raw_str
 from .dataphrase import (
     RAW_STRING_VERB, RAW_STRING_COMPLEMENT, RAW_STRING_PREFIX_ADJ,
@@ -65,7 +69,7 @@ def _applyChoices(liChoices):
     return formatExpression % tupleElements
 
 
-def buildExpression(seedDigest):
+def build_expression(seedDigest):
     liChoices = _extractChoices(seedDigest*MULTIPLICATOR)
     return _applyChoices(liChoices)
 

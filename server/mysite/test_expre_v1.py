@@ -4,11 +4,11 @@
 # (sûrement pour la même raison qu'il faut faire "python -m pip install truc",
 # sûrement parce que je suis sous Windows.)
 
-from expressionotron.v001.expr_builder import buildExpression
+from expressionotron.v001.expr_builder import build_expression
 
 
 def test_build_expression_v001_one():
-    assert buildExpression(0) == "&Ccedil;a desquame du doppelganger crypto-bisexuel au Spero Patronum !! 11! !!1"
+    assert build_expression(0) == "&Ccedil;a desquame du doppelganger crypto-bisexuel au Spero Patronum !! 11! !!1"
 
 
 def test_build_expression_v001_many():
@@ -286,6 +286,6 @@ def test_build_expression_v001_many():
         if seed in done:
             print("seed : ", seed, " déjà faite. Pas la peine de la tester deux fois.")
             assert False
-        assert buildExpression(seed) == expression
+        assert build_expression(seed) == expression
         done.append(seed)
 
