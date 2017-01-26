@@ -34,43 +34,51 @@ def log(log_data):
         print("log impossible")
 
 def twit_expression(unsafe_expr_gen_key=''):
-    """ many thanks to http://wilsonericn.wordpress.com/2011/08/22/tweeting-in-python-the-easy-way/ """
-    nbTwitTry = 0
-    twitSucceeded = False
-    # oui, inf ou egal, oui. voir plus loin. (alarach, quand meme. je dois avouer)
-    while nbTwitTry<=MAX_TWIT_TRY and not twitSucceeded:
-        # TODO : claquer un format().
-        log("".join(("essai numero : ", str(nbTwitTry))))
-        (seed, version) = expr_gen.sanitize_key(unsafe_expr_gen_key)
+    """
+    milles mercis à :
+    http://wilsonericn.wordpress.com/2011/08/22/tweeting-in-python-the-easy-way/
+    """
+    twit_try_left = MAX_TWIT_TRY
+    twit_succeeded = False
+
+    while twit_try_left and not twit_succeeded:
+
+        seed, version) = expr_gen.sanitize_key(unsafe_expr_gen_key)
         expr_gen_key = expr_gen.format_key(seed, version)
         # TODO : claquer un format().
         log("".join((datetime.date.today().isoformat(), " version:", str(version), " seed:", str(seed))))
         expression = expr_gen.generate_expression(seed, version)
         log(expression)
         # http://stackoverflow.com/a/730330
-        uExpr = parser.unescape(expression)
-        uExpr = uExpr[:NB_CHAR_LIMIT_WITHOUT_LINK]
-        # TODO : claquer un format(). et utiliser expr_gen_key au lieu de recréer à l'arrache.
+        expression = parser.unescape(expression)
+        expression = expression[:NB_CHAR_LIMIT_WITHOUT_LINK]
+        # TODO : claquer un format().
         # http://sametmax.com/le-formatage-des-strings-en-long-et-en-large/
-        textTwit = uExpr + " " + EXPRESSIONOTRON_URL + "?seed=" + str(seed) + "_" + str(version)
-        log(textTwit)
+        twit_text = expression + " " + EXPRESSIONOTRON_URL + "?seed=" + expr_gen_key
+        log(twit_text)
+
         try:
+            # TODO : nom de variable en PEP8
             my_auth = twitter.OAuth(
                 twit_pass.token,
                 twit_pass.tokenKey,
                 twit_pass.conSecret,
                 twit_pass.conSecretKey)
             twit = twitter.Twitter(auth=my_auth)
-            twit.statuses.update(status=textTwit)
-            #a = 5 / 0
+            twit.statuses.update(status=twit_text)
         except Exception as e:
+            twit_try_left -= 1
             log("twit echec")
+            # TODO : claquer un format().
+            log("".join(("essais restants : ", str(twit_try_left))))
             log(e)
-            if nbTwitTry == MAX_TWIT_TRY:
+            # Un peu inutile, mais je préfère nettoyer les variables avant
+            # de faire l'essai suivant.
+            my_auth = None
+            twit = None
+            if not twit_try_left:
                 raise
         else:
             log("twit reussi")
-            twitSucceeded = True
-        my_auth = None
-        twit = None
-        nbTwitTry += 1
+            twit_succeeded = True
+
