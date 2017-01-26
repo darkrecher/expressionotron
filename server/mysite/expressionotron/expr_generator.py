@@ -31,7 +31,6 @@ def sanitize_key(unsafe_expr_gen_key):
     on peut pas demander du random sur une version précédente de l'expressionotron.
     C'est bien dommage mais c'est comme ça. Et de toutes façon on n'en a pas besoin.
     """
-    rebuildSeed = False
     version = CURRENT_EXPR_VERSION
     seed = 0
 
@@ -43,7 +42,8 @@ def sanitize_key(unsafe_expr_gen_key):
         return (seed, version)
 
     # On verifie que la seed respecte le format <digits>_<num_version>
-    # Si ce n'est pas le cas, on prendra un seed au hasard, et la version courante.
+    # Si ce n'est pas le cas, on prendra un seed au hasard,
+    # et la version courante.
     str_seed, sep, version = unsafe_expr_gen_key.partition(SEPARATOR_SEED)
     is_safe = all((
         sep == SEPARATOR_SEED,
@@ -71,6 +71,7 @@ def generate_expression(seed, version):
 
 def format_key(seed, version):
     """
-    fonction recréant une expr_gen_key à partir de seed/seed_str et de gen_version.
+    fonction recréant une expr_gen_key à partir de seed/seed_str
+    et de gen_version.
     """
     return SEPARATOR_SEED.join((str(seed), version))
