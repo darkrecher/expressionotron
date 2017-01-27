@@ -28,10 +28,10 @@ raw_strings = (
 
 # On crée une seed fixe, pour générer toujours les mêmes shufflers.
 # Comme ça une, seed d'expression générera toujours la même expression.
-SEED_SHUFFLERS = "".join((
-    "El haya gamila fi 'aineek, ana bahlam beek.",
-    "Dayman dayman ahwak wo dayman ahwak.",
-    "Inta 'aref leeh."))
+SEED_SHUFFLERS = (''
+    'El haya gamila fi \'aineek, ana bahlam beek.'
+    'Dayman dayman ahwak wo dayman ahwak.'
+    'Inta \'aref leeh.')
 random.seed(SEED_SHUFFLERS)
 data_lengths = []
 shufflers = []
@@ -80,7 +80,7 @@ def _get_adjective_prefix(adjective, index_interjection):
     # certains adjectifs tordus, comme "+5" sont sans espaces, mais ont
     # l'air bizarre lorsqu'on leur met un préfixe. Ce sera pour la prochaine
     # version (si y'en a une un jour)
-    if " " in adjective:
+    if ' ' in adjective:
         return None
 
     return adj_prefixes[index_interjection]
@@ -104,9 +104,9 @@ def build_expression(seed_expr):
         # TODO : mettre des format()
         expr_pieces = (
             verb, subject, adjective, whatever, interjection)
-        return "%s %s %s %s !! %s !!1!" % expr_pieces
+        return '%s %s %s %s !! %s !!1!' % expr_pieces
     else:
         expr_pieces = (
             verb, subject, adj_prefix, adjective, whatever, interjection)
-        return "%s %s %s-%s %s !! %s !!1!" % expr_pieces
+        return '%s %s %s-%s %s !! %s !!1!' % expr_pieces
 

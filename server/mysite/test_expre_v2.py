@@ -2,6 +2,13 @@ from expressionotron.common_tools import tuple_from_raw_str
 import expressionotron.v002.expr_builder
 
 
+def test_tuple_from_raw_str_doctest():
+    import doctest
+    import expressionotron.common_tools
+    (failure_count, test_count) = doctest.testmod(expressionotron.common_tools)
+    assert failure_count == 0
+
+
 def test_shufflers_coverage():
     shufflers = expressionotron.v002.expr_builder.shufflers
     for shuffler in shufflers:

@@ -22,7 +22,7 @@ FUNCTION_GEN_FROM_VERSION = {
 VALID_VERSION_NUMBERS = FUNCTION_GEN_FROM_VERSION.keys()
 CURRENT_EXPR_VERSION = b_v2.version
 CURRENT_EXPR_SEED_MAX = b_v2.seed_max
-SEPARATOR_SEED = "_"
+SEPARATOR_SEED = '_'
 
 
 def sanitize_key(unsafe_expr_gen_key):

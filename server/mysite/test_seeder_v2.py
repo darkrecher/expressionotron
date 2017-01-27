@@ -84,13 +84,13 @@ def test_coverage_random():
     for i in range(nb_data_index):
         current_lengths += random.randrange(4)
         data_index_lengths.append(current_lengths)
-    print("data_index_lengths :", data_index_lengths)
+    print('data_index_lengths :', data_index_lengths)
 
     # Renvoyer une liste mélangée : http://stackoverflow.com/a/12978830
     shufflers = [
         random.sample(range(data_index_length), data_index_length)
         for data_index_length in data_index_lengths ]
-    print("shufflers :", shufflers)
+    print('shufflers :', shufflers)
 
     total_length = functools.reduce(operator.mul, data_index_lengths)
     data_indexes_lists = [

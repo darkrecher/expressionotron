@@ -31,7 +31,7 @@ def log(log_data):
         print(str(log_data))
     except Exception as e:
         # TODO : risque aussi de planter, dans un contexte vraiment pourri.
-        print("log impossible")
+        print('log impossible')
 
 def twit_expression(unsafe_expr_gen_key=''):
     """
@@ -46,7 +46,7 @@ def twit_expression(unsafe_expr_gen_key=''):
         seed, version) = expr_gen.sanitize_key(unsafe_expr_gen_key)
         expr_gen_key = expr_gen.format_key(seed, version)
         # TODO : claquer un format().
-        log("".join((datetime.date.today().isoformat(), " version:", str(version), " seed:", str(seed))))
+        log(''.join((datetime.date.today().isoformat(), ' version:', str(version), ' seed:', str(seed))))
         expression = expr_gen.generate_expression(seed, version)
         log(expression)
         # http://stackoverflow.com/a/730330
@@ -54,7 +54,7 @@ def twit_expression(unsafe_expr_gen_key=''):
         expression = expression[:NB_CHAR_LIMIT_WITHOUT_LINK]
         # TODO : claquer un format().
         # http://sametmax.com/le-formatage-des-strings-en-long-et-en-large/
-        twit_text = expression + " " + EXPRESSIONOTRON_URL + "?seed=" + expr_gen_key
+        twit_text = expression + ' ' + EXPRESSIONOTRON_URL + '?seed=' + expr_gen_key
         log(twit_text)
 
         try:
@@ -68,9 +68,9 @@ def twit_expression(unsafe_expr_gen_key=''):
             twit.statuses.update(status=twit_text)
         except Exception as e:
             twit_try_left -= 1
-            log("twit echec")
+            log('twit echec')
             # TODO : claquer un format().
-            log("".join(("essais restants : ", str(twit_try_left))))
+            log(''.join(('essais restants : ', str(twit_try_left))))
             log(e)
             # Un peu inutile, mais je préfère nettoyer les variables avant
             # de faire l'essai suivant.
@@ -79,6 +79,6 @@ def twit_expression(unsafe_expr_gen_key=''):
             if not twit_try_left:
                 raise
         else:
-            log("twit reussi")
+            log('twit reussi')
             twit_succeeded = True
 

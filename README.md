@@ -10,7 +10,6 @@ Mais pour l'instant y'a vraiment rien dedans.
 
 TODOs de code :
 
- - mettre des simples quote là où il faut
  - `twitBot.py` : fallback pas sérieux dans le try-except de la fonction log
  - Revérifier l'utilité de tous les imports, et la façon dont ils sont faits. (éviter les relatifs)
  - Passe globale sur tous les TODOs.

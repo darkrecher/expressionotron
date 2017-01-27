@@ -2,7 +2,6 @@ from flask import Blueprint, request, url_for, render_template
 import expressionotron.expr_generator
 expr_gen = expressionotron.expr_generator
 
-
 # http://stackoverflow.com/questions/15231359/split-python-flask-app-into-multiple-files
 # http://flask.pocoo.org/docs/0.11/api/#flask.render_template
 # http://flask.pocoo.org/docs/0.11/blueprints/
@@ -24,14 +23,14 @@ def get_and_increase_nb_visit():
     # revenir au début du fichier entre la lecture et l'écriture.
     # ouvrir le fichier en le créant s'il n'existe pas.
 
-    filename_visit_count = "/home/Recher/mysite/expressionotron/blorp.txt"
+    filename_visit_count = '/home/Recher/mysite/expressionotron/blorp.txt'
 
     try:
-        file_visit_read = open(filename_visit_count, "r")
+        file_visit_read = open(filename_visit_count, 'r')
         str_nb_visit = file_visit_read.read()
         file_visit_read.close()
     except IOError:
-        str_nb_visit = "0"
+        str_nb_visit = '0'
 
     if str_nb_visit.isdigit():
         nb_visit = int(str_nb_visit)
@@ -41,7 +40,7 @@ def get_and_increase_nb_visit():
     str_nb_visit = str(nb_visit)
 
     try:
-        file_visitor_write = open(filename_visit_count, "w")
+        file_visitor_write = open(filename_visit_count, 'w')
         file_visitor_write.write(str_nb_visit)
         file_visitor_write.close()
     except IOError:
@@ -63,27 +62,27 @@ def webpage_expressionotron(unsafe_expr_gen_key):
     # http://flask.pocoo.org/docs/0.12/api/#flask.url_for
     # http://stackoverflow.com/questions/39262172/flask-nginx-url-for-external
     permalink = url_for(
-        ".expressionotron_get",
+        '.expressionotron_get',
         _external=True,
         seed=expr_gen_key)
 
     params_template = {
-        "expression": expression,
-        "permalink_to_expr": permalink,
-        "link_to_get_random_expr": url_for(".expressionotron_get"),
-        "link_to_post_specific_expr": url_for(".expressionotron_post"),
-        "nb_visitors": nb_visit,
+        'expression': expression,
+        'permalink_to_expr': permalink,
+        'link_to_get_random_expr': url_for('.expressionotron_get'),
+        'link_to_post_specific_expr': url_for('.expressionotron_post'),
+        'nb_visitors': nb_visit,
     }
 
     return render_template('template.html', **params_template)
 
 @app_expressionotron.route('/', methods=['POST'])
 def expressionotron_post():
-    unsafe_expr_gen_key = request.form["seedInForm"]
+    unsafe_expr_gen_key = request.form['seedInForm']
     return webpage_expressionotron(unsafe_expr_gen_key)
 
 @app_expressionotron.route('/', methods=['GET'])
 def expressionotron_get():
-    unsafe_expr_gen_key = request.args.get("seed", "")
+    unsafe_expr_gen_key = request.args.get('seed', '')
     return webpage_expressionotron(unsafe_expr_gen_key)
 
