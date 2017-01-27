@@ -280,12 +280,6 @@ def test_build_expression_v001_many():
         ("&Ccedil;a prol&eacute;tarise du tyrannosaure endo-moldave au b&acirc;ton de berger !! 11! !!1", 126915805),
     )
 
-    done = []
-
     for (expression, seed) in TEST_DATA:
-        if seed in done:
-            print("seed : ", seed, " déjà faite. Pas la peine de la tester deux fois.")
-            assert False
         assert build_expression(seed) == expression
-        done.append(seed)
 

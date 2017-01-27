@@ -1,5 +1,3 @@
-# python -m py.test
-
 import itertools
 import functools
 import operator
@@ -84,7 +82,7 @@ def test_coverage_random():
     data_index_lengths = []
     current_lengths = 1
     for i in range(nb_data_index):
-        current_lengths += random.randrange(6)
+        current_lengths += random.randrange(4)
         data_index_lengths.append(current_lengths)
     print("data_index_lengths :", data_index_lengths)
 
@@ -110,7 +108,7 @@ def test_coverage_random():
 
 def test_no_proximity():
     """
-       Test de non-proximité des seeds, sur une grande plage, sans shuffle.
+    Test de non-proximité des seeds, sur une grande plage, sans shuffle.
     """
     data_index_lengths = (5, 20, 40, 45)
     # Pour faire foirer le test :

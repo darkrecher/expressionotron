@@ -1,3 +1,7 @@
+# Ce fichier de code ne sert plus à grand chose.
+# Il m'a juste permis de lister les morceaux de phrases dans le bon ordre,
+# pour détecter les doublons.
+
 
 from expressionotron.v002.dataphrase import (
     RAW_STRING_VERBS,

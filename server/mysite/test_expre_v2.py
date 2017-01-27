@@ -37,13 +37,13 @@ def test_lengths_coherency():
         for raw_string in raw_strings
     ]
     expr_piece_lengths = tuple(
-        ( len(expr_piece) for expr_piece in expr_pieces_no_prefix )
+        (len(expr_piece) for expr_piece in expr_pieces_no_prefix)
     )
     assert data_lengths == expr_piece_lengths
 
     shufflers = expressionotron.v002.expr_builder.shufflers
     shuffler_lengths = tuple(
-        ( len(shuffler) for shuffler in shufflers )
+        (len(shuffler) for shuffler in shufflers)
     )
     assert data_lengths == shuffler_lengths
 
