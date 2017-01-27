@@ -10,7 +10,6 @@ Mais pour l'instant y'a vraiment rien dedans.
 
 TODOs de code :
 
- - renommage des variables et des noms de fichiers en respectant le PEP8
  - mettre des simples quote là où il faut
  - `expr_builder.py` : renommer la variables seed_digest
  - `twitBot.py` : fallback pas sérieux dans le try-except de la fonction log

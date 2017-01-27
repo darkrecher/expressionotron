@@ -10,8 +10,8 @@ def data_indexes_from_seed(data_index_lengths, seed, shufflers=None):
 
     Tous les résultats possibles sont couverts, pour une seed
     variant de 0 à (data_index_lengths[0] * data_index_lengths[1] * ...) - 1.
-    Deux seed proches renvoient des suites de data_index éloignées.
-    Presque tous les data_indexes changent entre deux seed consécutives.
+    Deux seeds proches renvoient des suites de data_index éloignées.
+    Presque tous les data_indexes changent entre deux seeds consécutives.
     Si les valeurs de data_index_lengths sont suffisamment grandes, il y a
     encore plus de chances que les data_indexes changent tous.
 
@@ -86,7 +86,7 @@ def data_indexes_from_seed(data_index_lengths, seed, shufflers=None):
         randomizer_indexes.append(randomizer_index_backward)
 
     # Redéfinit chaque randomizer index,
-    # en les mélangeant à l'aide des shufflers
+    # en les mélangeant à l'aide des shufflers.
     if shufflers is not None:
         randomizer_indexes_shuffled = [
             shufflers[meta_index][randomizer_indexes[meta_index]]
