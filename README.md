@@ -21,5 +21,6 @@ Faire la même doc que urluth :
  - Document de conception en particulier :
      - le twitter bot.
      - Ce truc là dans la v002 : "Il n'y a pas les adj_prefixes dans le tuple sur lequel on boucle, c'est normal. On ne les choisit pas raiment aléatoirement. Enfin si, mais pas directement aléatoirement."
+     - y'a pas de check sur la valeur max de la seed, ni de modulo, car ça se fait tout seul. (Faut juste retrouver comment)
 
 

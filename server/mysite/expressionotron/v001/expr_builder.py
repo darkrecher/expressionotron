@@ -1,5 +1,21 @@
 """
-TODO : expliquer qu'il faut version, seed_max et build_expression
+Module permettant de générer une expression top délire à partir d'une seed.
+
+Toutes les modules de générateur d'expression doivent obligatoirement
+comporter les éléments suivants :
+
+version : chaîne de caractère. Indique la version du module.
+
+build_expression : fonction nécessitant un paramètre 'seed' (valeur numérique)
+et renvoyant une chaîne de caractère (l'expression). La même seed doit
+toujours renvoyer la même expression.
+
+seed_max : valeur numérique. Elle renseigne sur la quantité d'expression qui
+peuvent être générées. Idéalement, si on fait varier le paramètre 'seed'
+de 0 à seed_max, on devrait couvrir toutes les expressions possibles, sans
+qu'il y ait de doublons.
+Pour cette version '001', cette consigne n'est pas respectée, la valeur de
+seed_max est fortement arbitraire. Mais le module fonctionne quand même.
 """
 
 # Ce fichier de code ne respecte pas le PEP8, et il est plutôt mal codé.
