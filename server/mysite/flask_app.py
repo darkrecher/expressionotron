@@ -48,7 +48,10 @@ def mainPage():
 
 
 if __name__ == '__main__':
+    debug_mode = False
     # http://stackoverflow.com/questions/17743019/flask-logging-cannot-get-it-to-write-to-a-file
+    # https://docs.python.org/2/howto/logging.html#changing-the-format-of-displayed-messages
     import logging
-    logging.basicConfig(level=logging.DEBUG)
+    if debug_mode:
+        logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s')
     app.run(debug=False)
