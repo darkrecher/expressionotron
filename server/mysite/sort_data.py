@@ -2,14 +2,8 @@
 # Il m'a juste permis de lister les morceaux de phrases dans le bon ordre,
 # pour détecter les doublons.
 
-
-from expressionotron.v002.dataphrase import (
-    RAW_STRING_VERBS,
-    RAW_STRING_SUBJECTS,
-    RAW_STRING_ADJ_PREFIXES,
-    RAW_STRING_ADJECTIVES,
-    RAW_STRING_WHATEVERS,
-    RAW_STRING_INTERJECTIONS)
+import expressionotron.v002.dataphrase
+v2phrase = expressionotron.v002.dataphrase
 
 
 def list_from_raw_string(raw_string):
@@ -30,32 +24,32 @@ def print_sorted_elems(raw_string):
 
 
 print('RAW_STRING_VERBS = """')
-print_sorted_elems(RAW_STRING_VERBS)
+print_sorted_elems(v2phrase.RAW_STRING_VERBS)
 print('"""')
 print('')
 
 print('RAW_STRING_SUBJECTS = """')
-print_sorted_elems(RAW_STRING_SUBJECTS)
+print_sorted_elems(v2phrase.RAW_STRING_SUBJECTS)
 print('"""')
 print('')
 
 print('RAW_STRING_ADJ_PREFIXES = """')
-print_sorted_elems(RAW_STRING_ADJ_PREFIXES)
+print_sorted_elems(v2phrase.RAW_STRING_ADJ_PREFIXES)
 print('"""')
 print('')
 
 print('RAW_STRING_ADJECTIVES = """')
-print_sorted_elems(RAW_STRING_ADJECTIVES)
+print_sorted_elems(v2phrase.RAW_STRING_ADJECTIVES)
 print('"""')
 print('')
 
 print('RAW_STRING_WHATEVERS = """')
-print_sorted_elems(RAW_STRING_WHATEVERS)
+print_sorted_elems(v2phrase.RAW_STRING_WHATEVERS)
 print('"""')
 print('')
 
 print('RAW_STRING_INTERJECTIONS = """')
-print_sorted_elems(RAW_STRING_INTERJECTIONS)
+print_sorted_elems(v2phrase.RAW_STRING_INTERJECTIONS)
 print('"""')
 print('')
 

@@ -1,4 +1,5 @@
 from flask import Blueprint, request, url_for, render_template
+
 import expressionotron.expr_generator
 expr_gen = expressionotron.expr_generator
 
@@ -75,6 +76,7 @@ def webpage_expressionotron(unsafe_expr_gen_key):
     }
 
     return render_template('template.html', **params_template)
+
 
 @app_expressionotron.route('/', methods=['POST'])
 def expressionotron_post():

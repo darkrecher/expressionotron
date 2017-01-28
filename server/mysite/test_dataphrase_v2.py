@@ -1,21 +1,15 @@
-from expressionotron.v002.dataphrase import (
-    RAW_STRING_VERBS,
-    RAW_STRING_SUBJECTS,
-    RAW_STRING_ADJ_PREFIXES,
-    RAW_STRING_ADJECTIVES,
-    RAW_STRING_WHATEVERS,
-    RAW_STRING_INTERJECTIONS)
-
+import expressionotron.v002.dataphrase
+v2phrase = expressionotron.v002.dataphrase
 
 def test_no_strange_char_in_raw_strings():
 
     total_string = '\n'.join((
-        RAW_STRING_VERBS,
-        RAW_STRING_SUBJECTS,
-        RAW_STRING_ADJ_PREFIXES,
-        RAW_STRING_ADJECTIVES,
-        RAW_STRING_WHATEVERS,
-        RAW_STRING_INTERJECTIONS))
+        v2phrase.RAW_STRING_VERBS,
+        v2phrase.RAW_STRING_SUBJECTS,
+        v2phrase.RAW_STRING_ADJ_PREFIXES,
+        v2phrase.RAW_STRING_ADJECTIVES,
+        v2phrase.RAW_STRING_WHATEVERS,
+        v2phrase.RAW_STRING_INTERJECTIONS))
 
     # Les caractères ASCII mais pas tous.
     AUTHORIZED_CHARS = (''

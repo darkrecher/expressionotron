@@ -3,6 +3,7 @@ import datetime
 import random
 import twitter
 from html.parser import HTMLParser
+
 import expressionotron.expr_generator
 expr_gen = expressionotron.expr_generator
 import expressionotron.twit_pass
@@ -19,7 +20,7 @@ MAX_TWIT_TRY = 4
 
 # Je suis obligé de mettre ça en constante, car la tâche planifiée dans
 # pythonanywhere est indépendante des tâches du serveur flask. Donc la tâche
-# planifiée ne "sait pas" l'url de la machine sur laquelle elle est exécutée
+# planifiée ne "sait pas" l'url de la machine sur laquelle elle est exécutée.
 EXPRESSIONOTRON_URL = 'https://recher.pythonanywhere.com/expressionotron'
 
 

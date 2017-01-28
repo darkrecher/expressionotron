@@ -122,3 +122,15 @@ def test_shufflers_reference():
     )
     assert expressionotron.v002.expr_builder.shufflers == shufflers_reference
 
+
+def test_build_expression():
+
+    build_expression = expressionotron.v002.expr_builder.build_expression
+
+    TEST_DATA = (
+        ("sashimi du ministre clignotant au monoxyde de dihydrog&egrave;ne !! Shazam !!1!", 0),
+        ("&Ccedil;a corrompt du sbire anarcho-inverti comme dans un vieux rock'n'roll !! &#1057;&#1090;&#1086; &#1086;&#1076;&#1080;&#1085;&#1085;&#1072;&#1076;&#1094;&#1072;&#1090;&#1100; &#1086;&#1076;&#1080;&#1085; !!1!", 1),
+    )
+
+    for (expression, seed) in TEST_DATA:
+        assert build_expression(seed) == expression

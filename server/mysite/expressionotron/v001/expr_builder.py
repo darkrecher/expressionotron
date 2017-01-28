@@ -6,10 +6,13 @@ TODO : expliquer qu'il faut version, seed_max et build_expression
 # Mais je le laisse comme ça car c'est la version précédente et ce n'est pas
 # grave si elle n'évolue plus. C'est du "code legacy", on va dire.
 
+import functools
+
 from expressionotron.common_tools import tuple_from_raw_str
 from .dataphrase import (
     RAW_STRING_VERB, RAW_STRING_COMPLEMENT, RAW_STRING_PREFIX_ADJ,
     RAW_STRING_ADJ, RAW_STRING_WHATEVER)
+
 
 version = '001'
 
@@ -35,7 +38,6 @@ TUPLE_NB_POSSIBILITIES = (
 # Example : La taille des listes est (100, 100, 3, 54, 120)
 # Alors, MULTIPLICATOR vaudra 99 * 99 * 2 * 53 * 119 - 1
 # (Pas sur du tout que ce soit une bonne methode, mais j'emmerde les maths.)
-import functools
 MULTIPLICATOR = functools.reduce(lambda x, y: x*(y-1), TUPLE_NB_POSSIBILITIES, 1) - 1
 
 # Valeur totalement arbitraire. Mais c'est celle que j'utilisais dans cette

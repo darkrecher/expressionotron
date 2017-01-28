@@ -8,12 +8,15 @@ str_seed
 """
 
 import random
-# Renommer tout ça en "expr_generator". "Builder", ça fait bizarre.
+
+# TODO : Renommer tout ça en "expr_generator". "Builder", ça fait bizarre.
 import expressionotron.v001.expr_builder
+# TODO : du coup, renommer ces "b_" qui ne veulent rien dire.
 b_v1 = expressionotron.v001.expr_builder
 import expressionotron.v002.expr_builder
 b_v2 = expressionotron.v002.expr_builder
 
+# TOOD : Renommer ça en "generate_expression"
 FUNCTION_GEN_FROM_VERSION = {
     b_v1.version: b_v1.build_expression,
     b_v2.version: b_v2.build_expression,

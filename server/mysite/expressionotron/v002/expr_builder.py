@@ -5,6 +5,7 @@ TODO : expliquer qu'il faut version, seed_max et build_expression
 import random
 import functools
 import operator
+
 from expressionotron.common_tools import tuple_from_raw_str
 from . import dataphrase
 from .seeder import data_indexes_from_seed
