@@ -36,16 +36,20 @@ def twit_expression(unsafe_expr_gen_key=''):
 
         (seed, version) = expr_gen.sanitize_key(unsafe_expr_gen_key)
         expr_gen_key = expr_gen.format_key(seed, version)
-        # TODO : claquer un format().
-        logging.debug(''.join((datetime.date.today().isoformat(), ' version:', str(version), ' seed:', str(seed))))
+        logging.debug('%s version: %s seed: %s' % (
+            datetime.date.today().isoformat(),
+            version,
+            seed))
         expression = expr_gen.generate_expression(seed, version)
         logging.debug(expression)
         # http://stackoverflow.com/a/730330
         expression = parser.unescape(expression)
         expression = expression[:NB_CHAR_LIMIT_WITHOUT_LINK]
-        # TODO : claquer un format().
         # http://sametmax.com/le-formatage-des-strings-en-long-et-en-large/
-        twit_text = expression + ' ' + EXPRESSIONOTRON_URL + '?seed=' + expr_gen_key
+        twit_text = '%s %s?seed=%s' % (
+            expression,
+            EXPRESSIONOTRON_URL,
+            expr_gen_key)
         logging.debug(twit_text)
 
         try:
@@ -60,8 +64,7 @@ def twit_expression(unsafe_expr_gen_key=''):
         except Exception as e:
             twit_try_left -= 1
             logging.error('twit echec')
-            # TODO : claquer un format().
-            logging.error(''.join(('essais restants : ', str(twit_try_left))))
+            logging.error('essais restants: %s' % twit_try_left)
             logging.error(e)
             # Un peu inutile, mais je préfère nettoyer les variables avant
             # de faire l'essai suivant.

@@ -103,6 +103,8 @@ def _get_adjective_prefix(adjective, index_interjection):
 
     return adj_prefixes[index_interjection]
 
+TEMPLATE_EXPR = '%(verb)s %(subj)s %(prfx)s-%(adj)s %(what)s !! %(intrj)s !!1!'
+TEMPLATE_EXPR_NO_PRFIX = '%(verb)s %(subj)s %(adj)s %(what)s !! %(intrj)s !!1!'
 
 def generate_expression(seed_expr):
     data_indexes = data_indexes_from_seed(data_lengths, seed_expr, shufflers)
@@ -118,13 +120,18 @@ def generate_expression(seed_expr):
     index_interjection = data_indexes[4]
     adj_prefix = _get_adjective_prefix(adjective, index_interjection)
 
-    if adj_prefix is None:
-        # TODO : mettre des format()
-        expr_pieces = (
-            verb, subject, adjective, whatever, interjection)
-        return '%s %s %s %s !! %s !!1!' % expr_pieces
-    else:
-        expr_pieces = (
-            verb, subject, adj_prefix, adjective, whatever, interjection)
-        return '%s %s %s-%s %s !! %s !!1!' % expr_pieces
+    expr_pieces = {
+        'verb': verb,
+        'subj': subject,
+        'prfx': adj_prefix,
+        'adj': adjective,
+        'what': whatever,
+        'intrj': interjection,
+    }
 
+    if adj_prefix is None:
+        template_expression = TEMPLATE_EXPR_NO_PRFIX
+    else:
+        template_expression = TEMPLATE_EXPR
+
+    return template_expression % expr_pieces
