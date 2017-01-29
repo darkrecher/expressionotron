@@ -6,7 +6,7 @@ comporter les éléments suivants :
 
 version : chaîne de caractère. Indique la version du module.
 
-build_expression : fonction nécessitant un paramètre 'seed' (valeur numérique)
+generate_expression : fonction nécessitant un paramètre 'seed' (valeur numérique)
 et renvoyant une chaîne de caractère (l'expression). La même seed doit
 toujours renvoyer la même expression.
 
@@ -87,7 +87,7 @@ def _applyChoices(liChoices):
     return formatExpression % tupleElements
 
 
-def build_expression(seedDigest):
+def generate_expression(seedDigest):
     liChoices = _extractChoices(seedDigest*MULTIPLICATOR)
     return _applyChoices(liChoices)
 

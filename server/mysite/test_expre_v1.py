@@ -4,14 +4,14 @@
 # (sûrement pour la même raison qu'il faut faire "python -m pip install truc",
 # sûrement parce que je suis sous Windows.)
 
-from expressionotron.v001.expr_builder import build_expression
+from expressionotron.v001.expr_generator import generate_expression
 
 
-def test_build_expression_v001_one():
-    assert build_expression(0) == "&Ccedil;a desquame du doppelganger crypto-bisexuel au Spero Patronum !! 11! !!1"
+def test_generate_expression_v001_one():
+    assert generate_expression(0) == "&Ccedil;a desquame du doppelganger crypto-bisexuel au Spero Patronum !! 11! !!1"
 
 
-def test_build_expression_v001_many():
+def test_generate_expression_v001_many():
 
     TEST_DATA = (
         ("&Ccedil;a tron&ccedil;onne du chaton en armure de plates &agrave; la Holy Grenade !! 11! !!1", 140997840),
@@ -281,5 +281,5 @@ def test_build_expression_v001_many():
     )
 
     for (expression, seed) in TEST_DATA:
-        assert build_expression(seed) == expression
+        assert generate_expression(seed) == expression
 

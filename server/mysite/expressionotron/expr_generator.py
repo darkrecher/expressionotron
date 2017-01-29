@@ -33,25 +33,22 @@ Exemple : '1234' au lieu de 1234.
 
 import random
 
-# TODO : Renommer tout ça en "expr_generator". "Builder", ça fait bizarre.
 import expressionotron.v001.expr_generator
-# TODO : du coup, renommer ces "b_" qui ne veulent rien dire.
-b_v1 = expressionotron.v001.expr_generator
+expr_gen_v1 = expressionotron.v001.expr_generator
 import expressionotron.v002.expr_generator
-b_v2 = expressionotron.v002.expr_generator
+expr_gen_v2 = expressionotron.v002.expr_generator
 
-# TOOD : Renommer ça en "generate_expression"
 FUNCTION_GEN_FROM_VERSION = {
-    b_v1.version: b_v1.build_expression,
-    b_v2.version: b_v2.build_expression,
+    expr_gen_v1.version: expr_gen_v1.generate_expression,
+    expr_gen_v2.version: expr_gen_v2.generate_expression,
 }
 
 VALID_VERSION_NUMBERS = FUNCTION_GEN_FROM_VERSION.keys()
 # Version courante du générateur d'expression : '002'
 # C'est la version qui est utilisée lorsqu'il n'est pas possible de déterminer
 # la version choisie à partir de unsafe_expr_gen_key.
-CURRENT_EXPR_VERSION = b_v2.version
-CURRENT_EXPR_SEED_MAX = b_v2.seed_max
+CURRENT_EXPR_VERSION = expr_gen_v2.version
+CURRENT_EXPR_SEED_MAX = expr_gen_v2.seed_max
 SEPARATOR_SEED = '_'
 
 

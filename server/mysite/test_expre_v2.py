@@ -123,9 +123,9 @@ def test_shufflers_reference():
     assert expressionotron.v002.expr_generator.shufflers == shufflers_reference
 
 
-def test_build_expression():
+def test_generate_expression():
 
-    build_expression = expressionotron.v002.expr_generator.build_expression
+    generate_expression = expressionotron.v002.expr_generator.generate_expression
 
     TEST_DATA = (
         ("sashimi du ministre clignotant au monoxyde de dihydrog&egrave;ne !! Shazam !!1!", 0),
@@ -133,4 +133,4 @@ def test_build_expression():
     )
 
     for (expression, seed) in TEST_DATA:
-        assert build_expression(seed) == expression
+        assert generate_expression(seed) == expression
