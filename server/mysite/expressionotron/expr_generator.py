@@ -34,11 +34,11 @@ Exemple : '1234' au lieu de 1234.
 import random
 
 # TODO : Renommer tout ça en "expr_generator". "Builder", ça fait bizarre.
-import expressionotron.v001.expr_builder
+import expressionotron.v001.expr_generator
 # TODO : du coup, renommer ces "b_" qui ne veulent rien dire.
-b_v1 = expressionotron.v001.expr_builder
-import expressionotron.v002.expr_builder
-b_v2 = expressionotron.v002.expr_builder
+b_v1 = expressionotron.v001.expr_generator
+import expressionotron.v002.expr_generator
+b_v2 = expressionotron.v002.expr_generator
 
 # TOOD : Renommer ça en "generate_expression"
 FUNCTION_GEN_FROM_VERSION = {

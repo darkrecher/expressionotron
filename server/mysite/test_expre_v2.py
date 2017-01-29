@@ -1,5 +1,5 @@
 from expressionotron.common_tools import tuple_from_raw_str
-import expressionotron.v002.expr_builder
+import expressionotron.v002.expr_generator
 
 
 def test_tuple_from_raw_str_doctest():
@@ -10,7 +10,7 @@ def test_tuple_from_raw_str_doctest():
 
 
 def test_shufflers_coverage():
-    shufflers = expressionotron.v002.expr_builder.shufflers
+    shufflers = expressionotron.v002.expr_generator.shufflers
     for shuffler in shufflers:
         shuffler_sorted = sorted(shuffler)
         # Pour faire foirer le test, décommenter la ligne ci-dessous
@@ -19,7 +19,7 @@ def test_shufflers_coverage():
 
 
 def test_seed_size():
-   seed_size = expressionotron.v002.expr_builder.seed_max
+   seed_size = expressionotron.v002.expr_generator.seed_max
    assert seed_size == 151 * 141 * 173 * 158 * 150
    assert seed_size == 87295229100
 
@@ -31,7 +31,7 @@ def test_lengths_coherency():
         RAW_STRING_VERBS, RAW_STRING_SUBJECTS,
         RAW_STRING_ADJECTIVES, RAW_STRING_WHATEVERS, RAW_STRING_INTERJECTIONS,
     )
-    data_lengths = expressionotron.v002.expr_builder.data_lengths
+    data_lengths = expressionotron.v002.expr_generator.data_lengths
 
     # Pour faire foirer le test, décommenter la ligne ci-dessous
     # RAW_STRING_ADJECTIVES += "\nhahahaha"
@@ -48,7 +48,7 @@ def test_lengths_coherency():
     )
     assert data_lengths == expr_piece_lengths
 
-    shufflers = expressionotron.v002.expr_builder.shufflers
+    shufflers = expressionotron.v002.expr_generator.shufflers
     shuffler_lengths = tuple(
         (len(shuffler) for shuffler in shufflers)
     )
@@ -120,12 +120,12 @@ def test_shufflers_reference():
             14, 142, 11, 91, 58, 54, 135, 82,
         )
     )
-    assert expressionotron.v002.expr_builder.shufflers == shufflers_reference
+    assert expressionotron.v002.expr_generator.shufflers == shufflers_reference
 
 
 def test_build_expression():
 
-    build_expression = expressionotron.v002.expr_builder.build_expression
+    build_expression = expressionotron.v002.expr_generator.build_expression
 
     TEST_DATA = (
         ("sashimi du ministre clignotant au monoxyde de dihydrog&egrave;ne !! Shazam !!1!", 0),
