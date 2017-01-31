@@ -32,8 +32,7 @@ def generate_main_page(app_expressionotron, app_urluth):
     if app_urluth is not None:
         html_strings.append(
             " - <a href=\"%s\">cliquez ici pour consulter urluth</a><br/>")
-        # TODO : faudra corriger urluth.
-        urls.append(url_for('app_urluth.urluthGet'))
+        urls.append(url_for('app_urluth.urluth_get'))
 
     if app_expressionotron is None and app_urluth is None:
         html_strings.append(
