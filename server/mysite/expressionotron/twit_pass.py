@@ -1,7 +1,7 @@
-# Remplacer ces infos par les vraies valeurs du compte twitter.
-# TODO : raiser une exception si on a toujours ces valeurs par défaut.
-# Ou alors non. Faut juste logger un petit quelque chose.
-conSecret = 'the_conSecret'
-conSecretKey = 'the_conSecretKey'
+# En prod : remplacer ces infos par les vraies valeurs du compte twitter.
+# Le module twit_bot écrit un log si jamais ce sont toujours ces valeurs
+# par défaut qui sont utilisées.
+con_secret = 'the_conSecret'
+con_secret_key = 'the_conSecretKey'
 token = 'the_token'
-tokenKey = 'the_tokenKey'
+token_key = 'the_tokenKey'

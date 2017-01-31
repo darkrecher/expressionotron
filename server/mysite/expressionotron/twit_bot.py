@@ -29,6 +29,10 @@ def twit_expression(unsafe_expr_gen_key=''):
     milles mercis à :
     http://wilsonericn.wordpress.com/2011/08/22/tweeting-in-python-the-easy-way/
     """
+
+    if twit_pass.con_secret_key == 'the_conSecretKey':
+        logging.debug('Les clés du twitter bot ne semblent pas définies.')
+
     twit_try_left = MAX_TWIT_TRY
     twit_succeeded = False
 
@@ -53,12 +57,11 @@ def twit_expression(unsafe_expr_gen_key=''):
         logging.debug(twit_text)
 
         try:
-            # TODO : nom de variable en PEP8
             my_auth = twitter.OAuth(
                 twit_pass.token,
-                twit_pass.tokenKey,
-                twit_pass.conSecret,
-                twit_pass.conSecretKey)
+                twit_pass.token_key,
+                twit_pass.con_secret,
+                twit_pass.con_secret_key)
             twit = twitter.Twitter(auth=my_auth)
             twit.statuses.update(status=twit_text)
         except Exception as e:
