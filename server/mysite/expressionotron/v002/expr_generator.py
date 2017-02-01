@@ -94,7 +94,7 @@ def _get_adjective_prefix(adjective, index_interjection):
     """
     if index_interjection >= len(adj_prefixes):
         return None
-    # REC TODO : faudrait être un peu plus intelligent que ça, parce que
+    # FUTURE : faudrait être un peu plus intelligent que ça, parce que
     # certains adjectifs tordus, comme "+5" sont sans espaces, mais ont
     # l'air bizarre lorsqu'on leur met un préfixe. Ce sera pour la prochaine
     # version (si y'en a une un jour)

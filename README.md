@@ -8,10 +8,6 @@ Mais pour l'instant y'a vraiment rien dedans.
 
 ## TODO list
 
-TODOs de code :
-
- - Passe globale sur tous les TODOs.
-
 Faire la même doc que urluth :
 
  - readme principal
