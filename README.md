@@ -11,7 +11,6 @@ Mais pour l'instant y'a vraiment rien dedans.
 TODOs de code :
 
  - Passe globale sur tous les TODOs.
- - Lien vers le repo dans la page web.
 
 Faire la même doc que urluth :
 
