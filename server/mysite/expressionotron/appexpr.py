@@ -55,8 +55,8 @@ def get_and_increase_nb_visit():
 def webpage_expressionotron(unsafe_expr_gen_key):
     nb_visit = get_and_increase_nb_visit()
     (seed, version) = expr_gen.sanitize_key(unsafe_expr_gen_key)
-    # la chaîne de caractère 'expression' est déjà encodée en HTML
-    # (avec les &eacute; etc). Dans template.html, on a mis 'expression|safe'.
+    # la chaîne de caractère 'expression' est déjà encodée en HTML, avec
+    # les &eacute; etc. Dans template_expr.html, on a mis 'expression|safe'.
     # http://jinja.pocoo.org/docs/2.9/templates/#working-with-automatic-escaping
     expression = expr_gen.generate_expression(seed, version)
     expr_gen_key = expr_gen.format_key(seed, version)
@@ -75,7 +75,7 @@ def webpage_expressionotron(unsafe_expr_gen_key):
         'nb_visitors': nb_visit,
     }
 
-    return render_template('template.html', **params_template)
+    return render_template('template_expr.html', **params_template)
 
 
 @app_expressionotron.route('/', methods=['POST'])
