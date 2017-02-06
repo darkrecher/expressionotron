@@ -24,7 +24,7 @@ Ce repository contient uniquement le code de l'application expressionotron, ains
 
 ## Exécution en local
 
-REC TODO
+Voir : [doc/exec_en_local.md](doc/exec_en_local.md)
 
 
 ## Configuration dans l'hébergeur PythonAnywhere
