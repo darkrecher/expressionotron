@@ -29,7 +29,7 @@ Voir : [doc/exec_en_local.md](doc/exec_en_local.md)
 
 ## Configuration dans l'hébergeur PythonAnywhere
 
-REC TODO
+Voir : [doc/mise_en_prod_pythonanywhere.md](doc/mise_en_prod_pythonanywhere.md)
 
 
 ## Document de conception
@@ -59,8 +59,6 @@ J'accepte les dons en diverses crypto-monnaies.
 
 Faire la même doc que urluth :
 
- - Exécution en local
- - Configuration dans l'hébergeur PythonAnywhere
  - Document de conception, avec en particulier :
      - le twitter bot.
      - Ce truc là dans la v002 : "Il n'y a pas les adj_prefixes dans le tuple sur lequel on boucle, c'est normal. On ne les choisit pas raiment aléatoirement. Enfin si, mais pas directement aléatoirement."

@@ -1,0 +1,39 @@
+2017-02-02 16:04:07,196 2017-02-02 version: 002 seed: 77945127035
+2017-02-02 16:04:07,196 &Ccedil;a lamine du g&eacute;n&eacute;ral Plekszy-Gladz contre nature &agrave; coups de blasph&egrave;mes !! Ypika&iuml;&iuml;&iuml; !!1!
+2017-02-02 16:04:07,196 Ça lamine du général Plekszy-Gladz contre nature à coups de blasphèmes !! Ypikaïïï !!1! https://recher.pythonanywhere.com/expressionotron?seed=77945127035_002
+2017-02-02 16:04:07,429 twit reussi
+
+2017-02-02 16:04:07 -- Completed task, took 1.00 seconds, return code was 0.
+
+
+2017-02-03 16:04:05,578 2017-02-03 version: 002 seed: 49339234580
+2017-02-03 16:04:05,579 sarabande du doppelganger bic&eacute;phale au b&acirc;ton de berger !! Inch'Allah !!1!
+2017-02-03 16:04:05,579 sarabande du doppelganger bicéphale au bâton de berger !! Inch'Allah !!1! https://recher.pythonanywhere.com/expressionotron?seed=49339234580_002
+2017-02-03 16:04:05,968 twit reussi
+
+2017-02-03 16:04:06 -- Completed task, took 1.00 seconds, return code was 0.
+
+
+2017-02-04 16:04:07,114 2017-02-04 version: 002 seed: 72871612216
+2017-02-04 16:04:07,114 &Ccedil;a l&eacute;galise du kilmoulis fait sous Paint dans un Sofitel !! Yowza !!1!
+2017-02-04 16:04:07,114 Ça légalise du kilmoulis fait sous Paint dans un Sofitel !! Yowza !!1! https://recher.pythonanywhere.com/expressionotron?seed=72871612216_002
+2017-02-04 16:04:07,445 twit reussi
+
+2017-02-04 16:04:07 -- Completed task, took 1.00 seconds, return code was 0.
+
+
+2017-02-05 16:04:07,319 2017-02-05 version: 002 seed: 23817675438
+2017-02-05 16:04:07,319 &Ccedil;a bine du Steve Jobs arabo-mucoviscideux au zythum !! &Uuml;ber alles !!1!
+2017-02-05 16:04:07,319 Ça bine du Steve Jobs arabo-mucoviscideux au zythum !! Über alles !!1! https://recher.pythonanywhere.com/expressionotron?seed=23817675438_002
+2017-02-05 16:04:07,598 twit reussi
+
+2017-02-05 16:04:07 -- Completed task, took 1.00 seconds, return code was 0.
+
+
+2017-02-06 16:04:06,438 2017-02-06 version: 002 seed: 39811768666
+2017-02-06 16:04:06,438 &Ccedil;a butt-secks du lolcat hydrophobe de fa&ccedil;on th&eacute;&acirc;trale !! Har har har !!1!
+2017-02-06 16:04:06,438 Ça butt-secks du lolcat hydrophobe de façon théâtrale !! Har har har !!1! https://recher.pythonanywhere.com/expressionotron?seed=39811768666_002
+2017-02-06 16:04:06,681 twit reussi
+
+2017-02-06 16:04:06 -- Completed task, took 1.00 seconds, return code was 0.
+
