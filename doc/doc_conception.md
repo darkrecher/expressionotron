@@ -54,8 +54,54 @@ Exemple de code HTML renvoyé (lorsque les deux Blueprints sont présents) :
 Pas de balise `html`, `body`, `head`, etc. C'est vraiment au plus simple.
 
 
-## urluth/appexpr.py
+## expressionotron/appexpr.py
 
 Fichier principal de l'application expressionotron. Il crée le Blueprint `app_expressionotron`.
 
-REC TODO
+Ce fichier contient deux grosses fonctions, et deux petites fonctions de routage d'urls
+
+### Fonction `get_and_increase_nb_visit`
+
+Cette fonction lit, puis réécrit une information dans le fichier texte `/home/Recher/mysite/expressionotron/blorp.txt`, sur le serveur.
+
+L'information lue est le nombre de visites de la page web (depuis la création du site sur pythonanywhere), elle est ensuite incrémentée de 1, puis réécrite dans le fichier. Le fichier contient uniquement ce nombre de visite, stockée sous forme d'une simple chaîne de caractère.
+
+La fonction renvoie, sous forme de int, le nombre de visite après son incrémentation.
+
+Des try-except rendent la lecture et la réécriture dans le fichier non bloquante. (L'affichage final de la page web contenant l'expression est plus important que le comptage des visites). Si la lecture échoue, le nombre de visite prend la valeur par défaut 0, qui devient 1 après incrémentation. C'est ce qui explique pourquoi les tests en local affichent toujours une seule visite, qui n'augmente jamais.
+
+Les accès multiples au fichier ne sont pas gérés. Il est donc possible que certaines visites n'aient pas été comptabilisés, si plusieurs visiteurs arrivent exactement pil poil en même temps.
+
+### Fonction `webpage_expressionotron`
+
+### Fonctions de routage d'urls
+
+
+## expressionotron/templates/template_expr.html
+
+
+## expressionotron/common_tools.py
+
+
+## Génération des expressions
+
+
+### Fonctionnement générique à toutes les versions
+
+### v001
+
+(Ne sera pas documenté en détail, car osef, un petit peu)
+
+### v002
+
+### expr_generator.py
+
+
+## Twitter bot
+
+### twit_cron.py
+
+### expressionotron/twit_pass.py
+
+### expressionotron/twit_bot.py
+
