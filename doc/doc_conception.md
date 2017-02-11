@@ -74,13 +74,59 @@ Les accès multiples au fichier ne sont pas gérés. Il est donc possible que ce
 
 ### Fonction `webpage_expressionotron`
 
+Cette fonction construit l'unique page HTML de l'expressionotron. Celle-ci est renvoyée et générée avec le moteur de template "jinja2", intégré à Flask. Le fichier de template utilisé est `expressionotron/templates/template_expr.html`.
+
+Elle nécessite le paramètre `unsafe_expr_gen_key` : une chaîne de caractère censée définir la seed de l'expression à générer, ainsi que la version du générateur à utiliser (voir plus loin). Ce paramètre provient de l'extérieur, car c'est une information dans la requête HTTP qui est envoyée au serveur. Il peut donc potentiellement contenir n'importe quoi, être vide, etc. La fonction en tient compte.
+
+C'est la "fonction principale" de l'expressionotron. Elle effectue les actions suivantes :
+
+ - augmentation du nombre de visite du site, et récupération du nombre actuel.
+ - création d'une seed et d'une version de générateur correcte en utilisant, si c'est possible, les infos de `unsafe_expr_gen_key`.
+ - génération de l'expression. Cellec-ci est déjà encodée en HTML, avec les `&eacute;`, etc.
+ - génération d'un permalink permettant de retrouver l'expression. Pour plus d'info concernant la méthode de génération des urls, voir : http://flask.pocoo.org/docs/0.12/api/#flask.url_for et http://stackoverflow.com/questions/7478366/create-dynamic-urls-in-flask-with-url-for .
+ - génération de la page HTML avec le template et toutes les infos précédentes.
+
 ### Fonctions de routage d'urls
+
+Il s'agit des fonctions `expressionotron_post` et `expressionotron_get`. Elles sont censées répondre à une requête HTTP ayant l'url "/" (url racine). Dans les faits, l'url de départ est "/expressionotron". Le fichier `flask_app.py` l'intercepte et détecte la présence du préfixe. Ce préfixe est supprimé, puis la requête est transmise à `appexpr.py`. L'url résultante est donc l'url racine, qui est interceptée par l'une de ces deux fonctions.
+
+La fonction `expressionotron_get` est associée à la méthode HTTP "GET". Le paramètre `unsafe_expr_gen_key` est récupéré depuis le paramètre "seed" (qui est éventuellement présent dans l'url).
+
+La fonction `expressionotron_post` est associée à la méthode HTTP "POST". Le paramètre `unsafe_expr_gen_key` est récupéré depuis le paramètre de formulaire "seedInForm". Si c'est un POST, ce paramètre est censé être présent. S'il ne l'est pas, une exception est levée et la résultat final est une erreur HTTP 400. J'aurais pu faire en sorte que ce cas soit mieux géré, mais il n'y a que maintenant que je le découvre. Tant pis, ce sera pour la prochaine version !
 
 
 ## expressionotron/templates/template_expr.html
 
+Template de la page HTML. Il est assez simple.
+
+La variable de template dans laquelle est placée l'expression est notée `{{expression|safe}}`. Le "safe" permet d'indiquer que le texte est déjà encodé en HTML. Sinon, les `&eacute;` de l'expression seront re-converties en `&amp;eacute;`
+
+Le template contient un formulaire avec un champ de type texte, intitulé "seedInForm". C'est ce formulaire qui permet de faire une requête "POST", qui sera ensuite récupérée par la fonction `expressionotron_post`.
+
+**Attention aux noms des fichiers de templates !!** Dans Flask, lorsqu'on déclare un répertoire de templates via la fonction `Blueprint(template_folder='aaa')`, celui-ci est globalement accessible, y compris par les autres Blueprint.
+
+Par exemple, si on a l'arborescence suivante :
+
+ - mysite
+   + expressionotron
+     * templates
+       - template.html
+   + urluth
+     * templates
+       - template.html
+
+et que ensuite, chaque Blueprint déclare son propre sous-répertoire "templates", ça risque de se mélanger. C'est à dire que les pages de urluth seront générées avec le template de l'expressionotron, et vice-versa.
+
+Pour régler ce problème, les deux templates ont des noms différents : `template_expr.html` et `template_urluth.html`. On aurait pu également créer un sous-dossier dans chaque dossier de template.
+
+Pour plus de précisions concernant cette subtilité de templates : http://stackoverflow.com/questions/7974771/flask-blueprint-template-folder
+
 
 ## expressionotron/common_tools.py
+
+Contient une seule fonction toute simple, utilisée un peu partout (y compris dans les scripts de tests).
+
+Fonction `tuple_from_raw_str` : Renvoie un tuple à partir d'une string multi-ligne, en éliminant les espaces avant et après chaque string, et en éliminant les lignes vides.
 
 
 ## Génération des expressions
