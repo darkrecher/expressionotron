@@ -131,14 +131,103 @@ Fonction `tuple_from_raw_str` : Renvoie un tuple à partir d'une string multi-li
 
 ## Génération des expressions
 
-
 ### Fonctionnement générique à toutes les versions
 
-### v001
+Chaque version du générateur d'expression est placé dans un sous-répertoire. Pour l'instant, il y en a deux : "expressionotron/v001" et "expressionotron/v002". Chaque sous-répertoire peut comporter un ou plusieurs fichiers python, mais il faut obligatoirement un fichier `expr_generator.py`, qui doit obligatoirement comporter les éléments suivants :
 
-(Ne sera pas documenté en détail, car osef, un petit peu)
+ - `version` : chaîne de caractère. Indique la version du générateur.
+ - `generate_expression` : fonction nécessitant un paramètre 'seed' (valeur numérique) et renvoyant une chaîne de caractère (l'expression). La même seed doit toujours renvoyer la même expression. L'expression doit être encodée avec les HTML entities (`&eacute;`, etc.).
+ - `seed_max` : valeur numérique. Elle renseigne sur la quantité d'expression qui peuvent être générées. Idéalement, si on fait varier le paramètre 'seed' de 0 à `seed_max`, on devrait couvrir toutes les expressions possibles, sans qu'il y ait de doublons. Concrètement, cette consigne est respectée pour le générateur version '002', mais pas le '001'.
 
-### v002
+En général, les morceaux de phrase utilisés pour générer les expressions sont tous stockés dans un fichier `dataphrase.py`, mais ce n'est pas une obligation.
+
+### expressionotron/v001
+
+La première version du générateur. Elle n'est pas documentée en détail, car son code est un peu moche, et il n'est pas prévu qu'elle change.
+
+Sa version vaut `001`. Son `seed_max` vaut 300000000, mais c'est une valeur arbitraire.
+
+### expresionotron/v002
+
+#### Structure d'une expression
+
+La génération d'une expression est effectuée en prenant un élément dans chacune des listes suivantes : verbe, sujet, adjectif, n'importe quoi, interjection.
+
+Il y a également un éventuel préfixe à l'adjectif, mais celui-ci n'est pas totalement pris au hasard, et il ne dépend pas directement de la seed (voir plus loin).
+
+Exemple :
+
+> Ça broute-minoutte du space marine interopérable au shpocker !! Même que !!1!
+
+ - verbe = Ça broute-minoutte
+ - sujet = du space marine
+ - adjectif = interopérable
+ - n'importe quoi = au shpocker
+ - interjection = Même que
+
+Les points d'exclamation et le "1" sont fixe, et ajoutés systématiquement à chaque expression.
+
+La génération d'une expression consiste donc, à partir de la seed, à choisir un numéro d'élément dans chaque liste.
+
+#### Méthode de sélection des éléments à partir de la seed
+
+Pour les exemples de ce chapitre, on va supposer que chaque liste comporte seulement 3 éléments.
+
+La méthode de sélection la plus simple serait la suivante :
+seed = 0 -> index des éléments = [0, 0, 0, 0, 0] -> on prend le verbe numéro 0, le sujet 0, l'adjectif 0, le n'importe quoi 0 et l'interjection 0.
+seed = 1 -> [0, 0, 0, 0, 1]
+seed = 2 -> [0, 0, 0, 0, 2]
+seed = 3 -> [0, 0, 0, 1, 0]
+seed = 4 -> [0, 0, 0, 1, 1]
+...
+
+Mais ce ne serait pas très amusant, car ça voudrait dire que deux seeds proches génèrent deux phrases très semblables. Par exemple, entre seed=0 et seed=1, seule l'interjection change.
+
+Pour régler ce problème, on peut décider de faire avancer tous les index à chaque itération. Une fois qu'un "tour d'index" a été fait, on les fait tous avancer sauf le premier (afin de créer un décalage), puis on refait tout avancer de un, et ainsi de suite. Le tout en prenant en compte les remise de compteur à 0 lorsqu'un index est dépassé.
+
+Ça donnerait donc quelque chose comme ça :
+
+seed = 0 -> [0, 0, 0, 0, 0]
+seed = 1 -> [1, 1, 1, 1, 1]
+seed = 2 -> [2, 2, 2, 2, 2]
+
+Là, on fait tout avancer de 1 sauf le premier index, et on refait un tour.
+
+seed = 3 -> [2, 0, 0, 0, 0]
+seed = 4 -> [0, 1, 1, 1, 1]
+seed = 5 -> [1, 2, 2, 2, 2]
+
+On a fait le tour. On peut rajouter encore un décalage en faisant tout avancer de 1 sauf le premier.
+
+seed = 6 -> [1, 0, 0, 0, 0]
+seed = 7 -> [2, 1, 1, 1, 1]
+seed = 8 -> [0, 2, 2, 2, 2]
+
+Si on rajoute encore un décalage, on retombera sur une sélection d'index déjà prise. Donc on crée un décalage un cran plus loin : on fait tout avancer de 1 sauf les deux premiers.
+
+seed = 9 -> [0, 2, 0, 0, 0]
+seed =10 -> [1, 0, 1, 1, 1]
+seed =11 -> [2, 1, 2, 2, 2]
+
+Là, on peut revenir sur un décalage comme avant. On fait tout avancer de 1 sauf le premier. Et ainsi de suite.
+
+Pour avoir encore plus d'aléatoire, on mélange les valeurs d'avancement. Au lieu de faire +1, +1, +1, ... On fait +1, +2, -1. On mélange également les valeurs d'avancement lorsqu'on fait des décalages. Il suffit de s'assurer que les valeurs d'avancement couvrent toutes les valeurs possibles, peu importe l'ordre dans lequel elles sont.
+
+Cette méthode à la garantie de couvrir toutes les valeurs possibles, tout en maximisant les différences entre deux seeds proches. (Je suppose qu'il faudrait une petite démo de matheux pour prouver tout ça, mais j'ai pas le temps ni les compétences pour la faire).
+
+#### Gestion du préfixe d'adjectif
+
+Les préfixes d'adjectifs, c'est amusant, mais il ne faut en mettre que sur les adjectifs composés d'un seul mot, sinon ça fait bizarre. De plus, il ne faut pas en mettre systématiquement, car ça serait un peu lourd. Les phrases sont déjà assez chargées de lolitude même sans préfixe.
+
+D'après des estimations effectuées au pifomètre, il a été établi que le bon dosage de lol serait atteint lorsqu'un préfixe est ajouté dans un cas sur trois (après exclusion des cas où l'adjectif est composés de plusieurs mots).
+
+Mais si on ajoute un index en plus pour gérer les préfixes, qui prendrait en compte les cas où on n'en met pas, on risque de se retrouver avec deux seeds différentes qui généreraient la même expression, et je voulais éviter ça.
+
+C'est pour ça que j'ai ajouté les interjections (qui n'étaient pas du tout présentes dans la version 001 du générateur).
+
+On détermine s'il faut ajouter un préfixe ou pas, et quel préfixe ajouter, selon l'index de l'interjection. La méthode est assez simple : `index_prefixe = index_interjection`.
+
+#### Implémentation
 
 ### expr_generator.py
 
