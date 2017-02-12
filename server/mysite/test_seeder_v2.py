@@ -19,7 +19,7 @@ def test_coverage_nominal():
     data_indexes_to_cover = list(itertools.product(
         range(2), range(4), range(5)))
 
-    # Pour faire foirer le test (valable pour les autres tests de coverage) :
+    # Pour faire foirer le test :
     # data_indexes_to_cover[10] = (1, 2, 3)
     data_indexes_obtained = [
         data_indexes_from_seed(data_index_lengths, seed)
@@ -39,7 +39,7 @@ def test_coverage_big():
         for data_index_length in data_index_lengths ]
     data_indexes_to_cover = list(itertools.product(*data_indexes_lists))
 
-    # Pour faire foirer le test (valable pour les tests de coverage suivants) :
+    # Pour faire foirer le test :
     # data_indexes_to_cover[total_length//2] = (1, 2, 3, 4, 5)
     data_indexes_obtained = [
         data_indexes_from_seed(data_index_lengths, seed)
@@ -50,7 +50,7 @@ def test_coverage_big():
     assert data_indexes_obtained == data_indexes_to_cover
 
 
-def test_coverage_big():
+def test_coverage_shuffle():
     """ Test de couverture sur plage raisonnable, avec des shufflers. """
     data_index_lengths = (10, 12, 14)
     shufflers = (
@@ -64,6 +64,8 @@ def test_coverage_big():
         for data_index_length in data_index_lengths ]
     data_indexes_to_cover = list(itertools.product(*data_indexes_lists))
 
+    # Pour faire foirer le test :
+    # data_indexes_to_cover[10] = (1, 2, 3)
     data_indexes_obtained = [
         data_indexes_from_seed(data_index_lengths, seed, shufflers)
         for seed in range(total_length) ]
