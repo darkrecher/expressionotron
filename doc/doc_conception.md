@@ -145,13 +145,13 @@ En général, les morceaux de phrase utilisés pour générer les expressions so
 
 La première version du générateur. Elle n'est pas documentée en détail, car son code est un peu moche, et il n'est pas prévu qu'elle change.
 
-Sa version vaut `001`. Son `seed_max` vaut 300000000, mais c'est une valeur arbitraire.
+Sa version vaut `001`. Son seed_max vaut 300000000, mais c'est une valeur arbitraire.
 
 ### expresionotron/v002
 
 #### Structure d'une expression
 
-La génération d'une expression est effectuée en prenant un élément dans chacune des listes suivantes : verbe, sujet, adjectif, n'importe quoi, interjection.
+La génération d'une expression est effectuée en prenant un élément dans chacune des 5 listes suivantes : verbe, sujet, adjectif, n'importe quoi, interjection.
 
 Il y a également un éventuel préfixe à l'adjectif, mais celui-ci n'est pas totalement pris au hasard, et il ne dépend pas directement de la seed (voir plus loin).
 
@@ -168,6 +168,8 @@ Exemple :
 Les points d'exclamation et le "1" sont fixe, et ajoutés systématiquement à chaque expression.
 
 La génération d'une expression consiste donc, à partir de la seed, à choisir un numéro d'élément dans chaque liste.
+
+Sa version vaut `002`. Son seed_max est égal au produit de la taille des 5 listes d'éléments, soit : 151 * 141 * 173 * 158 * 150 = 87295229100.
 
 #### Méthode de sélection des éléments à partir de la seed
 
@@ -191,27 +193,47 @@ seed = 0 -> [0, 0, 0, 0, 0]
 seed = 1 -> [1, 1, 1, 1, 1]
 seed = 2 -> [2, 2, 2, 2, 2]
 
-Là, on fait tout avancer de 1 sauf le premier index, et on refait un tour.
+Là, on remet à 0, et on fait tout avancer de 1 sauf le premier index.
 
-seed = 3 -> [2, 0, 0, 0, 0]
-seed = 4 -> [0, 1, 1, 1, 1]
-seed = 5 -> [1, 2, 2, 2, 2]
+seed = 3 -> [0, 1, 1, 1, 1]
 
-On a fait le tour. On peut rajouter encore un décalage en faisant tout avancer de 1 sauf le premier.
+On refait un tour.
 
-seed = 6 -> [1, 0, 0, 0, 0]
-seed = 7 -> [2, 1, 1, 1, 1]
-seed = 8 -> [0, 2, 2, 2, 2]
+seed = 4 -> [1, 2, 2, 2, 2]
+seed = 5 -> [2, 0, 0, 0, 0]
 
-Si on rajoute encore un décalage, on retombera sur une sélection d'index déjà prise. Donc on crée un décalage un cran plus loin : on fait tout avancer de 1 sauf les deux premiers.
+On a fini le tour. On re-remet à 0 et on fait tout avancer de 2 sauf le premier index.
 
-seed = 9 -> [0, 2, 0, 0, 0]
-seed =10 -> [1, 0, 1, 1, 1]
-seed =11 -> [2, 1, 2, 2, 2]
+seed = 6 -> [0, 2, 2, 2, 2]
+
+On refait un tour.
+
+seed = 7 -> [1, 0, 0, 0, 0]
+seed = 8 -> [2, 1, 1, 1, 1]
+
+Si on refait pareil mais en faisant tout avancer de 3 sauf le premier index, on retombera sur une sélection existante. Donc on remet à 0 et on crée un décalage un cran plus loin : on fait tout avancer de 1 sauf les deux premiers.
+
+seed = 9 -> [0, 0, 1, 1, 1]
+seed =10 -> [1, 1, 2, 2, 2]
+seed =11 -> [2, 2, 0, 0, 0]
 
 Là, on peut revenir sur un décalage comme avant. On fait tout avancer de 1 sauf le premier. Et ainsi de suite.
 
-Pour avoir encore plus d'aléatoire, on mélange les valeurs d'avancement. Au lieu de faire +1, +1, +1, ... On fait +1, +2, -1. On mélange également les valeurs d'avancement lorsqu'on fait des décalages. Il suffit de s'assurer que les valeurs d'avancement couvrent toutes les valeurs possibles, peu importe l'ordre dans lequel elles sont.
+Pour avoir encore plus d'aléatoire, on mélange les valeurs d'avancement. Au lieu d'avancer de 1 à chaque fois, on prend un peu n'importe quel index. On mélange également les valeurs d'avancement lorsqu'on fait des décalages. Il suffit de s'assurer que même mélangé, tous les index possibles sont couverts.
+
+Ce mélange supplémentaire est effectué par des "shufflers". Il y a un shuffler par liste d'élément. Il s'agit d'une suite de nombre indiquant dans quelle ordre prendre les index.
+
+Par exemple, si la première liste a pour shufflers [2, 1, 0] et la deuxième [1, 0, 2]. (les autres ne sont pas shufflées, sinon ça va encore plus compliquer l'exemple).
+
+seed= 0 -> [2, 0 (2+1), 0 (2+1), 0 (2+1), 0 (2+1)]
+seed= 1 -> [1, 2 (1+1), 2 (1+1), 2 (1+1), 2 (1+1)]
+seed= 2 -> [0, 1 (0+1), 1 (0+1), 1 (0+1), 1 (0+1)]
+
+On remet à 0 et on fait tout avancer de un sauf le premier, en utilisant le deuxième shuffler.
+
+seed= 3 -> [2, 2 (2+0), 2 (2+0), 2 (2+0), 2 (2+0)]
+seed= 4 -> [1, 1 (1+0), 1 (1+0), 1 (1+0), 1 (1+0)]
+seed= 4 -> [0, 0 (0+0), 0 (0+0), 0 (0+0), 0 (0+0)]
 
 Cette méthode à la garantie de couvrir toutes les valeurs possibles, tout en maximisant les différences entre deux seeds proches. (Je suppose qu'il faudrait une petite démo de matheux pour prouver tout ça, mais j'ai pas le temps ni les compétences pour la faire).
 
@@ -225,14 +247,48 @@ Mais si on ajoute un index en plus pour gérer les préfixes, qui prendrait en c
 
 C'est pour ça que j'ai ajouté les interjections (qui n'étaient pas du tout présentes dans la version 001 du générateur).
 
-On détermine s'il faut ajouter un préfixe ou pas, et quel préfixe ajouter, selon l'index de l'interjection. La méthode est assez simple : `index_prefixe = index_interjection`.
+On utilise l'index de l'interjection pour déterminer s'il faut ajouter un préfixe ou pas, et quel préfixe ajouter. La méthode est assez simple, si `index_interjection` ne dépasse pas le nombre de préfixes possibles, alors : `index_prefixe = index_interjection`, sinon pas de préfixe.
+
+Il y a environ trois fois plus d'interjections que de préfixes. C'est fait exprès pour mettre un préfixe dans un cas sur trois.
+
+Du coup, on ne peut pas avoir toutes les combinaisons possibles de couples (interjections, préfixes). Mais on s'en fout. Les interjections ont été ajoutées pour permettre une probabilité de 1 préfixe sur 3.
 
 #### Implémentation
 
-### expr_generator.py
+La sélection des index d'éléments à partir de la seed est effectuée par la fonction `data_indexes_from_seed`, dans le fichier `expressionotron/v002/seeder.py`.
+
+Les shufflers sont à fournir en paramètre à la fonction. Ce paramètre est facultatif, puisque la méthode de sélection marcherait sans les shufflers.
+
+Pour plus de détails, voir les commentaires de la fonction.
+
+Le reste de l'algorithme est implémenté dans le module `expressionotron/v002/expr_generator.py`. Il effectue les actions suivantes.
+
+ - au chargement du module : détermination des shufflers, de manière aléatoire, mais avec une seed de shufflers fixe. C'est à dire qu'on obtient les mêmes shufflers à chaque chargement du module.
+ - Lors d'un appel à la fonction `generate_expression` :
+   + Sélection des index d'éléments à partir de la seed passée en paramètre.
+   + Récupération des éléments d'expression à partir des index d'éléments.
+   + Appel de la fonction `_get_adjective_prefix`. Cette fonction renvoie None (pas de préfixe d'adjectif) ou bien le préfixe choisi.
+   + Construction de l'expression en assemblant tous les éléments ensemble (avec ou sans préfixe).
+   + Renvoi de l'expression.
+
+Pour plus de détails, voir les commentaires dans le module.
+
+### expressionotron/expr_generator.py
+
+Ce module fait l'interface entre d'une part les différentes versions du générateur d'expression et d'autre part le code extérieur. Il a le même nom que les modules `expr_generator.py` des sous-répertoires `v001`, `v002`, ... C'est fait exprès.
+
+Les commentaires au début du module expliquent les différentes données manipulées : `expr_gen_key`, `seed`, `version`, ...
+
+Ce module contient les fonctions suivantes :
+
+`sanitize_key` : crée une `expr_gen_key` correcte à partir de `unsafe_expr_gen_key`, une chaîne de caractère quelconque. Si la chaîne ne contient pas toutes les informations nécessaires, la version choisie est la plus récente (002), et la seed est choisie au hasard entre 0 et `seed_max`.
+
+`generate_expression` : détermine le générateur d'expression à utiliser, en fonction du paramètre `version`, et exécute sa fonction de génération, afin de renvoyer l'expression. Les différentes versions du générateur nécessite uniquement le paramètre `seed`. Il n'est pas nécessaire de leur transmettre le paramètre `version`.
+
+`format_key` : recrée une `expr_gen_key` correcte à partir d'une `seed` et d'une `version`. C'est utile pour créer un permalien vers l'expression.
 
 
-## Twitter bot
+## Le twitter bot
 
 ### twit_cron.py
 
@@ -240,3 +296,8 @@ On détermine s'il faut ajouter un préfixe ou pas, et quel préfixe ajouter, se
 
 ### expressionotron/twit_bot.py
 
+### modules non documentés
+
+les tests
+
+`sort_data.py`
