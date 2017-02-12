@@ -293,11 +293,20 @@ Ce module contient les fonctions suivantes :
 
 ### twit_cron.py
 
+Script tout simple, qui importe le code du twitter bot et qui exécute la fonction principale pour émettre un twit.
+
+L'hébergeur pythonanywhere est configuré avec une tâche planifiée quotidienne, qui exécute ce script.
+
 ### expressionotron/twit_pass.py
+
+Module tout simple lui aussi, contenant uniquement la définitio nde 4 variables. Il s'agit des clés secrètes de l'API twitter, qui correspondent au compte que le twitter bot va utiliser pour émettre les twits.
+
+L'utilisation d'un compte de manière automatisée, via l'API, ne nécessite pas le mot de passe du compte, mais les clés de l'API (qui sont récupérables une fois qu'on s'est connectés au compte).
 
 ### expressionotron/twit_bot.py
 
-### modules non documentés
+
+## modules non documentés
 
 les tests
 
