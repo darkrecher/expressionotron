@@ -176,12 +176,13 @@ Sa version vaut `002`. Son seed_max est égal au produit de la taille des 5 list
 Pour les exemples de ce chapitre, on va supposer que chaque liste comporte seulement 3 éléments.
 
 La méthode de sélection la plus simple serait la suivante :
-seed = 0 -> index des éléments = [0, 0, 0, 0, 0] -> on prend le verbe numéro 0, le sujet 0, l'adjectif 0, le n'importe quoi 0 et l'interjection 0.
-seed = 1 -> [0, 0, 0, 0, 1]
-seed = 2 -> [0, 0, 0, 0, 2]
-seed = 3 -> [0, 0, 0, 1, 0]
-seed = 4 -> [0, 0, 0, 1, 1]
-...
+
+    seed = 0 -> index des éléments = [0, 0, 0, 0, 0] -> on prend le verbe numéro 0, le sujet 0, l'adjectif 0, le n'importe quoi 0 et l'interjection 0.
+    seed = 1 -> [0, 0, 0, 0, 1]
+    seed = 2 -> [0, 0, 0, 0, 2]
+    seed = 3 -> [0, 0, 0, 1, 0]
+    seed = 4 -> [0, 0, 0, 1, 1]
+    ...
 
 Mais ce ne serait pas très amusant, car ça voudrait dire que deux seeds proches génèrent deux phrases très semblables. Par exemple, entre seed=0 et seed=1, seule l'interjection change.
 
@@ -189,33 +190,33 @@ Pour régler ce problème, on peut décider de faire avancer tous les index à c
 
 Ça donnerait donc quelque chose comme ça :
 
-seed = 0 -> [0, 0, 0, 0, 0]
-seed = 1 -> [1, 1, 1, 1, 1]
-seed = 2 -> [2, 2, 2, 2, 2]
+    seed = 0 -> [0, 0, 0, 0, 0]
+    seed = 1 -> [1, 1, 1, 1, 1]
+    seed = 2 -> [2, 2, 2, 2, 2]
 
 Là, on remet à 0, et on fait tout avancer de 1 sauf le premier index.
 
-seed = 3 -> [0, 1, 1, 1, 1]
+    seed = 3 -> [0, 1, 1, 1, 1]
 
 On refait un tour.
 
-seed = 4 -> [1, 2, 2, 2, 2]
-seed = 5 -> [2, 0, 0, 0, 0]
+    seed = 4 -> [1, 2, 2, 2, 2]
+    seed = 5 -> [2, 0, 0, 0, 0]
 
 On a fini le tour. On re-remet à 0 et on fait tout avancer de 2 sauf le premier index.
 
-seed = 6 -> [0, 2, 2, 2, 2]
+    seed = 6 -> [0, 2, 2, 2, 2]
 
 On refait un tour.
 
-seed = 7 -> [1, 0, 0, 0, 0]
-seed = 8 -> [2, 1, 1, 1, 1]
+    seed = 7 -> [1, 0, 0, 0, 0]
+    seed = 8 -> [2, 1, 1, 1, 1]
 
 Si on refait pareil mais en faisant tout avancer de 3 sauf le premier index, on retombera sur une sélection existante. Donc on remet à 0 et on crée un décalage un cran plus loin : on fait tout avancer de 1 sauf les deux premiers.
 
-seed = 9 -> [0, 0, 1, 1, 1]
-seed =10 -> [1, 1, 2, 2, 2]
-seed =11 -> [2, 2, 0, 0, 0]
+    seed = 9 -> [0, 0, 1, 1, 1]
+    seed =10 -> [1, 1, 2, 2, 2]
+    seed =11 -> [2, 2, 0, 0, 0]
 
 Là, on peut revenir sur un décalage comme avant. On fait tout avancer de 1 sauf le premier. Et ainsi de suite.
 
@@ -225,15 +226,15 @@ Ce mélange supplémentaire est effectué par des "shufflers". Il y a un shuffle
 
 Par exemple, si la première liste a pour shufflers [2, 1, 0] et la deuxième [1, 0, 2]. (les autres ne sont pas shufflées, sinon ça va encore plus compliquer l'exemple).
 
-seed= 0 -> [2, 0 (2+1), 0 (2+1), 0 (2+1), 0 (2+1)]
-seed= 1 -> [1, 2 (1+1), 2 (1+1), 2 (1+1), 2 (1+1)]
-seed= 2 -> [0, 1 (0+1), 1 (0+1), 1 (0+1), 1 (0+1)]
+    seed= 0 -> [2, 0 (2+1), 0 (2+1), 0 (2+1), 0 (2+1)]
+    seed= 1 -> [1, 2 (1+1), 2 (1+1), 2 (1+1), 2 (1+1)]
+    seed= 2 -> [0, 1 (0+1), 1 (0+1), 1 (0+1), 1 (0+1)]
 
 On remet à 0 et on fait tout avancer de un sauf le premier, en utilisant le deuxième shuffler.
 
-seed= 3 -> [2, 2 (2+0), 2 (2+0), 2 (2+0), 2 (2+0)]
-seed= 4 -> [1, 1 (1+0), 1 (1+0), 1 (1+0), 1 (1+0)]
-seed= 4 -> [0, 0 (0+0), 0 (0+0), 0 (0+0), 0 (0+0)]
+    seed= 3 -> [2, 2 (2+0), 2 (2+0), 2 (2+0), 2 (2+0)]
+    seed= 4 -> [1, 1 (1+0), 1 (1+0), 1 (1+0), 1 (1+0)]
+    seed= 4 -> [0, 0 (0+0), 0 (0+0), 0 (0+0), 0 (0+0)]
 
 Cette méthode à la garantie de couvrir toutes les valeurs possibles, tout en maximisant les différences entre deux seeds proches. (Je suppose qu'il faudrait une petite démo de matheux pour prouver tout ça, mais j'ai pas le temps ni les compétences pour la faire).
 
