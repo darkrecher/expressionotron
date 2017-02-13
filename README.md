@@ -64,4 +64,5 @@ Faire la même doc que urluth :
      - Ce truc là dans la v002 : "Il n'y a pas les adj_prefixes dans le tuple sur lequel on boucle, c'est normal. On ne les choisit pas raiment aléatoirement. Enfin si, mais pas directement aléatoirement."
      - y'a pas de check sur la valeur max de la seed, ni de modulo, car ça se fait tout seul. (Faut juste retrouver comment)
  - Les liens dans le readme principal
+ - petit commentaire de remerciement ici : https://wilsonericn.wordpress.com/2011/08/22/tweeting-in-python-the-easy-way/
 

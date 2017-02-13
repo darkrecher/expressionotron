@@ -301,10 +301,19 @@ L'hébergeur pythonanywhere est configuré avec une tâche planifiée quotidienn
 
 Module tout simple lui aussi, contenant uniquement la définitio nde 4 variables. Il s'agit des clés secrètes de l'API twitter, qui correspondent au compte que le twitter bot va utiliser pour émettre les twits.
 
-L'utilisation d'un compte de manière automatisée, via l'API, ne nécessite pas le mot de passe du compte, mais les clés de l'API (qui sont récupérables une fois qu'on s'est connectés au compte).
+L'utilisation d'un compte de manière automatisée, via l'API, ne nécessite pas le mot de passe du compte, mais les clés de l'API (qui sont récupérables après s'être connectés au compte).
+
+Bien évidemment, le fichier stocké dans ce repository ne contient pas les vraies clés, mais des valeurs fictives. Les vraies clés sont stockées uniquement sur le site pythonanywhere et ne sont pas disponibles publiquement. (Pas la peine de fouiller l'historique de git, je n'y ai jamais mis ces clés !).
 
 ### expressionotron/twit_bot.py
 
+Module principale du twitter bot.
+
+Il effectue les actions suivantes :
+
+ - Vérification que les clés d'API ne sont pas les clés bidons du repository. Dans le cas contraire, envoi d'un message d'avertissement sur la sortie standard.
+
+log avec la librairie standard `logging`.
 
 ## modules non documentés
 
