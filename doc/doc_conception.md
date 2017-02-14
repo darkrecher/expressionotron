@@ -312,8 +312,18 @@ Module principale du twitter bot.
 Il effectue les actions suivantes :
 
  - Vérification que les clés d'API ne sont pas les clés bidons du repository. Dans le cas contraire, envoi d'un message d'avertissement sur la sortie standard.
+ - Démarrage d'une boucle, afin de tester plusieurs fois de suite l'émission d'un twit. (Comme c'est une action nécessitant un ters externe, on considère que sa réussite n'est pas garantie, donc ça vaut le coup de le tenter plusieurs fois).
+ - Génération d'une expression. Le fichier `twit_cron.py` ne définit pas le paramètre facultatif lors de l'exécution de la fonction `twit_expression`. La clé de génération d'expression est donc vide. Dans ce cas, le générateur utilise la version courante ('002') et une seed aléatoire.
+ - Récupération de la clé de génération d'expression (pour faire un permalink).
+ - Conversion de l'expression encodée en HTML en une string en unicode.
+ - Définition du texte du twit, avec l'expression unicode et le permalink (qui est déjà en unicode dès le départ), en tronquant le texte de l'expression si nécessaire. Le texte d'un twit peut comporter 180 caractères, mais il faut laisser de la marge pour le permalink (qui est plus important que l'expression). L'expression est donc tronquée arbitrairement à 110 caractères.
+ - Envoi du twit, via un appel à l'API twitter, via-via la librairie python 'twitter'. Cet envoi est effectué dans un bloc try-except, car c'est ça qui a le plus de chances d'échouer.
+ - Si exception (on catche tout), écriture du message d'erreur dans le log de pythonanywhere, et retour au début de la boucle : on génère une nouvelle expression, que l'on tente de retweeter.
+ - Si pas d'exception, tout va bien, on sort tout de suite de la boucle, et on termine la fonction.
+ 
+La boucle compte le nombre d'essais restant, au bout de 4 essais, on abandonne. On re-raise l'exception qui a été levée et qui a provoqué l'échec du twit, afin de quitter directement le processus et de permettre éventuellement à du code extérieur de récupérer cette exception pour en faire ce qu'il veut.
 
-log avec la librairie standard `logging`.
+Durant toutes ces étapes, du log est écrit dans la sortie standard (texte de l'expression, texte du twit, message de l'exception, ...). Ce log est effectué à l'aide de la librairie standard `logging`. Il est accessible à l'adresse "recher.pythonanywhere.com.error.log" (non accessible publiquement, bien entendu). Je ne sais pas exactement où atterrit le log dans l'arborescence de fichier de pythonanywhere, mais l'important est qu'il soit récupérable.
 
 ## modules non documentés
 
