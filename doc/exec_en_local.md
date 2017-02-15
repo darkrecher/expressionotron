@@ -79,15 +79,15 @@ Le passage des tests se fait de la manière standard prévue par pytest :
     C:\expressionotron\server\mysite>python -m py.test
     ============================= test session starts =============================
     platform win32 -- Python 3.4.4, pytest-2.8.7, py-1.4.31, pluggy-0.3.1
-    rootdir: C:\Recher\projets\git\expressionotron\server\mysite, inifile:
-    collected 14 items
+    rootdir: C:\expressionotron\server\mysite, inifile:
+    collected 15 items
 
     test_dataphrase_v2.py .
     test_expre_v1.py ..
     test_expre_v2.py ......
-    test_seeder_v2.py .....
+    test_seeder_v2.py ......
 
-    ========================== 14 passed in 5.55 seconds ==========================
+    ========================== 15 passed in 8.89 seconds ==========================
 
 Le détail des tests n'est pas décrit dans cette documentation. C'est lourdingue d'écrire des tests mais je l'ai fait quand même, c'est lourdingue d'écrire la documentation mais je l'ai fait quand même, je peux donc me permettre de ne pas écrire la documentation à propos des tests.
 

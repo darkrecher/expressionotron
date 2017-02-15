@@ -303,6 +303,8 @@ Module tout simple lui aussi, contenant uniquement la définitio nde 4 variables
 
 L'utilisation d'un compte de manière automatisée, via l'API, ne nécessite pas le mot de passe du compte, mais les clés de l'API (qui sont récupérables après s'être connectés au compte).
 
+Pour plus de détail sur la manière de récupérer les clés, voir : https://wilsonericn.wordpress.com/2011/08/22/tweeting-in-python-the-easy-way/ .
+
 Bien évidemment, le fichier stocké dans ce repository ne contient pas les vraies clés, mais des valeurs fictives. Les vraies clés sont stockées uniquement sur le site pythonanywhere et ne sont pas disponibles publiquement. (Pas la peine de fouiller l'historique de git, je n'y ai jamais mis ces clés !).
 
 ### expressionotron/twit_bot.py
@@ -320,13 +322,22 @@ Il effectue les actions suivantes :
  - Envoi du twit, via un appel à l'API twitter, via-via la librairie python 'twitter'. Cet envoi est effectué dans un bloc try-except, car c'est ça qui a le plus de chances d'échouer.
  - Si exception (on catche tout), écriture du message d'erreur dans le log de pythonanywhere, et retour au début de la boucle : on génère une nouvelle expression, que l'on tente de retweeter.
  - Si pas d'exception, tout va bien, on sort tout de suite de la boucle, et on termine la fonction.
- 
+
 La boucle compte le nombre d'essais restant, au bout de 4 essais, on abandonne. On re-raise l'exception qui a été levée et qui a provoqué l'échec du twit, afin de quitter directement le processus et de permettre éventuellement à du code extérieur de récupérer cette exception pour en faire ce qu'il veut.
 
-Durant toutes ces étapes, du log est écrit dans la sortie standard (texte de l'expression, texte du twit, message de l'exception, ...). Ce log est effectué à l'aide de la librairie standard `logging`. Il est accessible à l'adresse "recher.pythonanywhere.com.error.log" (non accessible publiquement, bien entendu). Je ne sais pas exactement où atterrit le log dans l'arborescence de fichier de pythonanywhere, mais l'important est qu'il soit récupérable.
+Durant toutes ces étapes, du log est écrit dans la sortie standard (texte de l'expression, texte du twit, message de l'exception, ...). Ce log est effectué à l'aide de la librairie standard `logging`. Il est accessible à l'adresse "recher.pythonanywhere.com.error.log" (non accessible publiquement). Je ne sais pas exactement où atterrit le log dans l'arborescence de fichier de pythonanywhere, mais l'important est qu'il soit récupérable.
 
-## modules non documentés
+## Modules non documentés
 
-les tests
+Les tests sont non documentés. Il s'agit des fichiers suivants :
 
-`sort_data.py`
+    test_dataphrase_v2.py
+    test_expre_v1.py
+    test_expre_v2.py
+    test_seeder_v2.py
+
+Le fichier `sort_data.py` n'est pas documenté non plus. Il a été utilisé ponctuellement, pour classer par ordre alphabétique tous les éléments constitutifs des expressions. Le but était de parcourir manuellement cette liste classée afin de repérer les doublons, les fautes d'orthographe, etc.
+
+Tous ces fichiers ne sont pas indispensable pour le fonctionnement du site, et n'ont pas été placés sur le serveur de pythonanywhere.
+
+
