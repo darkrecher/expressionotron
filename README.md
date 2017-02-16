@@ -60,9 +60,9 @@ J'accepte les dons en diverses crypto-monnaies.
 Faire la même doc que urluth :
 
  - Document de conception, avec en particulier :
-     - le twitter bot.
-     - Ce truc là dans la v002 : "Il n'y a pas les adj_prefixes dans le tuple sur lequel on boucle, c'est normal. On ne les choisit pas raiment aléatoirement. Enfin si, mais pas directement aléatoirement."
-     - y'a pas de check sur la valeur max de la seed, ni de modulo, car ça se fait tout seul. (Faut juste retrouver comment)
+     - y'a pas de check sur la valeur max de la seed, ni de modulo, car ça se fait tout seul. (Faut juste retrouver comment). (Ouais en fait si, y'a des modulos, mais successifs)
  - Les liens dans le readme principal
+ - À priori, cette ligne de code ne sert à rien : `total_length //= data_index_length`. (Mais flemme de rechanger le code et mettre à jour le site pour ça)
  - petit commentaire de remerciement ici : https://wilsonericn.wordpress.com/2011/08/22/tweeting-in-python-the-easy-way/
+ - copier la page précédemment mentionnée, pour avoir une sauvegarde.
 
