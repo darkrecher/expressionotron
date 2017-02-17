@@ -177,7 +177,9 @@ Pour les exemples de ce chapitre, on va supposer que chaque liste comporte seule
 
 La méthode de sélection la plus simple serait la suivante :
 
-    seed = 0 -> index des éléments = [0, 0, 0, 0, 0] -> on prend le verbe numéro 0, le sujet 0, l'adjectif 0, le n'importe quoi 0 et l'interjection 0.
+    seed = 0 -> index des éléments = [0, 0, 0, 0, 0]
+    -> on prend le verbe numéro 0, le sujet 0, l'adjectif 0, le n'importe quoi 0 et l'interjection 0.
+
     seed = 1 -> [0, 0, 0, 0, 1]
     seed = 2 -> [0, 0, 0, 0, 2]
     seed = 3 -> [0, 0, 0, 1, 0]
@@ -258,6 +260,8 @@ Du coup, on ne peut pas avoir toutes les combinaisons possibles de couples (inte
 
 La sélection des index d'éléments à partir de la seed est effectuée par la fonction `data_indexes_from_seed`, dans le fichier `expressionotron/v002/seeder.py`.
 
+Il n'y a pas de contrôle sur la valeur de la seed. Si elle est trop grande par rapport aux `data_lengths`, ça se règle tout seul. Car on applique des opérations successives de modulo sur la seed pour obtenir les `data_indexes`.
+
 Les shufflers sont à fournir en paramètre à la fonction. Ce paramètre est facultatif, puisque la méthode de sélection marcherait sans les shufflers.
 
 Pour plus de détails, voir les commentaires de la fonction.
@@ -304,6 +308,8 @@ Module tout simple lui aussi, contenant uniquement la définitio nde 4 variables
 L'utilisation d'un compte de manière automatisée, via l'API, ne nécessite pas le mot de passe du compte, mais les clés de l'API (qui sont récupérables après s'être connectés au compte).
 
 Pour plus de détail sur la manière de récupérer les clés, voir : https://wilsonericn.wordpress.com/2011/08/22/tweeting-in-python-the-easy-way/ .
+
+Au cas où le lien se perdrait, le contenu de la page a été sauvegardé dans ce repository. Voir : `repo_git/expressionotron/doc/tweeting_in_python_the_easy_way.md`.
 
 Bien évidemment, le fichier stocké dans ce repository ne contient pas les vraies clés, mais des valeurs fictives. Les vraies clés sont stockées uniquement sur le site pythonanywhere et ne sont pas disponibles publiquement. (Pas la peine de fouiller l'historique de git, je n'y ai jamais mis ces clés !).
 

@@ -34,7 +34,7 @@ Voir : [doc/mise_en_prod_pythonanywhere.md](doc/mise_en_prod_pythonanywhere.md)
 
 ## Document de conception
 
-REC TODO
+Voir : [doc/doc_conception.md](doc/doc_conception.md)
 
 
 ## Crédits
@@ -59,10 +59,4 @@ J'accepte les dons en diverses crypto-monnaies.
 
 Faire la même doc que urluth :
 
- - Document de conception, avec en particulier :
-     - y'a pas de check sur la valeur max de la seed, ni de modulo, car ça se fait tout seul. (Faut juste retrouver comment). (Ouais en fait si, y'a des modulos, mais successifs)
- - Les liens dans le readme principal
- - À priori, cette ligne de code ne sert à rien : `total_length //= data_index_length`. (Mais flemme de rechanger le code et mettre à jour le site pour ça)
- - petit commentaire de remerciement ici : https://wilsonericn.wordpress.com/2011/08/22/tweeting-in-python-the-easy-way/
- - copier la page précédemment mentionnée, pour avoir une sauvegarde.
-
+ - relire tout ce bazar.
