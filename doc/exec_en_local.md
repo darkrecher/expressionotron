@@ -64,8 +64,9 @@ Pour arrêtez le serveur flask : retournez à la fenêtre de commande et utilise
 
 ## Lancement du twitter bot
 
-Il est nécessaire d'avoir le module python "twitter". Ce module est pré-installé sur la plate-forme d'hébergement pythonanywhere.
-Le twitter bot a été testé directement sur pythonanywhere, mais jamais en local. À priori, il suffirait juste de "pip install twitter" et d'exécuter le script `repo_git/expressionotron/server/mysite/twit_cron.py`.
+Il est nécessaire d'avoir la lib python "twitter". Cette lib est pré-installée sur la plate-forme d'hébergement pythonanywhere, le twitter bot a été testé directement dessus, jamais en local.
+
+À priori, il suffirait juste de "pip install twitter" et d'exécuter le script `repo_git/expressionotron/server/mysite/twit_cron.py`.
 
 
 ## Passage des tests
@@ -89,6 +90,8 @@ Le passage des tests se fait de la manière standard prévue par pytest :
 
     ========================== 15 passed in 8.89 seconds ==========================
 
-Le détail des tests n'est pas décrit dans cette documentation. C'est lourdingue d'écrire des tests mais je l'ai fait quand même, c'est lourdingue d'écrire la documentation mais je l'ai fait quand même, je peux donc me permettre de ne pas écrire la documentation à propos des tests.
+Le détail des tests n'est pas décrit dans cette documentation.
+
+C'est lourdingue d'écrire des tests mais je l'ai fait quand même, c'est lourdingue d'écrire la documentation mais je l'ai fait quand même, je peux donc me permettre de ne pas écrire la documentation à propos des tests.
 
 

@@ -1,20 +1,18 @@
 # Expressionotron
 
 
-## Description
-
 Site web générant des expressions amusantes "qui poutrent du brontosaure triclassé au dénoyauteur de cerise".
 
-Le site possède également un "twitter bot" : une tâche planifiée se déclenchant une fois par jour, pour générer une expression qui est ensuite envoyée dans un tweet.
+Le site possède également un "twitter bot" : une tâche planifiée se déclenchant une fois par jour, pour générer une expression et l'envoyer dans un tweet.
 
 
-## Installation actuelle en production
+## Installation actuelle
 
-Le site fonctionne sur un serveur Flask.
+Le site fonctionne sur un serveur Python, avec la lib Flask.
 
-Il est actuellement en production sur la plate-forme d'hébergement pythonanywhere, à l'adresse : [http://recher.pythonanywhere.com/](http://recher.pythonanywhere.com/).
+Il est actuellement en production sur la plate-forme d'hébergement [pythonanywhere](http://recher.pythonanywhere.com/).
 
-Le code n'est pas exactement le même, car Pythonanywhere héberge deux applications différente, qui sont chacune dans un "Blueprint" :
+Le code n'est pas exactement le même entre ce repository et la production, car pythonanywhere héberge deux applications différente, qui sont chacune dans un "Blueprint" :
 
  - urluth (https://github.com/darkrecher/urluth).
  - expressionotron.

@@ -1,16 +1,18 @@
 # Document de conception
 
-La page de présentation est toute simple, pas de JS ni de CSS. Elle contient les liens vers les applications qui ont pu être chargées (en Flask, ça s'appelle des [Blueprints](http://flask.pocoo.org/docs/0.12/blueprints/)).
+Les pages de l'expressionotron ne contiennent ni JS, ni CSS.
+
+La page de présentation est toute simple, elle contient les liens vers les applications qui ont pu être chargées (en Flask, ça s'appelle des [Blueprints](http://flask.pocoo.org/docs/0.12/blueprints/)).
 
 Le Blueprint "expressionotron" contient une page unique, générée dynamiquement, ainsi qu'une tâche planifiée.
 
-Cette page unique affiche une expression ainsi que du texte statique. Elle ne contient pas de JS ou de CSS. Elle accepte un paramètre facultatif, qui est utilisé comme une "seed" permettant de générer une expression spécifique, en utilisant une version spécifique du générateur. Si le paramètre n'est pas présent, l'expression à afficher est générée aléatoirement.
+Cette page unique affiche une expression ainsi que du texte. Elle accepte un paramètre facultatif contenant une "seed" et une version, ce qui permet de générer une expression spécifique. Si le paramètre n'est pas présent, l'expression est générée aléatoirement, avec la version courante du générateur.
 
-La tâche planifiée exécute le twitter bot. Celui-ci génère aléatoirement une expression en utilisant la version courante du générateur, puis il la met dans un twit via l'API de twitter.
+La tâche planifiée exécute le twitter bot. Celui-ci génère aléatoirement une expression, puis il l'envoie dans un twit via l'API de twitter.
 
-L'autre Blueprint (urluth) contient une page unique. Elle n'est pas décrite dans cette documentation.
+L'autre Blueprint (urluth) contient également une page unique. Il n'est pas décrit dans cette documentation.
 
-Tous les fichiers mentionnés dans cette documentation se trouve dans `repo_git/expressionotron/server/mysite`, ce chemin de base n'est donc pas mentionné à chaque fichier.
+Tous les fichiers mentionnés dans cette documentation se trouve dans `repo_git/expressionotron/server/mysite`, ce chemin de base n'est donc pas reprécisé à chaque fois.
 
 
 ## flask_app.py
@@ -31,7 +33,7 @@ Lors de l'exécution de ce fichier, les actions suivantes sont effectuées :
 
  - Lancement de l'application pour démarrer le serveur.
 
-L'application doit avoir une "secret key" pour fonctionner. C'est une chaîne de caractère contenant ce qu'on veut. Je ne sais pas exactement à quoi ça sert, je suppose que c'est pour la sécurité, le HTTPS ou quelque chose comme ça. Cette secret key est importée depuis le fichier `secret_key.py`. Il y a une version de ce fichier dans ce repository, qui n'est bien évidemment pas la même que celle qui est réellement utilisée sur pythonanywhere. La vraie secret key n'est pas disponible publiquement.
+L'application doit avoir une "secret key" pour fonctionner. C'est une chaîne de caractère contenant ce qu'on veut. Je ne sais pas exactement à quoi ça sert, je suppose que c'est pour la sécurité, le HTTPS ou quelque chose comme ça. Cette secret key est importée depuis le fichier `secret_key.py`. Il y a une version de ce fichier dans ce repository, qui n'est bien évidemment pas la même que celle réellement utilisée sur pythonanywhere. La vraie secret key n'est pas disponible publiquement.
 
 ### Construction et renvoi de la page de présentation du site
 
@@ -41,7 +43,7 @@ D'autre part, le fichier `flask_app.py` contient la fonction `generate_main_page
 
  - Si le Blueprint `app_expressionotron` existe, écriture d'un lien dans la page HTML. L'url de ce lien est construite de façon à pointer vers la page unique de l'expressionotron.
 
- - Si le Blueprint `app_urluth` existe, écriture d'un autre lien dans la page HTML, permettant d'aller à la page unique d'urluth.
+ - De même, si le Blueprint `app_urluth` existe, écriture d'un autre lien dans la page HTML.
 
  - Renvoi de la page, sous forme d'une chaîne de caractères.
 

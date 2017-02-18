@@ -88,7 +88,7 @@ Daily     | 16:04 | /home/Recher/mysite/twit_cron.py | 2017-03-07
 
 ![screenshot de l'onglet Schedule dans pythonanywhere](screenshot_prod_schedule.png)
 
-Le twit doit être envoyé tous les jours à 16:64, c'est à dire 17:04, heure française. L'heure à indiquer dans la configuration de pythonanywhere est en UTC, donc il faut décaler de une heure : 16:04.
+Le twit doit être envoyé tous les jours à 16:64, c'est à dire 17:04, heure française. L'heure à indiquer dans la configuration de pythonanywhere est en UTC, donc il faut décaler d'une heure : 16:04.
 
 Je ne sais pas si le décalage "heure d'été - heure d'hiver" est géré. Il est possible que pendant une moitié de l'année (je ne sais pas laquelle) ce soit décalé d'une heure.
 
