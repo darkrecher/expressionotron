@@ -60,7 +60,7 @@ Pas de balise `html`, `body`, `head`, etc. C'est vraiment au plus simple.
 
 Fichier principal de l'application expressionotron. Il crée le Blueprint `app_expressionotron`.
 
-Ce fichier contient deux grosses fonctions, et deux petites fonctions de routage d'urls
+Ce fichier contient deux grosses fonctions et deux petites fonctions de routage d'urls.
 
 ### Fonction `get_and_increase_nb_visit`
 
@@ -70,17 +70,17 @@ L'information lue est le nombre de visites de la page web (depuis la création d
 
 La fonction renvoie, sous forme de int, le nombre de visite après son incrémentation.
 
-Des try-except rendent la lecture et la réécriture dans le fichier non bloquante. (L'affichage final de la page web contenant l'expression est plus important que le comptage des visites). Si la lecture échoue, le nombre de visite prend la valeur par défaut 0, qui devient 1 après incrémentation. C'est ce qui explique pourquoi les tests en local affichent toujours une seule visite, qui n'augmente jamais.
+Des try-except rendent la lecture et la réécriture dans le fichier non bloquante. (L'affichage final de la page web est plus important que le comptage des visites). Si la lecture échoue, le nombre de visite prend la valeur par défaut 0, qui devient 1 après incrémentation. C'est ce qui explique pourquoi les tests en local affichent toujours "1", sans que ça n'augmente.
 
-Les accès multiples au fichier ne sont pas gérés. Il est donc possible que certaines visites n'aient pas été comptabilisés, si plusieurs visiteurs arrivent exactement pil poil en même temps.
+Les accès multiples au fichier ne sont pas gérés. Il est donc possible que certaines visites n'aient pas été comptabilisées.
 
 ### Fonction `webpage_expressionotron`
 
-Cette fonction construit l'unique page HTML de l'expressionotron. Celle-ci est renvoyée et générée avec le moteur de template "jinja2", intégré à Flask. Le fichier de template utilisé est `expressionotron/templates/template_expr.html`.
+C'est la "fonction principale" de l'expressionotron, elle construit son unique page HTML. Celle-ci est générée et renvoyée avec le moteur de template "jinja2", intégré à Flask. Le fichier de template utilisé est `expressionotron/templates/template_expr.html`.
 
-Elle nécessite le paramètre `unsafe_expr_gen_key` : une chaîne de caractère censée définir la seed de l'expression à générer, ainsi que la version du générateur à utiliser (voir plus loin). Ce paramètre provient de l'extérieur, car c'est une information dans la requête HTTP qui est envoyée au serveur. Il peut donc potentiellement contenir n'importe quoi, être vide, etc. La fonction en tient compte.
+Elle nécessite le paramètre `unsafe_expr_gen_key` : une chaîne de caractère censée définir la seed et la version de l'expression à générer (voir plus loin). Ce paramètre provient de l'extérieur, car c'est une information contenue dans la requête HTTP. Il peut donc potentiellement contenir n'importe quoi, être vide, etc. La fonction en tient compte.
 
-C'est la "fonction principale" de l'expressionotron. Elle effectue les actions suivantes :
+La fonction effectue les actions suivantes :
 
  - augmentation du nombre de visite du site, et récupération du nombre actuel.
  - création d'une seed et d'une version de générateur correcte en utilisant, si c'est possible, les infos de `unsafe_expr_gen_key`.
@@ -92,22 +92,24 @@ C'est la "fonction principale" de l'expressionotron. Elle effectue les actions s
 
 Il s'agit des fonctions `expressionotron_post` et `expressionotron_get`. Elles sont censées répondre à une requête HTTP ayant l'url "/" (url racine). Dans les faits, l'url de départ est "/expressionotron". Le fichier `flask_app.py` l'intercepte et détecte la présence du préfixe. Ce préfixe est supprimé, puis la requête est transmise à `appexpr.py`. L'url résultante est donc l'url racine, qui est interceptée par l'une de ces deux fonctions.
 
-La fonction `expressionotron_get` est associée à la méthode HTTP "GET". Le paramètre `unsafe_expr_gen_key` est récupéré depuis le paramètre "seed" (qui est éventuellement présent dans l'url).
+La fonction `expressionotron_get` est associée à la méthode HTTP "GET". Le paramètre `unsafe_expr_gen_key` est récupéré depuis le paramètre HTTP "seed", contenu dans l'url. Si "seed" n'est pas présent, `unsafe_expr_gen_key` devient une chaîne vide. Le reste du code est capable de gérer ce cas.
 
-La fonction `expressionotron_post` est associée à la méthode HTTP "POST". Le paramètre `unsafe_expr_gen_key` est récupéré depuis le paramètre de formulaire "seedInForm". Si c'est un POST, ce paramètre est censé être présent. S'il ne l'est pas, une exception est levée et la résultat final est une erreur HTTP 400. J'aurais pu faire en sorte que ce cas soit mieux géré, mais il n'y a que maintenant que je le découvre. Tant pis, ce sera pour la prochaine version !
+La fonction `expressionotron_post` est associée à la méthode HTTP "POST". Le paramètre `unsafe_expr_gen_key` est récupéré depuis le paramètre de formulaire "seedInForm".
+
+Comme c'est un POST, ce paramètre est censé être toujours présent. S'il ne l'est pas, une exception est levée et le résultat final est une erreur HTTP 400. J'aurais pu faire en sorte que ce cas soit mieux géré, mais il n'y a que maintenant que je le découvre. Tant pis, ce sera pour la prochaine version !
 
 
 ## expressionotron/templates/template_expr.html
 
 Template de la page HTML. Il est assez simple.
 
-La variable de template dans laquelle est placée l'expression est notée `{{expression|safe}}`. Le "safe" permet d'indiquer que le texte est déjà encodé en HTML. Sinon, les `&eacute;` de l'expression seront re-converties en `&amp;eacute;`
+La variable de template dans laquelle est placée l'expression est notée `{{expression|safe}}`. Le "safe" permet d'indiquer que le texte est déjà encodé en HTML. Sinon, les `&eacute;` de l'expression seraient re-convertis en `&amp;eacute;`
 
 Le template contient un formulaire avec un champ de type texte, intitulé "seedInForm". C'est ce formulaire qui permet de faire une requête "POST", qui sera ensuite récupérée par la fonction `expressionotron_post`.
 
 **Attention aux noms des fichiers de templates !!** Dans Flask, lorsqu'on déclare un répertoire de templates via la fonction `Blueprint(template_folder='aaa')`, celui-ci est globalement accessible, y compris par les autres Blueprint.
 
-Par exemple, si on a l'arborescence suivante :
+Par exemple, avec l'arborescence suivante :
 
  - mysite
    + expressionotron
@@ -117,7 +119,7 @@ Par exemple, si on a l'arborescence suivante :
      * templates
        - template.html
 
-et que ensuite, chaque Blueprint déclare son propre sous-répertoire "templates", ça risque de se mélanger. C'est à dire que les pages de urluth seront générées avec le template de l'expressionotron, et vice-versa.
+Si chaque Blueprint déclare son propre sous-répertoire "templates", ça risque de se mélanger. C'est à dire que les pages de urluth seront générées avec le template de l'expressionotron, et vice-versa.
 
 Pour régler ce problème, les deux templates ont des noms différents : `template_expr.html` et `template_urluth.html`. On aurait pu également créer un sous-dossier dans chaque dossier de template.
 
@@ -135,17 +137,19 @@ Fonction `tuple_from_raw_str` : Renvoie un tuple à partir d'une string multi-li
 
 ### Fonctionnement générique à toutes les versions
 
-Chaque version du générateur d'expression est placé dans un sous-répertoire. Pour l'instant, il y en a deux : "expressionotron/v001" et "expressionotron/v002". Chaque sous-répertoire peut comporter un ou plusieurs fichiers python, mais il faut obligatoirement un fichier `expr_generator.py`, qui doit obligatoirement comporter les éléments suivants :
+Chaque version du générateur d'expression est placée dans un sous-répertoire. Pour l'instant, il y en a deux : "expressionotron/v001" et "expressionotron/v002".
+
+Rien n'est imposé concernant l'organisation interne d'un sous-répertoire de version, excepté qu'il doit obligatoirement comporter un fichier `expr_generator.py`, avec les éléments suivants :
 
  - `version` : chaîne de caractère. Indique la version du générateur.
- - `generate_expression` : fonction nécessitant un paramètre 'seed' (valeur numérique) et renvoyant une chaîne de caractère (l'expression). La même seed doit toujours renvoyer la même expression. L'expression doit être encodée avec les HTML entities (`&eacute;`, etc.).
- - `seed_max` : valeur numérique. Elle renseigne sur la quantité d'expression qui peuvent être générées. Idéalement, si on fait varier le paramètre 'seed' de 0 à `seed_max`, on devrait couvrir toutes les expressions possibles, sans qu'il y ait de doublons. Concrètement, cette consigne est respectée pour le générateur version '002', mais pas le '001'.
+ - `generate_expression` : fonction nécessitant un paramètre `seed` (valeur numérique) et renvoyant une chaîne de caractère (l'expression). La même seed doit toujours renvoyer la même expression. L'expression doit être encodée avec les HTML entities (`&eacute;`, etc.).
+ - `seed_max` : valeur numérique. Elle renseigne sur la quantité d'expression qui peuvent être générées. Idéalement, si on fait varier le paramètre `seed` de 0 à `seed_max`, on devrait couvrir toutes les expressions possibles, sans qu'il y ait de doublons. Concrètement, cette consigne est respectée pour la version 'v002', mais pas la 'v001'.
 
-En général, les morceaux de phrase utilisés pour générer les expressions sont tous stockés dans un fichier `dataphrase.py`, mais ce n'est pas une obligation.
+En général, les morceaux de phrase des expressions sont tous stockés dans un fichier `dataphrase.py`, mais ce n'est pas une obligation.
 
 ### expressionotron/v001
 
-La première version du générateur. Elle n'est pas documentée en détail, car son code est un peu moche, et il n'est pas prévu qu'elle change.
+La première version du générateur. Elle n'est pas documentée en détail, car son code est un peu moche, et il n'est pas prévu de le modifier.
 
 Sa version vaut `001`. Son seed_max vaut 300000000, mais c'est une valeur arbitraire.
 
