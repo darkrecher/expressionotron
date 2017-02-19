@@ -1,4 +1,34 @@
+<a class="mk-toclify" id="document-de-conception"></a>
 # Document de conception
+
+<a class="mk-toclify" id="table-of-contents"></a>
+## Sommaire
+- [Document de conception](#document-de-conception)
+    - [Sommaire.py](#table-of-contents)
+    - [flask_app.py](#flask_apppy)
+        - [Démarrage du serveur](#d-marrage-du-serveur)
+        - [Construction et renvoi de la page de présentation du site](#construction-et-renvoi-de-la-page-de-pr-sentation-du-site)
+    - [expressionotron/appexpr.py](#expressionotronappexprpy)
+        - [Fonction `get_and_increase_nb_visit`](#fonction-get_and_increase_nb_visit)
+        - [Fonction `webpage_expressionotron`](#fonction-webpage_expressionotron)
+        - [Fonctions de routage d'urls](#fonctions-de-routage-d-urls)
+    - [expressionotron/templates/template_expr.html](#expressionotrontemplatestemplate_exprhtml)
+    - [expressionotron/common_tools.py](#expressionotroncommon_toolspy)
+    - [Génération des expressions](#g-n-ration-des-expressions)
+        - [Fonctionnement générique à toutes les versions](#fonctionnement-g-n-rique-toutes-les-versions)
+        - [expressionotron/v001](#expressionotronv001)
+        - [expresionotron/v002](#expresionotronv002)
+            - [Structure d'une expression](#structure-d-une-expression)
+            - [Méthode de sélection des éléments à partir de la seed](#m-thode-de-s-lection-des-l-ments-partir-de-la-seed)
+            - [Gestion du préfixe d'adjectif](#gestion-du-pr-fixe-d-adjectif)
+            - [Implémentation](#impl-mentation)
+        - [expressionotron/expr_generator.py](#expressionotronexpr_generatorpy)
+    - [Le twitter bot](#le-twitter-bot)
+        - [twit_cron.py](#twit_cronpy)
+        - [expressionotron/twit_pass.py](#expressionotrontwit_passpy)
+        - [expressionotron/twit_bot.py](#expressionotrontwit_botpy)
+    - [Modules non documentés](#modules-non-document-s)
+
 
 Les pages de l'expressionotron ne contiennent ni JS, ni CSS.
 
@@ -15,10 +45,12 @@ L'autre Blueprint (urluth) contient également une page unique. Il n'est pas dé
 Tous les fichiers mentionnés dans cette documentation se trouve dans `repo_git/expressionotron/server/mysite`, ce chemin de base n'est donc pas reprécisé à chaque fois.
 
 
+<a class="mk-toclify" id="flask_apppy"></a>
 ## flask_app.py
 
 Fichier principal du site.
 
+<a class="mk-toclify" id="d-marrage-du-serveur"></a>
 ### Démarrage du serveur
 
 Lors de l'exécution de ce fichier, les actions suivantes sont effectuées :
@@ -35,6 +67,7 @@ Lors de l'exécution de ce fichier, les actions suivantes sont effectuées :
 
 L'application doit avoir une "secret key" pour fonctionner. C'est une chaîne de caractère contenant ce qu'on veut. Je ne sais pas exactement à quoi ça sert, je suppose que c'est pour la sécurité, le HTTPS ou quelque chose comme ça. Cette secret key est importée depuis le fichier `secret_key.py`. Il y a une version de ce fichier dans ce repository, qui n'est bien évidemment pas la même que celle réellement utilisée sur pythonanywhere. La vraie secret key n'est pas disponible publiquement.
 
+<a class="mk-toclify" id="construction-et-renvoi-de-la-page-de-pr-sentation-du-site"></a>
 ### Construction et renvoi de la page de présentation du site
 
 D'autre part, le fichier `flask_app.py` contient la fonction `generate_main_page`, qui est appelée lorsqu'il faut répondre à une requête HTTP sur l'url racine du site (juste un slash, sans préfixe). Cette fonction effectue les actions suivantes :
@@ -56,12 +89,14 @@ Exemple de code HTML renvoyé (lorsque les deux Blueprints sont présents) :
 Pas de balise `html`, `body`, `head`, etc. C'est vraiment au plus simple.
 
 
+<a class="mk-toclify" id="expressionotronappexprpy"></a>
 ## expressionotron/appexpr.py
 
 Fichier principal de l'application expressionotron. Il crée le Blueprint `app_expressionotron`.
 
 Ce fichier contient deux grosses fonctions et deux petites fonctions de routage d'urls.
 
+<a class="mk-toclify" id="fonction-get_and_increase_nb_visit"></a>
 ### Fonction `get_and_increase_nb_visit`
 
 Cette fonction lit, puis réécrit une information dans le fichier texte `/home/Recher/mysite/expressionotron/blorp.txt`, sur le serveur.
@@ -74,6 +109,7 @@ Des try-except rendent la lecture et la réécriture dans le fichier non bloquan
 
 Les accès multiples au fichier ne sont pas gérés. Il est donc possible que certaines visites n'aient pas été comptabilisées.
 
+<a class="mk-toclify" id="fonction-webpage_expressionotron"></a>
 ### Fonction `webpage_expressionotron`
 
 C'est la "fonction principale" de l'expressionotron, elle construit son unique page HTML. Celle-ci est générée et renvoyée avec le moteur de template "jinja2", intégré à Flask. Le fichier de template utilisé est `expressionotron/templates/template_expr.html`.
@@ -88,6 +124,7 @@ La fonction effectue les actions suivantes :
  - génération d'un permalink permettant de retrouver l'expression. Pour plus d'info concernant la méthode de génération des urls, voir : http://flask.pocoo.org/docs/0.12/api/#flask.url_for et http://stackoverflow.com/questions/7478366/create-dynamic-urls-in-flask-with-url-for .
  - génération de la page HTML avec le template et toutes les infos précédentes.
 
+<a class="mk-toclify" id="fonctions-de-routage-d-urls"></a>
 ### Fonctions de routage d'urls
 
 Il s'agit des fonctions `expressionotron_post` et `expressionotron_get`. Elles sont censées répondre à une requête HTTP ayant l'url "/" (url racine). Dans les faits, l'url de départ est "/expressionotron". Le fichier `flask_app.py` l'intercepte et détecte la présence du préfixe. Ce préfixe est supprimé, puis la requête est transmise à `appexpr.py`. L'url résultante est donc l'url racine, qui est interceptée par l'une de ces deux fonctions.
@@ -99,6 +136,7 @@ La fonction `expressionotron_post` est associée à la méthode HTTP "POST". Le 
 Comme c'est un POST, ce paramètre est censé être toujours présent. S'il ne l'est pas, une exception est levée et le résultat final est une erreur HTTP 400. J'aurais pu faire en sorte que ce cas soit mieux géré, mais il n'y a que maintenant que je le découvre. Tant pis, ce sera pour la prochaine version !
 
 
+<a class="mk-toclify" id="expressionotrontemplatestemplate_exprhtml"></a>
 ## expressionotron/templates/template_expr.html
 
 Template de la page HTML. Il est assez simple.
@@ -126,6 +164,7 @@ Pour régler ce problème, les deux templates ont des noms différents : `templa
 Pour plus de précisions concernant cette subtilité de templates : http://stackoverflow.com/questions/7974771/flask-blueprint-template-folder
 
 
+<a class="mk-toclify" id="expressionotroncommon_toolspy"></a>
 ## expressionotron/common_tools.py
 
 Contient une seule fonction toute simple, utilisée un peu partout (y compris dans les scripts de tests).
@@ -133,8 +172,10 @@ Contient une seule fonction toute simple, utilisée un peu partout (y compris da
 Fonction `tuple_from_raw_str` : Renvoie un tuple à partir d'une string multi-ligne, en éliminant les espaces avant et après chaque string, et en éliminant les lignes vides.
 
 
+<a class="mk-toclify" id="g-n-ration-des-expressions"></a>
 ## Génération des expressions
 
+<a class="mk-toclify" id="fonctionnement-g-n-rique-toutes-les-versions"></a>
 ### Fonctionnement générique à toutes les versions
 
 Chaque version du générateur d'expression est placée dans un sous-répertoire. Pour l'instant, il y en a deux : "expressionotron/v001" et "expressionotron/v002".
@@ -147,14 +188,17 @@ Rien n'est imposé concernant l'organisation interne d'un sous-répertoire de ve
 
 En général, les morceaux de phrase des expressions sont tous stockés dans un fichier `dataphrase.py`, mais ce n'est pas une obligation.
 
+<a class="mk-toclify" id="expressionotronv001"></a>
 ### expressionotron/v001
 
 La première version du générateur. Elle n'est pas documentée en détail, car son code est un peu moche, et il n'est pas prévu de le modifier.
 
 Sa version vaut `001`. Son seed_max vaut 300000000, mais c'est une valeur arbitraire.
 
+<a class="mk-toclify" id="expresionotronv002"></a>
 ### expresionotron/v002
 
+<a class="mk-toclify" id="structure-d-une-expression"></a>
 #### Structure d'une expression
 
 La génération d'une expression est effectuée en prenant un élément dans chacune des 5 listes suivantes : verbe, sujet, adjectif, n'importe quoi, interjection.
@@ -177,6 +221,7 @@ La génération d'une expression consiste donc, à partir de la seed, à choisir
 
 La version de ce générateur vaut `002`. Son seed_max est égal au produit de la taille des 5 listes d'éléments, soit : 151 * 141 * 173 * 158 * 150 = 87295229100.
 
+<a class="mk-toclify" id="m-thode-de-s-lection-des-l-ments-partir-de-la-seed"></a>
 #### Méthode de sélection des éléments à partir de la seed
 
 Pour les exemples de ce chapitre, on va supposer que chaque liste comporte seulement 3 éléments.
@@ -246,6 +291,7 @@ On remet à 0 et on fait tout avancer de un sauf le premier, en utilisant le deu
 
 Cette méthode à la garantie de couvrir toutes les valeurs possibles, tout en maximisant les différences entre deux seeds proches. (Je suppose qu'il faudrait une petite démo de matheux pour prouver tout ça, mais je n'ai ni le temps ni les compétences pour la faire).
 
+<a class="mk-toclify" id="gestion-du-pr-fixe-d-adjectif"></a>
 #### Gestion du préfixe d'adjectif
 
 Les préfixes d'adjectifs, c'est amusant, mais il ne faut en mettre que sur les adjectifs composés d'un seul mot, sinon ça fait bizarre. De plus, il ne faut pas en mettre systématiquement, car ça serait un peu lourd. Les phrases sont déjà assez chargées de lolitude même sans préfixe.
@@ -262,6 +308,7 @@ Il y a environ trois fois plus d'interjections que de préfixes. C'est fait expr
 
 Du coup, on ne peut pas avoir toutes les combinaisons possibles de couples (interjections, préfixes). Mais on s'en fout. Les interjections ont été ajoutées uniquement pour permettre la probabilité de 1/3.
 
+<a class="mk-toclify" id="impl-mentation"></a>
 #### Implémentation
 
 La sélection des index d'éléments à partir de la seed est effectuée par la fonction `data_indexes_from_seed`, dans le fichier `expressionotron/v002/seeder.py`.
@@ -284,6 +331,7 @@ Le reste de l'algorithme de génération est implémenté dans le module `expres
 
 Pour plus de détails, voir les commentaires dans le module.
 
+<a class="mk-toclify" id="expressionotronexpr_generatorpy"></a>
 ### expressionotron/expr_generator.py
 
 Ce module fait l'interface entre d'une part les différentes versions du générateur d'expression et d'autre part le code extérieur. Il a le même nom que les modules `expr_generator.py` des sous-répertoires `v001`, `v002`, ... C'est fait exprès.
@@ -299,14 +347,17 @@ Ce module contient les fonctions suivantes :
 `format_key` : recrée une `expr_gen_key` correcte à partir d'une `seed` et d'une `version`. C'est utile pour les permaliens, permettant de retrouver une expression connue à partir d'une url.
 
 
+<a class="mk-toclify" id="le-twitter-bot"></a>
 ## Le twitter bot
 
+<a class="mk-toclify" id="twit_cronpy"></a>
 ### twit_cron.py
 
 Script tout simple, il importe le code du twitter bot et exécute la fonction principale pour émettre un twit.
 
 L'hébergeur pythonanywhere est configuré avec une tâche planifiée quotidienne, exécutant ce script.
 
+<a class="mk-toclify" id="expressionotrontwit_passpy"></a>
 ### expressionotron/twit_pass.py
 
 Module tout simple lui aussi, contenant uniquement la définition de 4 variables. Il s'agit des clés secrètes de l'API twitter, qui correspondent au compte que le twitter bot va utiliser pour émettre les twits.
@@ -319,6 +370,7 @@ Au cas où le lien se perdrait, le contenu de la page a été sauvegardé. Voir 
 
 Bien évidemment, le fichier stocké dans ce repository ne contient pas les vraies clés, mais des valeurs fictives. Les vraies clés sont stockées uniquement sur le site pythonanywhere et ne sont pas disponibles publiquement. (Pas la peine de fouiller l'historique de git !).
 
+<a class="mk-toclify" id="expressionotrontwit_botpy"></a>
 ### expressionotron/twit_bot.py
 
 Module principale du twitter bot.
@@ -340,6 +392,7 @@ La boucle compte le nombre d'essais restants. Au bout de 4, on abandonne : on re
 
 Durant toutes ces étapes, du log est écrit dans la sortie standard (texte de l'expression, texte du twit, message des exceptions, ...). Ce log est effectué à l'aide de la librairie standard `logging`. Il est consultable à l'adresse "recher.pythonanywhere.com.error.log" (non accessible publiquement). Je ne sais pas exactement où atterrit le log dans l'arborescence de fichier de pythonanywhere, mais l'important est qu'il soit récupérable.
 
+<a class="mk-toclify" id="modules-non-document-s"></a>
 ## Modules non documentés
 
 Les tests sont non documentés. Il s'agit des fichiers suivants :
