@@ -175,7 +175,7 @@ Les points d'exclamation et le "1" sont fixe, et ajoutés systématiquement à c
 
 La génération d'une expression consiste donc, à partir de la seed, à choisir un numéro d'élément dans chaque liste.
 
-Sa version vaut `002`. Son seed_max est égal au produit de la taille des 5 listes d'éléments, soit : 151 * 141 * 173 * 158 * 150 = 87295229100.
+La version de ce générateur vaut `002`. Son seed_max est égal au produit de la taille des 5 listes d'éléments, soit : 151 * 141 * 173 * 158 * 150 = 87295229100.
 
 #### Méthode de sélection des éléments à partir de la seed
 
@@ -232,7 +232,7 @@ Pour avoir encore plus d'aléatoire, on mélange les valeurs d'avancement. Au li
 
 Ce mélange supplémentaire est effectué par des "shufflers". Il y a un shuffler par liste d'élément. Il s'agit d'une suite de nombre indiquant dans quelle ordre prendre les index.
 
-Par exemple, si la première liste a pour shufflers [2, 1, 0] et la deuxième [1, 0, 2]. (les autres ne sont pas shufflées, sinon ça va encore plus compliquer l'exemple).
+Exemple avec le shuffler [2, 1, 0] pour la première liste, et [1, 0, 2] pour la deuxième. (Les autres listes ne sont pas shufflées, sinon ça va encore plus compliquer l'exemple).
 
     seed= 0 -> [2, 0 (2+1), 0 (2+1), 0 (2+1), 0 (2+1)]
     seed= 1 -> [1, 2 (1+1), 2 (1+1), 2 (1+1), 2 (1+1)]
@@ -244,37 +244,37 @@ On remet à 0 et on fait tout avancer de un sauf le premier, en utilisant le deu
     seed= 4 -> [1, 1 (1+0), 1 (1+0), 1 (1+0), 1 (1+0)]
     seed= 4 -> [0, 0 (0+0), 0 (0+0), 0 (0+0), 0 (0+0)]
 
-Cette méthode à la garantie de couvrir toutes les valeurs possibles, tout en maximisant les différences entre deux seeds proches. (Je suppose qu'il faudrait une petite démo de matheux pour prouver tout ça, mais j'ai pas le temps ni les compétences pour la faire).
+Cette méthode à la garantie de couvrir toutes les valeurs possibles, tout en maximisant les différences entre deux seeds proches. (Je suppose qu'il faudrait une petite démo de matheux pour prouver tout ça, mais je n'ai ni le temps ni les compétences pour la faire).
 
 #### Gestion du préfixe d'adjectif
 
 Les préfixes d'adjectifs, c'est amusant, mais il ne faut en mettre que sur les adjectifs composés d'un seul mot, sinon ça fait bizarre. De plus, il ne faut pas en mettre systématiquement, car ça serait un peu lourd. Les phrases sont déjà assez chargées de lolitude même sans préfixe.
 
-D'après des estimations effectuées au pifomètre, il a été établi que le bon dosage de lol serait atteint lorsqu'un préfixe est ajouté dans un cas sur trois (après exclusion des cas où l'adjectif est composés de plusieurs mots).
+D'après des estimations effectuées au pifomètre, il a été établi que le bon dosage de lol serait atteint lorsqu'un préfixe est ajouté dans un cas sur trois, après exclusion des cas où l'adjectif est composé de plusieurs mots.
 
 Mais si on ajoute un index en plus pour gérer les préfixes, qui prendrait en compte les cas où on n'en met pas, on risque de se retrouver avec deux seeds différentes qui généreraient la même expression, et je voulais éviter ça.
 
 C'est pour ça que j'ai ajouté les interjections (qui n'étaient pas du tout présentes dans la version 001 du générateur).
 
-On utilise l'index de l'interjection pour déterminer s'il faut ajouter un préfixe ou pas, et quel préfixe ajouter. La méthode est assez simple, si `index_interjection` ne dépasse pas le nombre de préfixes possibles, alors : `index_prefixe = index_interjection`, sinon pas de préfixe.
+On utilise l'index de l'interjection pour déterminer s'il faut ajouter un préfixe ou pas, et lequel ajouter. La méthode est assez simple : si `index_interjection` ne dépasse pas le nombre de préfixes disponibles, alors `index_prefixe = index_interjection`, sinon pas de préfixe.
 
 Il y a environ trois fois plus d'interjections que de préfixes. C'est fait exprès pour mettre un préfixe dans un cas sur trois.
 
-Du coup, on ne peut pas avoir toutes les combinaisons possibles de couples (interjections, préfixes). Mais on s'en fout. Les interjections ont été ajoutées pour permettre une probabilité de 1 préfixe sur 3.
+Du coup, on ne peut pas avoir toutes les combinaisons possibles de couples (interjections, préfixes). Mais on s'en fout. Les interjections ont été ajoutées uniquement pour permettre la probabilité de 1/3.
 
 #### Implémentation
 
 La sélection des index d'éléments à partir de la seed est effectuée par la fonction `data_indexes_from_seed`, dans le fichier `expressionotron/v002/seeder.py`.
 
-Il n'y a pas de contrôle sur la valeur de la seed. Si elle est trop grande par rapport aux `data_lengths`, ça se règle tout seul. Car on applique des opérations successives de modulo sur la seed pour obtenir les `data_indexes`.
+Il n'y a pas de contrôle sur la valeur de la seed. Si elle est trop grande par rapport aux `data_lengths`, ça se règle tout seul, car on applique des opérations successives de modulo sur la seed pour obtenir les `data_indexes`.
 
-Les shufflers sont à fournir en paramètre à la fonction. Ce paramètre est facultatif, puisque la méthode de sélection marcherait sans les shufflers.
+Les shufflers sont à fournir en paramètre à la fonction. Ce paramètre est facultatif.
 
 Pour plus de détails, voir les commentaires de la fonction.
 
-Le reste de l'algorithme est implémenté dans le module `expressionotron/v002/expr_generator.py`. Il effectue les actions suivantes.
+Le reste de l'algorithme de génération est implémenté dans le module `expressionotron/v002/expr_generator.py`. Il effectue les actions suivantes.
 
- - au chargement du module : détermination des shufflers, de manière aléatoire, mais avec une seed de shufflers fixe. C'est à dire qu'on obtient les mêmes shufflers à chaque chargement du module.
+ - au chargement du module : détermination des shufflers, de manière "statiquement aléatoire". C'est à dire qu'on obtient les mêmes shufflers à chaque chargement du module.
  - Lors d'un appel à la fonction `generate_expression` :
    + Sélection des index d'éléments à partir de la seed passée en paramètre.
    + Récupération des éléments d'expression à partir des index d'éléments.
@@ -292,11 +292,11 @@ Les commentaires au début du module expliquent les différentes données manipu
 
 Ce module contient les fonctions suivantes :
 
-`sanitize_key` : crée une `expr_gen_key` correcte à partir de `unsafe_expr_gen_key`, une chaîne de caractère quelconque. Si la chaîne ne contient pas toutes les informations nécessaires, la version choisie est la plus récente (002), et la seed est choisie au hasard entre 0 et `seed_max`.
+`sanitize_key` : crée une `expr_gen_key` correcte à partir de `unsafe_expr_gen_key` (une chaîne de caractère quelconque). Si la chaîne ne contient pas toutes les informations nécessaires, la version choisie est la plus récente (002), et la seed est un nombre aléatoire 0 et `seed_max`.
 
-`generate_expression` : détermine le générateur d'expression à utiliser, en fonction du paramètre `version`, et exécute sa fonction de génération, afin de renvoyer l'expression. Les différentes versions du générateur nécessite uniquement le paramètre `seed`. Il n'est pas nécessaire de leur transmettre le paramètre `version`.
+`generate_expression` : détermine le générateur à utiliser, en fonction du paramètre `version`, et exécute sa fonction, afin de renvoyer l'expression. Les différentes versions du générateur nécessitent uniquement le paramètre `seed`. Il n'est pas nécessaire de leur transmettre la `version`.
 
-`format_key` : recrée une `expr_gen_key` correcte à partir d'une `seed` et d'une `version`. C'est utile pour créer un permalien vers l'expression.
+`format_key` : recrée une `expr_gen_key` correcte à partir d'une `seed` et d'une `version`. C'est utile pour les permaliens, permettant de retrouver une expression connue à partir d'une url.
 
 
 ## Le twitter bot
