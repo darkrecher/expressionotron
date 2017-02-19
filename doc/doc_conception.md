@@ -303,21 +303,21 @@ Ce module contient les fonctions suivantes :
 
 ### twit_cron.py
 
-Script tout simple, qui importe le code du twitter bot et qui exécute la fonction principale pour émettre un twit.
+Script tout simple, il importe le code du twitter bot et exécute la fonction principale pour émettre un twit.
 
-L'hébergeur pythonanywhere est configuré avec une tâche planifiée quotidienne, qui exécute ce script.
+L'hébergeur pythonanywhere est configuré avec une tâche planifiée quotidienne, exécutant ce script.
 
 ### expressionotron/twit_pass.py
 
-Module tout simple lui aussi, contenant uniquement la définitio nde 4 variables. Il s'agit des clés secrètes de l'API twitter, qui correspondent au compte que le twitter bot va utiliser pour émettre les twits.
+Module tout simple lui aussi, contenant uniquement la définition de 4 variables. Il s'agit des clés secrètes de l'API twitter, qui correspondent au compte que le twitter bot va utiliser pour émettre les twits.
 
-L'utilisation d'un compte de manière automatisée, via l'API, ne nécessite pas le mot de passe du compte, mais les clés de l'API (qui sont récupérables après s'être connectés au compte).
+L'envoi automatisé de twit via l'API ne nécessite pas le mot de passe du compte, mais les clés de l'API (récupérables après s'être authentifié).
 
-Pour plus de détail sur la manière de récupérer les clés, voir : https://wilsonericn.wordpress.com/2011/08/22/tweeting-in-python-the-easy-way/ .
+Pour plus de détail sur la manière de récupérer ces clés, voir : https://wilsonericn.wordpress.com/2011/08/22/tweeting-in-python-the-easy-way/ .
 
-Au cas où le lien se perdrait, le contenu de la page a été sauvegardé dans ce repository. Voir : `repo_git/expressionotron/doc/tweeting_in_python_the_easy_way.md`.
+Au cas où le lien se perdrait, le contenu de la page a été sauvegardé. Voir : [tweeting_in_python_the_easy_way.md](tweeting_in_python_the_easy_way.md).
 
-Bien évidemment, le fichier stocké dans ce repository ne contient pas les vraies clés, mais des valeurs fictives. Les vraies clés sont stockées uniquement sur le site pythonanywhere et ne sont pas disponibles publiquement. (Pas la peine de fouiller l'historique de git, je n'y ai jamais mis ces clés !).
+Bien évidemment, le fichier stocké dans ce repository ne contient pas les vraies clés, mais des valeurs fictives. Les vraies clés sont stockées uniquement sur le site pythonanywhere et ne sont pas disponibles publiquement. (Pas la peine de fouiller l'historique de git !).
 
 ### expressionotron/twit_bot.py
 
@@ -326,18 +326,19 @@ Module principale du twitter bot.
 Il effectue les actions suivantes :
 
  - Vérification que les clés d'API ne sont pas les clés bidons du repository. Dans le cas contraire, envoi d'un message d'avertissement sur la sortie standard.
- - Démarrage d'une boucle, afin de tester plusieurs fois de suite l'émission d'un twit. (Comme c'est une action nécessitant un ters externe, on considère que sa réussite n'est pas garantie, donc ça vaut le coup de le tenter plusieurs fois).
- - Génération d'une expression. Le fichier `twit_cron.py` ne définit pas le paramètre facultatif lors de l'exécution de la fonction `twit_expression`. La clé de génération d'expression est donc vide. Dans ce cas, le générateur utilise la version courante ('002') et une seed aléatoire.
- - Récupération de la clé de génération d'expression (pour faire un permalink).
- - Conversion de l'expression encodée en HTML en une string en unicode.
- - Définition du texte du twit, avec l'expression unicode et le permalink (qui est déjà en unicode dès le départ), en tronquant le texte de l'expression si nécessaire. Le texte d'un twit peut comporter 180 caractères, mais il faut laisser de la marge pour le permalink (qui est plus important que l'expression). L'expression est donc tronquée arbitrairement à 110 caractères.
- - Envoi du twit, via un appel à l'API twitter, via-via la librairie python 'twitter'. Cet envoi est effectué dans un bloc try-except, car c'est ça qui a le plus de chances d'échouer.
- - Si exception (on catche tout), écriture du message d'erreur dans le log de pythonanywhere, et retour au début de la boucle : on génère une nouvelle expression, que l'on tente de retweeter.
- - Si pas d'exception, tout va bien, on sort tout de suite de la boucle, et on termine la fonction.
+ - Démarrage d'une boucle, afin de tenter plusieurs fois de suite l'émission d'un twit. (Comme c'est une action nécessitant un tiers externe, on considère que sa réussite n'est pas garantie, donc ça vaut le coup d'essayer plusieurs fois).
+ - Génération d'une expression. Le fichier `twit_cron.py` ne définit pas le paramètre facultatif lors de l'exécution de la fonction `twit_expression`. La clé d'expression est donc vide. Dans ce cas, le générateur utilise la version courante ('002') et une seed aléatoire.
+ - Récupération de la clé d'expression, pour faire un permalink.
+ - Conversion de l'expression encodée en HTML vers une string en unicode.
+ - Définition du texte du twit, avec l'expression unicode et le permalink (qui est déjà en unicode dès le départ).
+ - Tronquage du texte de l'expression, si nécessaire. Le texte d'un twit peut comporter 180 caractères, mais il faut laisser de la marge pour le permalink (qui est plus important que l'expression). Le texte de l'expression est donc tronquée arbitrairement à 110 caractères.
+ - Envoi du twit, via un appel à l'API twitter, via-via la librairie python 'twitter'. Cette action s'appuie sur des systèmes externes, elle est donc effectuée dans un bloc try-except. Le bloc catche tous type d'exception.
+ - Si exception, écriture du message d'erreur dans le log de pythonanywhere, et retour au début de la boucle : on génère une nouvelle expression, que l'on tente de retweeter.
+ - Si pas d'exception, tout va bien, on sort tout de suite de la boucle et on termine la fonction.
 
-La boucle compte le nombre d'essais restant, au bout de 4 essais, on abandonne. On re-raise l'exception qui a été levée et qui a provoqué l'échec du twit, afin de quitter directement le processus et de permettre éventuellement à du code extérieur de récupérer cette exception pour en faire ce qu'il veut.
+La boucle compte le nombre d'essais restants. Au bout de 4, on abandonne : on re-raise l'exception qui a été levée et qui a provoqué l'échec du twit, afin de quitter directement le processus et de permettre éventuellement à du code extérieur de récupérer cette exception pour en faire ce qu'il veut.
 
-Durant toutes ces étapes, du log est écrit dans la sortie standard (texte de l'expression, texte du twit, message de l'exception, ...). Ce log est effectué à l'aide de la librairie standard `logging`. Il est accessible à l'adresse "recher.pythonanywhere.com.error.log" (non accessible publiquement). Je ne sais pas exactement où atterrit le log dans l'arborescence de fichier de pythonanywhere, mais l'important est qu'il soit récupérable.
+Durant toutes ces étapes, du log est écrit dans la sortie standard (texte de l'expression, texte du twit, message des exceptions, ...). Ce log est effectué à l'aide de la librairie standard `logging`. Il est consultable à l'adresse "recher.pythonanywhere.com.error.log" (non accessible publiquement). Je ne sais pas exactement où atterrit le log dans l'arborescence de fichier de pythonanywhere, mais l'important est qu'il soit récupérable.
 
 ## Modules non documentés
 
@@ -348,7 +349,7 @@ Les tests sont non documentés. Il s'agit des fichiers suivants :
     test_expre_v2.py
     test_seeder_v2.py
 
-Le fichier `sort_data.py` n'est pas documenté non plus. Il a été utilisé ponctuellement, pour classer par ordre alphabétique tous les éléments constitutifs des expressions. Le but était de parcourir manuellement cette liste classée afin de repérer les doublons, les fautes d'orthographe, etc.
+Le fichier `sort_data.py` n'est pas documenté non plus. Il a été utilisé ponctuellement, pour classer par ordre alphabétique les éléments constitutifs des expressions. Le but était de parcourir manuellement cette liste classée afin de repérer les doublons, les fautes d'orthographe, etc.
 
 Tous ces fichiers ne sont pas indispensable pour le fonctionnement du site, et n'ont pas été placés sur le serveur de pythonanywhere.
 
