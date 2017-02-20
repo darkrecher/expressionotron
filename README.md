@@ -8,9 +8,9 @@ Le site possède également un "twitter bot" : une tâche planifiée se déclen
 
 ## Installation actuelle
 
-Le site fonctionne sur un serveur Python, avec la lib Flask.
+Le site est actuellement en production sur la plate-forme d'hébergement pythonanywhere : http://recher.pythonanywhere.com/ .
 
-Il est actuellement en production sur la plate-forme d'hébergement [pythonanywhere](http://recher.pythonanywhere.com/).
+Il fonctionne sur un serveur Python, avec la lib Flask.
 
 Le code n'est pas exactement le même entre ce repository et la production, car pythonanywhere héberge deux applications différente, qui sont chacune dans un "Blueprint" :
 
@@ -51,10 +51,3 @@ J'accepte les dons en diverses crypto-monnaies.
  - Litecoin (LTC) : LQfceQahHPwXS9ByKF8NtdT4TJeQoDWTaF
  - Dogecoin (Ð) : DKQUVP7on5K6stnLffKp3mHJor3nzYTLnS
  - Next (NXT) : 12693681966999686910
-
-
-## TODO list
-
-Faire la même doc que urluth :
-
- - relire tout ce bazar.

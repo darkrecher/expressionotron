@@ -5,6 +5,7 @@
 ## Sommaire
 - [Document de conception](#document-de-conception)
     - [Sommaire.py](#table-of-contents)
+    - [Vue d'ensemble.py](#vue-d-ensemble)
     - [flask_app.py](#flask_apppy)
         - [Démarrage du serveur](#d-marrage-du-serveur)
         - [Construction et renvoi de la page de présentation du site](#construction-et-renvoi-de-la-page-de-pr-sentation-du-site)
@@ -30,15 +31,18 @@
     - [Modules non documentés](#modules-non-document-s)
 
 
+<a class="mk-toclify" id="vue-d-ensemble"></a>
+## Vue d'ensemble
+
 Les pages de l'expressionotron ne contiennent ni JS, ni CSS.
 
-La page de présentation est toute simple, elle contient les liens vers les applications qui ont pu être chargées (en Flask, ça s'appelle des [Blueprints](http://flask.pocoo.org/docs/0.12/blueprints/)).
+La page globale de présentation est toute simple, elle contient les liens vers les applications qui ont pu être chargées (en Flask, ça s'appelle des [Blueprints](http://flask.pocoo.org/docs/0.12/blueprints/)).
 
 Le Blueprint "expressionotron" contient une page unique, générée dynamiquement, ainsi qu'une tâche planifiée.
 
 Cette page unique affiche une expression ainsi que du texte. Elle accepte un paramètre facultatif contenant une "seed" et une version, ce qui permet de générer une expression spécifique. Si le paramètre n'est pas présent, l'expression est générée aléatoirement, avec la version courante du générateur.
 
-La tâche planifiée exécute le twitter bot. Celui-ci génère aléatoirement une expression, puis il l'envoie dans un twit via l'API de twitter.
+La tâche planifiée exécute le twitter bot. Celui-ci génère aléatoirement une expression, puis l'envoie dans un twit via l'API de twitter.
 
 L'autre Blueprint (urluth) contient également une page unique. Il n'est pas décrit dans cette documentation.
 
@@ -101,7 +105,7 @@ Ce fichier contient deux grosses fonctions et deux petites fonctions de routage 
 
 Cette fonction lit, puis réécrit une information dans le fichier texte `/home/Recher/mysite/expressionotron/blorp.txt`, sur le serveur.
 
-L'information lue est le nombre de visites de la page web (depuis la création du site sur pythonanywhere), elle est ensuite incrémentée de 1, puis réécrite dans le fichier. Le fichier contient uniquement ce nombre de visite, stockée sous forme d'une simple chaîne de caractère.
+L'information lue est le nombre de visites de la page web (depuis la création du site sur pythonanywhere), elle est ensuite incrémentée de 1, puis réécrite dans le fichier. Le fichier contient uniquement ce nombre de visite, stocké sous forme d'une simple chaîne de caractère.
 
 La fonction renvoie, sous forme de int, le nombre de visite après son incrémentation.
 
@@ -112,9 +116,9 @@ Les accès multiples au fichier ne sont pas gérés. Il est donc possible que ce
 <a class="mk-toclify" id="fonction-webpage_expressionotron"></a>
 ### Fonction `webpage_expressionotron`
 
-C'est la "fonction principale" de l'expressionotron, elle construit son unique page HTML. Celle-ci est générée et renvoyée avec le moteur de template "jinja2", intégré à Flask. Le fichier de template utilisé est `expressionotron/templates/template_expr.html`.
+C'est la "fonction principale" de l'expressionotron, elle construit l'unique page HTML. Celle-ci est générée et renvoyée avec le moteur de template "jinja2", intégré à Flask. Le fichier de template utilisé est `expressionotron/templates/template_expr.html`.
 
-Elle nécessite le paramètre `unsafe_expr_gen_key` : une chaîne de caractère censée définir la seed et la version de l'expression à générer (voir plus loin). Ce paramètre provient de l'extérieur, car c'est une information contenue dans la requête HTTP. Il peut donc potentiellement contenir n'importe quoi, être vide, etc. La fonction en tient compte.
+Elle nécessite le paramètre `unsafe_expr_gen_key` : une chaîne de caractère censée définir la seed et la version de l'expression à générer (voir plus loin). Ce paramètre provient de l'extérieur : c'est une information contenue dans la requête HTTP. Il peut donc potentiellement contenir n'importe quoi, être vide, etc. La fonction en tient compte.
 
 La fonction effectue les actions suivantes :
 
@@ -159,9 +163,9 @@ Par exemple, avec l'arborescence suivante :
 
 Si chaque Blueprint déclare son propre sous-répertoire "templates", ça risque de se mélanger. C'est à dire que les pages de urluth seront générées avec le template de l'expressionotron, et vice-versa.
 
-Pour régler ce problème, les deux templates ont des noms différents : `template_expr.html` et `template_urluth.html`. On aurait pu également créer un sous-dossier dans chaque dossier de template.
+Pour éviter ce problème, des noms différents ont été donnés aux deux templates : `template_expr.html` et `template_urluth.html`. On aurait pu également créer un sous-dossier dans chaque dossier de template.
 
-Pour plus de précisions concernant cette subtilité de templates : http://stackoverflow.com/questions/7974771/flask-blueprint-template-folder
+Pour plus de précisions concernant cette subtilité de templates, voir : http://stackoverflow.com/questions/7974771/flask-blueprint-template-folder .
 
 
 <a class="mk-toclify" id="expressionotroncommon_toolspy"></a>
@@ -184,7 +188,7 @@ Rien n'est imposé concernant l'organisation interne d'un sous-répertoire de ve
 
  - `version` : chaîne de caractère. Indique la version du générateur.
  - `generate_expression` : fonction nécessitant un paramètre `seed` (valeur numérique) et renvoyant une chaîne de caractère (l'expression). La même seed doit toujours renvoyer la même expression. L'expression doit être encodée avec les HTML entities (`&eacute;`, etc.).
- - `seed_max` : valeur numérique. Elle renseigne sur la quantité d'expression qui peuvent être générées. Idéalement, si on fait varier le paramètre `seed` de 0 à `seed_max`, on devrait couvrir toutes les expressions possibles, sans qu'il y ait de doublons. Concrètement, cette consigne est respectée pour la version 'v002', mais pas la 'v001'.
+ - `seed_max` : valeur numérique. Elle renseigne sur la quantité d'expression pouvant être générées. Idéalement, si on fait varier le paramètre `seed` de 0 à `seed_max`, on devrait couvrir toutes les expressions possibles, sans doublons. Concrètement, cette consigne est respectée pour la version 'v002', mais pas la 'v001'.
 
 En général, les morceaux de phrase des expressions sont tous stockés dans un fichier `dataphrase.py`, mais ce n'est pas une obligation.
 
@@ -205,7 +209,7 @@ La génération d'une expression est effectuée en prenant un élément dans cha
 
 Il y a également un éventuel préfixe à l'adjectif, mais celui-ci n'est pas totalement pris au hasard, et il ne dépend pas directement de la seed (voir plus loin).
 
-Exemple :
+Exemple d'expression :
 
 > Ça broute-minoutte du space marine interopérable au shpocker !! Même que !!1!
 
@@ -217,7 +221,7 @@ Exemple :
 
 Les points d'exclamation et le "1" sont fixe, et ajoutés systématiquement à chaque expression.
 
-La génération d'une expression consiste donc, à partir de la seed, à choisir un numéro d'élément dans chaque liste.
+La génération d'une expression consiste donc, à partir de la seed, à choisir un élément dans chaque liste.
 
 La version de ce générateur vaut `002`. Son seed_max est égal au produit de la taille des 5 listes d'éléments, soit : 151 * 141 * 173 * 158 * 150 = 87295229100.
 
@@ -265,13 +269,13 @@ On refait un tour.
     seed = 7 -> [1, 0, 0, 0, 0]
     seed = 8 -> [2, 1, 1, 1, 1]
 
-Si on refait pareil mais en faisant tout avancer de 3 sauf le premier index, on retombera sur une sélection existante. Donc on remet à 0 et on crée un décalage un cran plus loin : on fait tout avancer de 1 sauf les deux premiers.
+Si on continue selon le même principe, en faisant tout avancer de 3 sauf le premier index, on retombera sur une combinaison existante. Donc on remet à 0 et on crée un décalage un cran plus loin : on fait tout avancer de 1 sauf les deux premiers.
 
     seed = 9 -> [0, 0, 1, 1, 1]
     seed =10 -> [1, 1, 2, 2, 2]
     seed =11 -> [2, 2, 0, 0, 0]
 
-Là, on peut revenir sur un décalage comme avant. On fait tout avancer de 1 sauf le premier. Et ainsi de suite.
+Là, on peut revenir sur un décalage comme avant : on fait tout avancer de 1 sauf le premier. Et ainsi de suite.
 
 Pour avoir encore plus d'aléatoire, on mélange les valeurs d'avancement. Au lieu d'avancer de 1 à chaque fois, on prend un peu n'importe quel index. On mélange également les valeurs d'avancement lorsqu'on fait des décalages. Il suffit de s'assurer que même mélangé, tous les index possibles sont couverts.
 
@@ -279,15 +283,15 @@ Ce mélange supplémentaire est effectué par des "shufflers". Il y a un shuffle
 
 Exemple avec le shuffler [2, 1, 0] pour la première liste, et [1, 0, 2] pour la deuxième. (Les autres listes ne sont pas shufflées, sinon ça va encore plus compliquer l'exemple).
 
-    seed= 0 -> [2, 0 (2+1), 0 (2+1), 0 (2+1), 0 (2+1)]
-    seed= 1 -> [1, 2 (1+1), 2 (1+1), 2 (1+1), 2 (1+1)]
-    seed= 2 -> [0, 1 (0+1), 1 (0+1), 1 (0+1), 1 (0+1)]
+    seed = 0 -> [2, 0 (2+1), 0 (2+1), 0 (2+1), 0 (2+1)]
+    seed = 1 -> [1, 2 (1+1), 2 (1+1), 2 (1+1), 2 (1+1)]
+    seed = 2 -> [0, 1 (0+1), 1 (0+1), 1 (0+1), 1 (0+1)]
 
-On remet à 0 et on fait tout avancer de un sauf le premier, en utilisant le deuxième shuffler.
+On remet à 0 et on fait tout avancer de un sauf le premier index, en se basant sur le deuxième shuffler.
 
-    seed= 3 -> [2, 2 (2+0), 2 (2+0), 2 (2+0), 2 (2+0)]
-    seed= 4 -> [1, 1 (1+0), 1 (1+0), 1 (1+0), 1 (1+0)]
-    seed= 4 -> [0, 0 (0+0), 0 (0+0), 0 (0+0), 0 (0+0)]
+    seed = 3 -> [2, 2 (2+0), 2 (2+0), 2 (2+0), 2 (2+0)]
+    seed = 4 -> [1, 1 (1+0), 1 (1+0), 1 (1+0), 1 (1+0)]
+    seed = 4 -> [0, 0 (0+0), 0 (0+0), 0 (0+0), 0 (0+0)]
 
 Cette méthode à la garantie de couvrir toutes les valeurs possibles, tout en maximisant les différences entre deux seeds proches. (Je suppose qu'il faudrait une petite démo de matheux pour prouver tout ça, mais je n'ai ni le temps ni les compétences pour la faire).
 
@@ -296,15 +300,15 @@ Cette méthode à la garantie de couvrir toutes les valeurs possibles, tout en m
 
 Les préfixes d'adjectifs, c'est amusant, mais il ne faut en mettre que sur les adjectifs composés d'un seul mot, sinon ça fait bizarre. De plus, il ne faut pas en mettre systématiquement, car ça serait un peu lourd. Les phrases sont déjà assez chargées de lolitude même sans préfixe.
 
-D'après des estimations effectuées au pifomètre, il a été établi que le bon dosage de lol serait atteint lorsqu'un préfixe est ajouté dans un cas sur trois, après exclusion des cas où l'adjectif est composé de plusieurs mots.
+D'après des estimations effectuées au pifomètre, il a été établi que le bon dosage de lol serait atteint lorsqu'un préfixe est ajouté dans un cas sur trois, (après exclusion des cas où l'adjectif est composé de plusieurs mots).
 
 Mais si on ajoute un index en plus pour gérer les préfixes, qui prendrait en compte les cas où on n'en met pas, on risque de se retrouver avec deux seeds différentes qui généreraient la même expression, et je voulais éviter ça.
 
 C'est pour ça que j'ai ajouté les interjections (qui n'étaient pas du tout présentes dans la version 001 du générateur).
 
-On utilise l'index de l'interjection pour déterminer s'il faut ajouter un préfixe ou pas, et lequel ajouter. La méthode est assez simple : si `index_interjection` ne dépasse pas le nombre de préfixes disponibles, alors `index_prefixe = index_interjection`, sinon pas de préfixe.
+On utilise l'index de l'interjection pour déterminer s'il faut ajouter un préfixe ou pas, et lequel ajouter. La méthode est assez simple : si `index_interjection` est inférieur au nombre de préfixes disponibles, alors `index_prefixe = index_interjection`, sinon pas de préfixe.
 
-Il y a environ trois fois plus d'interjections que de préfixes. C'est fait exprès pour mettre un préfixe dans un cas sur trois.
+Il y a environ trois fois plus d'interjections que de préfixes. C'est fait exprès pour avoir un préfixe dans un cas sur trois.
 
 Du coup, on ne peut pas avoir toutes les combinaisons possibles de couples (interjections, préfixes). Mais on s'en fout. Les interjections ont été ajoutées uniquement pour permettre la probabilité de 1/3.
 
@@ -317,8 +321,6 @@ Il n'y a pas de contrôle sur la valeur de la seed. Si elle est trop grande par 
 
 Les shufflers sont à fournir en paramètre à la fonction. Ce paramètre est facultatif.
 
-Pour plus de détails, voir les commentaires de la fonction.
-
 Le reste de l'algorithme de génération est implémenté dans le module `expressionotron/v002/expr_generator.py`. Il effectue les actions suivantes.
 
  - au chargement du module : détermination des shufflers, de manière "statiquement aléatoire". C'est à dire qu'on obtient les mêmes shufflers à chaque chargement du module.
@@ -329,22 +331,22 @@ Le reste de l'algorithme de génération est implémenté dans le module `expres
    + Construction de l'expression en assemblant tous les éléments ensemble (avec ou sans préfixe).
    + Renvoi de l'expression.
 
-Pour plus de détails, voir les commentaires dans le module.
+Pour plus de détails, voir commentaires dans le code.
 
 <a class="mk-toclify" id="expressionotronexpr_generatorpy"></a>
 ### expressionotron/expr_generator.py
 
-Ce module fait l'interface entre d'une part les différentes versions du générateur d'expression et d'autre part le code extérieur. Il a le même nom que les modules `expr_generator.py` des sous-répertoires `v001`, `v002`, ... C'est fait exprès.
+Ce module fait l'interface entre d'une part les différentes versions du générateur d'expression et d'autre part le reste du code. Il a le même nom que les modules `expr_generator.py` des sous-répertoires `v001`, `v002`, ... C'est fait exprès.
 
 Les commentaires au début du module expliquent les différentes données manipulées : `expr_gen_key`, `seed`, `version`, ...
 
 Ce module contient les fonctions suivantes :
 
-`sanitize_key` : crée une `expr_gen_key` correcte à partir de `unsafe_expr_gen_key` (une chaîne de caractère quelconque). Si la chaîne ne contient pas toutes les informations nécessaires, la version choisie est la plus récente (002), et la seed est un nombre aléatoire 0 et `seed_max`.
+`sanitize_key` : crée une `expr_gen_key` correcte à partir de `unsafe_expr_gen_key` (une chaîne de caractère quelconque). Si la chaîne ne contient pas toutes les informations nécessaires, la version choisie est la plus récente (`002`), et la seed est un nombre aléatoire entre 0 et `seed_max`.
 
 `generate_expression` : détermine le générateur à utiliser, en fonction du paramètre `version`, et exécute sa fonction, afin de renvoyer l'expression. Les différentes versions du générateur nécessitent uniquement le paramètre `seed`. Il n'est pas nécessaire de leur transmettre la `version`.
 
-`format_key` : recrée une `expr_gen_key` correcte à partir d'une `seed` et d'une `version`. C'est utile pour les permaliens, permettant de retrouver une expression connue à partir d'une url.
+`format_key` : recrée une `expr_gen_key` correcte à partir d'une `seed` et d'une `version`. C'est utile pour les permaliens, permettant de ré-afficher une expression à l'aide d'une url.
 
 
 <a class="mk-toclify" id="le-twitter-bot"></a>
@@ -353,7 +355,7 @@ Ce module contient les fonctions suivantes :
 <a class="mk-toclify" id="twit_cronpy"></a>
 ### twit_cron.py
 
-Script tout simple, il importe le code du twitter bot et exécute la fonction principale pour émettre un twit.
+Script tout simple, il importe le code du twitter bot et exécute sa fonction principale pour émettre un twit.
 
 L'hébergeur pythonanywhere est configuré avec une tâche planifiée quotidienne, exécutant ce script.
 
@@ -368,7 +370,7 @@ Pour plus de détail sur la manière de récupérer ces clés, voir : https://wi
 
 Au cas où le lien se perdrait, le contenu de la page a été sauvegardé. Voir : [tweeting_in_python_the_easy_way.md](tweeting_in_python_the_easy_way.md).
 
-Bien évidemment, le fichier stocké dans ce repository ne contient pas les vraies clés, mais des valeurs fictives. Les vraies clés sont stockées uniquement sur le site pythonanywhere et ne sont pas disponibles publiquement. (Pas la peine de fouiller l'historique de git !).
+Bien évidemment, le fichier stocké dans ce repository ne contient pas les vraies clés, mais des valeurs fictives. Les vraies clés sont stockées uniquement sur le site pythonanywhere et ne sont pas disponibles publiquement. (Pas la peine de fouiller l'historique de git !)
 
 <a class="mk-toclify" id="expressionotrontwit_botpy"></a>
 ### expressionotron/twit_bot.py
@@ -379,12 +381,12 @@ Il effectue les actions suivantes :
 
  - Vérification que les clés d'API ne sont pas les clés bidons du repository. Dans le cas contraire, envoi d'un message d'avertissement sur la sortie standard.
  - Démarrage d'une boucle, afin de tenter plusieurs fois de suite l'émission d'un twit. (Comme c'est une action nécessitant un tiers externe, on considère que sa réussite n'est pas garantie, donc ça vaut le coup d'essayer plusieurs fois).
- - Génération d'une expression. Le fichier `twit_cron.py` ne définit pas le paramètre facultatif lors de l'exécution de la fonction `twit_expression`. La clé d'expression est donc vide. Dans ce cas, le générateur utilise la version courante ('002') et une seed aléatoire.
+ - Génération d'une expression. Le fichier `twit_cron.py` ne définit pas le paramètre facultatif lors de l'exécution de la fonction `twit_expression`. La clé d'expression est donc vide. Dans ce cas, le générateur utilise la version et courante une seed aléatoire.
  - Récupération de la clé d'expression, pour faire un permalink.
  - Conversion de l'expression encodée en HTML vers une string en unicode.
  - Définition du texte du twit, avec l'expression unicode et le permalink (qui est déjà en unicode dès le départ).
- - Tronquage du texte de l'expression, si nécessaire. Le texte d'un twit peut comporter 180 caractères, mais il faut laisser de la marge pour le permalink (qui est plus important que l'expression). Le texte de l'expression est donc tronquée arbitrairement à 110 caractères.
- - Envoi du twit, via un appel à l'API twitter, via-via la librairie python 'twitter'. Cette action s'appuie sur des systèmes externes, elle est donc effectuée dans un bloc try-except. Le bloc catche tous type d'exception.
+ - Tronquage du texte de l'expression, si nécessaire. Le texte d'un twit peut comporter 180 caractères, mais il faut laisser de la marge pour le permalink (qui est plus important que l'expression). Le texte de l'expression est tronqué arbitrairement à 110 caractères.
+ - Envoi du twit, via un appel à l'API twitter, via-via la librairie python 'twitter'. Cette action s'appuie sur des systèmes externes, elle est donc effectuée dans un bloc try-except, qui intercepte toutes les exceptions quel que soit leur type.
  - Si exception, écriture du message d'erreur dans le log de pythonanywhere, et retour au début de la boucle : on génère une nouvelle expression, que l'on tente de retweeter.
  - Si pas d'exception, tout va bien, on sort tout de suite de la boucle et on termine la fonction.
 
